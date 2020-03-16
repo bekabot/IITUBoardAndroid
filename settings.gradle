@@ -1,0 +1,2 @@
+rootProject.name='IITUBoardAndroid'
+include ':app'
