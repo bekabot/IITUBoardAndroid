@@ -2,6 +2,7 @@ package kz.iitu.iituboardandroid.ui.auth
 
 import androidx.lifecycle.MutableLiveData
 import kz.iitu.iituboardandroid.api.RemoteDataSource
+import kz.iitu.iituboardandroid.sha256
 import kz.iitu.iituboardandroid.ui.BaseVM
 
 class AuthVM(private val repository: RemoteDataSource) : BaseVM() {
@@ -43,7 +44,7 @@ class AuthVM(private val repository: RemoteDataSource) : BaseVM() {
             val result =
                 repository.sendAuthRequest(
                     loginText.value ?: "",
-                    passwordText.value ?: "",
+                    passwordText.value?.sha256() ?: "",
                     emailText.value ?: ""
                 )
             showMessage.value = result.message?.let {

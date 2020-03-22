@@ -13,7 +13,7 @@ val apiModel = module {
     single { activeServiceManager.createApi() }
 
     single { NetworkManager(androidContext().applicationContext) }
-    single { RemoteDataSource(get()) }
+    single { RemoteDataSource(get(), get()) }
 }
 
 val authModule = module {
