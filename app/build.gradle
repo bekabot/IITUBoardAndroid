@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    dataBinding.enabled = true
+    flavorDimensions "default"
+
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
 

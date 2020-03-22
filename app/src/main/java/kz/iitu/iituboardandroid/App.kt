@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.BuildConfig
 import androidx.multidex.MultiDex
+import kz.iitu.iituboardandroid.di.authModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -25,6 +26,7 @@ class App : Application() {
             androidContext(this@App)
             modules(
                 listOf(
+                    authModule
                 )
             )
         }
