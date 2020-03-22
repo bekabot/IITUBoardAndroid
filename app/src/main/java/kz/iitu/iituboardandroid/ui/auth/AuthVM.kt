@@ -1,9 +1,10 @@
 package kz.iitu.iituboardandroid.ui.auth
 
 import androidx.lifecycle.MutableLiveData
+import kz.iitu.iituboardandroid.api.RemoteDataSource
 import kz.iitu.iituboardandroid.ui.BaseVM
 
-class AuthVM : BaseVM() {
+class AuthVM(private val repository: RemoteDataSource) : BaseVM() {
     val loginText = MutableLiveData<String>()
     val passwordText = MutableLiveData<String>()
     val emailText = MutableLiveData<String>()
@@ -33,6 +34,27 @@ class AuthVM : BaseVM() {
             return
         }
 
-        showMessage.value = "Запрос принят. Ожидайте письмо на почту"
+        sendAuthRequest()
+    }
+
+    private fun sendAuthRequest() {
+        launchLoadingCoroutine(mainBlock = {
+            closeKeyboard.value = true
+            val result =
+                repository.sendAuthRequest(
+                    loginText.value ?: "",
+                    passwordText.value ?: "",
+                    emailText.value ?: ""
+                )
+            showMessage.value = result.message?.let {
+                when (result.message) {
+                    "MAIL_SENT" -> "Запрос принят. Ожидайте письмо на почту"
+                    "WRONG_EMAIL" -> "Неверный формат почты"
+                    "USER_ALREADY_EXISTS" -> "Пользователь уже существует"
+                    else -> "Произошла ошибка. Попробуйте еще раз."
+                }
+
+            } ?: "Произошла ошибка. Попробуйте еще раз."
+        })
     }
 }

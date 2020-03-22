@@ -12,8 +12,9 @@ open class BaseVM : ViewModel(), CoroutineScope {
     val isLoading = MutableLiveData<Boolean>()
     val isError = MutableLiveData<Throwable>()
     val showMessage = MutableLiveData<String>()
+    val closeKeyboard = MutableLiveData<Boolean>()
 
-    val job = Job()
+    private val job = Job()
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job

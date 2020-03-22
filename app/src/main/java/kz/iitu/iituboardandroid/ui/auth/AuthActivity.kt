@@ -22,5 +22,13 @@ class AuthActivity : BaseActivity() {
         vm.showMessage.observe(this, Observer {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         })
+
+        vm.isLoading.observe(this, Observer {
+            //todo implement
+        })
+
+        vm.closeKeyboard.observe(this, Observer {
+            //todo implement
+        })
     }
 }
