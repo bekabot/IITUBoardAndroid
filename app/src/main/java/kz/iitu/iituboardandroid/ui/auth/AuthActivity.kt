@@ -20,20 +20,25 @@ class AuthActivity : BaseActivity() {
         binding.viewModel = vm
 
         vm.showMessage.observe(this, Observer {
-            //todo show alert instead
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            showTextAlert(it)
         })
 
         vm.isLoading.observe(this, Observer {
-            //todo implement
+            it?.let {
+                if (it) {
+                    showLoader(binding.rootView)
+                } else {
+                    hideLoader(binding.rootView)
+                }
+            }
         })
 
         vm.closeKeyboard.observe(this, Observer {
-            //todo implement
+            closeKeyboard()
         })
 
         vm.isError.observe(this, Observer {
-            //todo implement (handle no internet exception)
+            showErrorMessageBy(it)
         })
     }
 }

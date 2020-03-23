@@ -45,6 +45,6 @@ class IituServiceManager {
     }
 
     companion object {
-        private const val TIME_OUT_MEDIUM = 30L
+        private const val TIME_OUT_MEDIUM = 10L
     }
 }

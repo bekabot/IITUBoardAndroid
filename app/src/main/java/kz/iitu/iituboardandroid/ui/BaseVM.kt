@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
 open class BaseVM : ViewModel(), CoroutineScope {
-    val isLoading = MutableLiveData<Boolean>()
+    val isLoading = MutableLiveData<Boolean?>(null)
     val isError = MutableLiveData<Throwable>()
     val showMessage = MutableLiveData<String>()
     val closeKeyboard = MutableLiveData<Boolean>()

@@ -6,18 +6,33 @@ import kz.iitu.iituboardandroid.sha256
 import kz.iitu.iituboardandroid.ui.BaseVM
 
 class AuthVM(private val repository: RemoteDataSource) : BaseVM() {
-    val loginText = MutableLiveData<String>()
+    val nameText = MutableLiveData<String>()
+    val surnameText = MutableLiveData<String>()
     val passwordText = MutableLiveData<String>()
+    val confirmationPasswordText = MutableLiveData<String>()
     val emailText = MutableLiveData<String>()
 
     fun login() {
 
-        if (loginText.value?.isEmpty() == true) {
-            showMessage.value = "Введите логин"
+        if (nameText.value?.isEmpty() != false) {
+            showMessage.value = "Введите имя"
             return
         }
 
-        if (passwordText.value?.isEmpty() == true) {
+        if (surnameText.value?.isEmpty() != false) {
+            showMessage.value = "Введите фамилию"
+            return
+        }
+
+        if (emailText.value?.isEmpty() != false
+            || emailText.value?.endsWith("@iitu.kz") == false
+            || (emailText.value?.endsWith("@iitu.kz") == true && emailText.value?.length ?: 0 <= 8)
+        ) {
+            showMessage.value = "Введите адрес почты IITU"
+            return
+        }
+
+        if (passwordText.value?.isEmpty() != false) {
             showMessage.value = "Введите пароль"
             return
         }
@@ -27,13 +42,10 @@ class AuthVM(private val repository: RemoteDataSource) : BaseVM() {
             return
         }
 
-        if (emailText.value?.isEmpty() == true
-            || emailText.value?.endsWith("@iitu.kz") == false
-            || (emailText.value?.endsWith("@iitu.kz") == true && emailText.value?.length ?: 0 <= 8)
-        ) {
-            showMessage.value = "Введите адрес почты IITU"
+        /*if (passwordText.value != confirmationPasswordText.value) {
+            showMessage.value = "Пароли не совпадают"
             return
-        }
+        }*/
 
         sendAuthRequest()
     }
@@ -43,7 +55,7 @@ class AuthVM(private val repository: RemoteDataSource) : BaseVM() {
             closeKeyboard.value = true
             val result =
                 repository.sendAuthRequest(
-                    loginText.value ?: "",
+                    nameText.value ?: "",
                     passwordText.value?.sha256() ?: "",
                     emailText.value ?: ""
                 )

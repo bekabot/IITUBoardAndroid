@@ -11,79 +11,95 @@
             type="kz.iitu.iituboardandroid.ui.auth.AuthVM" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/login_layout"
+        <FrameLayout
+            android:id="@+id/root_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/login_field"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Введите логин"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:text="@={viewModel.loginText}" />
+                android:layout_height="match_parent"
+                android:layout_marginStart="48dp"
+                android:layout_marginEnd="48dp">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/name_field"
+                    style="@style/FormEditText"
+                    android:layout_marginTop="5dp"
+                    android:hint="Имя"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:text="@={viewModel.nameText}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_layout"
-            app:passwordToggleEnabled="true">
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/surname_field"
+                    style="@style/FormEditText"
+                    android:layout_marginTop="15dp"
+                    android:hint="Фамилия"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:text="@={viewModel.surnameText}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/name_field" />
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/password_field"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Введите пароль"
-                android:imeOptions="actionNext"
-                android:inputType="textPassword"
-                android:text="@={viewModel.passwordText}" />
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/email_field"
+                    style="@style/FormEditText"
+                    android:layout_marginTop="15dp"
+                    android:hint="E-mail (@iitu.kz)"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:text="@={viewModel.emailText}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/surname_field" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/password_field"
+                    style="@style/FormEditText"
+                    android:layout_marginTop="15dp"
+                    android:hint="Пароль"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:text="@={viewModel.passwordText}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/email_field" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/password_layout"
-            app:passwordToggleEnabled="true">
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/password_confirmation_field"
+                    style="@style/FormEditText"
+                    android:layout_marginTop="15dp"
+                    android:hint="Повторите пароль"
+                    android:inputType="textPassword"
+                    android:text="@={viewModel.confirmationPasswordText}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/password_field" />
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/email_field"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Введите адрес почты"
-                android:imeOptions="actionDone"
-                android:inputType="textEmailAddress"
-                android:text="@={viewModel.emailText}" />
+                <TextView
+                    android:id="@+id/auth_button"
+                    style="@style/ActionButton"
+                    android:layout_marginTop="20dp"
+                    android:onClick="@{() -> viewModel.login()}"
+                    android:text="Регистрация"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/password_confirmation_field" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <Button
-            android:id="@+id/auth_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.login()}"
-            android:text="Зарегистрироваться"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/email_layout" />
+        </FrameLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </layout>
