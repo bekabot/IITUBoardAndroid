@@ -10,4 +10,7 @@ interface IituApi {
 
     @POST("${Constants.HOST}/api/login/")
     suspend fun login(@Body body: LoginRequestBody): LoginResponse
+
+    @POST("${Constants.HOST}/api/restore/")
+    suspend fun restorePassword(@Body body: RestorePasswordRequestBody): CommonResponse
 }

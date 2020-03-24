@@ -14,4 +14,7 @@ class RemoteDataSource(private val api: IituApi, private val networkManager: Net
 
     suspend fun sendLoginRequest(password: String, email: String) =
         onPerformRequest { api.login(LoginRequestBody(password, email)) }
+
+    suspend fun sendRestorePasswordRequest(email: String) =
+        onPerformRequest { api.restorePassword(RestorePasswordRequestBody(email)) }
 }

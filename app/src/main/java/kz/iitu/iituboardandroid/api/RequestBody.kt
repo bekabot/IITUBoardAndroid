@@ -8,3 +8,5 @@ class AuthRequestBody(
 )
 
 class LoginRequestBody(val password: String, val email: String)
+
+class RestorePasswordRequestBody(val email: String)

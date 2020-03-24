@@ -3,7 +3,6 @@ package kz.iitu.iituboardandroid.ui.restore
 import androidx.lifecycle.MutableLiveData
 import kz.iitu.iituboardandroid.api.RemoteDataSource
 import kz.iitu.iituboardandroid.ui.BaseVM
-import timber.log.Timber
 
 class RestorePasswordVM(private val repository: RemoteDataSource) : BaseVM() {
     val emailText = MutableLiveData<String>()
@@ -21,6 +20,21 @@ class RestorePasswordVM(private val repository: RemoteDataSource) : BaseVM() {
     }
 
     private fun sendRestorePassRequest() {
-        Timber.w(emailText.value)
+        launchLoadingCoroutine(mainBlock = {
+            closeKeyboard.value = true
+            val result =
+                repository.sendRestorePasswordRequest(
+                    emailText.value ?: ""
+                )
+            showMessage.value = result.message?.let {
+                when (result.message) {
+                    "USER_NOT_ACTIV" -> "Почта не подтверждена"
+                    "PASSWORD_SENT" -> "Новый пароль отправлен на почту"
+                    "MAIL_NOT_FOUND" -> "Пользователь с такой почтой не найден"
+                    else -> "Произошла ошибка. Попробуйте еще раз."
+                }
+
+            } ?: "Произошла ошибка. Попробуйте еще раз."
+        })
     }
 }

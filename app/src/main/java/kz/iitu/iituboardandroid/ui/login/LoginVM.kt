@@ -40,13 +40,14 @@ class LoginVM(private val repository: RemoteDataSource) : BaseVM() {
 
             result.error?.let {
                 showMessage.value = when (it) {
-                    "THIS_USER_NOT_FOUND" -> "Пользователь не найдет"
+                    "THIS_USER_NOT_FOUND" -> "Пользователь не найден"
                     else -> "Произошла ошибка. Попробуйте еще раз"
                 }
             } ?: run {
                 result.token?.let {
                     if (shouldRememberLogin) {
                         //todo save user info in shared prefs
+                        showMessage.value = "LOGIN SUCCESS"
                     }
                 } ?: run {
                     showMessage.value = "Произошла ошибка. Попробуйте еще раз"
