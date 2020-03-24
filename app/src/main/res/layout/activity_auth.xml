@@ -27,6 +27,16 @@
                 android:layout_marginStart="48dp"
                 android:layout_marginEnd="48dp">
 
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Регистрация"
+                    android:textColor="@android:color/black"
+                    android:textSize="36sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/name_field"
                     style="@style/FormEditText"
@@ -37,7 +47,7 @@
                     android:text="@={viewModel.nameText}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/title" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/surname_field"
@@ -91,7 +101,7 @@
                     style="@style/ActionButton"
                     android:layout_marginTop="20dp"
                     android:onClick="@{() -> viewModel.login()}"
-                    android:text="Регистрация"
+                    android:text="Зарегистрироваться"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/password_confirmation_field" />

@@ -42,10 +42,10 @@ class AuthVM(private val repository: RemoteDataSource) : BaseVM() {
             return
         }
 
-        /*if (passwordText.value != confirmationPasswordText.value) {
+        if (passwordText.value != confirmationPasswordText.value) {
             showMessage.value = "Пароли не совпадают"
             return
-        }*/
+        }
 
         sendAuthRequest()
     }
@@ -56,6 +56,7 @@ class AuthVM(private val repository: RemoteDataSource) : BaseVM() {
             val result =
                 repository.sendAuthRequest(
                     nameText.value ?: "",
+                    surnameText.value ?: "",
                     passwordText.value?.sha256() ?: "",
                     emailText.value ?: ""
                 )

@@ -7,4 +7,7 @@ import retrofit2.http.POST
 interface IituApi {
     @POST("${Constants.HOST}/api/auth/")
     suspend fun auth(@Body body: AuthRequestBody): CommonResponse
+
+    @POST("${Constants.HOST}/api/login/")
+    suspend fun login(@Body body: LoginRequestBody): CommonResponse
 }

@@ -9,6 +9,9 @@ class RemoteDataSource(private val api: IituApi, private val networkManager: Net
             throw NoInternetException()
         }
 
-    suspend fun sendAuthRequest(login: String, password: String, email: String) =
-        onPerformRequest { (api.auth(AuthRequestBody(login, password, email))) }
+    suspend fun sendAuthRequest(name: String, surname: String, password: String, email: String) =
+        onPerformRequest { (api.auth(AuthRequestBody(name, surname, password, email))) }
+
+    suspend fun sendLoginRequest(password: String, email: String) =
+        onPerformRequest { (api.login(LoginRequestBody(password, email))) }
 }

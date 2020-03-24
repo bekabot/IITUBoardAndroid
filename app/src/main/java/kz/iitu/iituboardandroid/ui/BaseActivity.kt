@@ -51,6 +51,7 @@ open class BaseActivity : AppCompatActivity() {
         if (!this.isFinishing) {
             val alertBuilder = AlertDialog.Builder(this)
             alertBuilder.setMessage(message)
+            alertBuilder.setPositiveButton("OK", null)
             alertBuilder.setCancelable(true)
             alert = alertBuilder.create()
             alert!!.show()

@@ -26,5 +26,9 @@ class LoginActivity : BaseActivity() {
         binding.registrationButton.setOnClickListener {
             startActivity(Intent(this, AuthActivity::class.java))
         }
+
+        binding.forgotPassword.setOnClickListener {
+            showTextAlert("Этот функционал еще не реаливан")
+        }
     }
 }
