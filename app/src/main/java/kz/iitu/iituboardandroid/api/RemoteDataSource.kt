@@ -10,8 +10,8 @@ class RemoteDataSource(private val api: IituApi, private val networkManager: Net
         }
 
     suspend fun sendAuthRequest(name: String, surname: String, password: String, email: String) =
-        onPerformRequest { (api.auth(AuthRequestBody(name, surname, password, email))) }
+        onPerformRequest { api.auth(AuthRequestBody(name, surname, password, email)) }
 
     suspend fun sendLoginRequest(password: String, email: String) =
-        onPerformRequest { (api.login(LoginRequestBody(password, email))) }
+        onPerformRequest { api.login(LoginRequestBody(password, email)) }
 }

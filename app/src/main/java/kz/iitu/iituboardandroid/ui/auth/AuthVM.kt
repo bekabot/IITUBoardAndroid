@@ -12,7 +12,7 @@ class AuthVM(private val repository: RemoteDataSource) : BaseVM() {
     val confirmationPasswordText = MutableLiveData<String>()
     val emailText = MutableLiveData<String>()
 
-    fun login() {
+    fun auth() {
 
         if (nameText.value?.isEmpty() != false) {
             showMessage.value = "Введите имя"

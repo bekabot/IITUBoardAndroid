@@ -9,5 +9,5 @@ interface IituApi {
     suspend fun auth(@Body body: AuthRequestBody): CommonResponse
 
     @POST("${Constants.HOST}/api/login/")
-    suspend fun login(@Body body: LoginRequestBody): CommonResponse
+    suspend fun login(@Body body: LoginRequestBody): LoginResponse
 }

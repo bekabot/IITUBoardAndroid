@@ -3,7 +3,6 @@ package kz.iitu.iituboardandroid
 import android.app.Application
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.multidex.BuildConfig
 import androidx.multidex.MultiDex
 import kz.iitu.iituboardandroid.di.apiModel
 import kz.iitu.iituboardandroid.di.authModule
@@ -32,9 +31,7 @@ class App : Application() {
             )
         }
 
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
+        Timber.plant(Timber.DebugTree())
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
     }
