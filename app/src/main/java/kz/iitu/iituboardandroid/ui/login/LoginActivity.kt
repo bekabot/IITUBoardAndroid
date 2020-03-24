@@ -9,7 +9,7 @@ import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.databinding.ActivityLoginBinding
 import kz.iitu.iituboardandroid.ui.BaseActivity
 import kz.iitu.iituboardandroid.ui.auth.AuthActivity
-import org.koin.android.ext.android.bind
+import kz.iitu.iituboardandroid.ui.restore.RestorePasswordActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -30,7 +30,7 @@ class LoginActivity : BaseActivity() {
         }
 
         binding.forgotPassword.setOnClickListener {
-            showTextAlert("Этот функционал еще не реаливан")
+            startActivity(Intent(this, RestorePasswordActivity::class.java))
         }
 
         binding.rememberChk.setOnCheckedChangeListener { button, isChecked ->
