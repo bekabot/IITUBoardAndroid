@@ -45,9 +45,9 @@ class LoginVM(private val repository: RemoteDataSource) : BaseVM() {
                 }
             } ?: run {
                 result.token?.let {
+                    showMessage.value = "Вход успешно выполнен!"
                     if (shouldRememberLogin) {
                         //todo save user info in shared prefs
-                        showMessage.value = "LOGIN SUCCESS"
                     }
                 } ?: run {
                     showMessage.value = "Произошла ошибка. Попробуйте еще раз"
