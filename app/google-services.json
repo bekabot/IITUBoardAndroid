@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "626627522445",
+    "firebase_url": "https://iituboard.firebaseio.com",
+    "project_id": "iituboard",
+    "storage_bucket": "iituboard.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626627522445:android:5de3e98c0fbe5fe66c57c4",
+        "android_client_info": {
+          "package_name": "kz.iitu.iituboardandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "626627522445-2o73o1m9h3ep3ebrpveesha89l1qqfsg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtSmXwLHp3rfxWorjMS1ucAyhhLY90jLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "626627522445-2o73o1m9h3ep3ebrpveesha89l1qqfsg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

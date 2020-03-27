@@ -5,12 +5,15 @@ import android.graphics.Paint
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.databinding.ActivityLoginBinding
 import kz.iitu.iituboardandroid.ui.BaseActivity
 import kz.iitu.iituboardandroid.ui.auth.AuthActivity
 import kz.iitu.iituboardandroid.ui.restore.RestorePasswordActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 class LoginActivity : BaseActivity() {
@@ -58,5 +61,16 @@ class LoginActivity : BaseActivity() {
         vm.isError.observe(this, Observer {
             showErrorMessageBy(it)
         })
+
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Timber.w("getInstanceId failed")
+                    return@OnCompleteListener
+                }
+
+                val token = task.result?.token
+                Timber.w("token is: $token")
+            })
     }
 }
