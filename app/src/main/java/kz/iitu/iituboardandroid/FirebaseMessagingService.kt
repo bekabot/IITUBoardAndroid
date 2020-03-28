@@ -1,16 +1,18 @@
 package kz.iitu.iituboardandroid
 
 import android.annotation.SuppressLint
-import android.app.LauncherActivity
 import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import kz.iitu.iituboardandroid.ui.login.LoginActivity
 
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
 class FirebaseMessagingService : FirebaseMessagingService() {
@@ -18,37 +20,47 @@ class FirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
-        message.notification?.let { data ->
-            val intent = Intent(this, LauncherActivity::class.java).apply {
+        message.data.let { data ->
+            val intent = Intent(this, LoginActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
             val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
-            val notificationId = 1
             val mBuilder = NotificationCompat.Builder(this, "important_channel")
+                .setTicker(data["title"])
+                .setWhen(0)
                 .setSmallIcon(R.mipmap.ic_launcher)
+                .setShowWhen(true)
                 .setColorized(true)
+                .setContentTitle(data["title"])
+                .setContentText(data["body"])
+                .setStyle(NotificationCompat.BigTextStyle().bigText(data["body"]))
                 .setColor(ContextCompat.getColor(this, R.color.colorAccent))
                 .setContentIntent(pendingIntent)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true)
 
-            data.title?.let {
-                mBuilder.setContentTitle(it)
-            }
-
-            data.body?.let {
-                mBuilder.setContentText(it)
-                    .setStyle(NotificationCompat.BigTextStyle().bigText(it))
-            }
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mBuilder.setVisibility(NotificationCompat.VISIBILITY_PRIVATE)
+                mBuilder.setSmallIcon(R.mipmap.ic_launcher)
+                mBuilder.color = ContextCompat.getColor(this, R.color.colorAccent)
+            } else {
+                mBuilder.setSmallIcon(R.mipmap.ic_launcher)
             }
 
-            with(NotificationManagerCompat.from(this)) {
-                notify(notificationId, mBuilder.build())
+            val notificationManager =
+                this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val channel = NotificationChannel(
+                    "important_channel",
+                    "ic_notification",
+                    NotificationManager.IMPORTANCE_DEFAULT
+                )
+                notificationManager.createNotificationChannel(channel)
             }
+
+            notificationManager.cancel(1)
+            notificationManager.notify(1, mBuilder.build())
         }
     }
 }

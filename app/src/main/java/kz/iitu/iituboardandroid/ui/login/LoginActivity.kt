@@ -13,8 +13,6 @@ import kz.iitu.iituboardandroid.ui.BaseActivity
 import kz.iitu.iituboardandroid.ui.auth.AuthActivity
 import kz.iitu.iituboardandroid.ui.restore.RestorePasswordActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
-
 
 class LoginActivity : BaseActivity() {
     private lateinit var binding: ActivityLoginBinding
