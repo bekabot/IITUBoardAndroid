@@ -62,15 +62,18 @@ class LoginActivity : BaseActivity() {
             showErrorMessageBy(it)
         })
 
+        vm.proceedToBoard.observe(this, Observer {
+            showTextAlert("YOU ALREADY LOGGED IN")
+            //TODO go to profile activity with clear history flag
+        })
+
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
-                    Timber.w("getInstanceId failed")
                     return@OnCompleteListener
                 }
 
-                val token = task.result?.token
-                Timber.w("token is: $token")
+                vm.fcmToken = task.result?.token ?: ""
             })
     }
 }

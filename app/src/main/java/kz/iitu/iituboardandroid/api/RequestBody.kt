@@ -7,6 +7,6 @@ class AuthRequestBody(
     val email: String
 )
 
-class LoginRequestBody(val password: String, val email: String)
+class LoginRequestBody(val password: String, val email: String, val fcmToken: String)
 
 class RestorePasswordRequestBody(val email: String)

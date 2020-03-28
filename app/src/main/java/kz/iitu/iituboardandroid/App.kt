@@ -33,6 +33,8 @@ class App : Application() {
 
         Timber.plant(Timber.DebugTree())
 
+        wiki.depasquale.mcache.Cache.with(this)
+
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
     }
 }

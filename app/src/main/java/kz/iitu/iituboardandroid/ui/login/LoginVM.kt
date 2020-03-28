@@ -1,16 +1,24 @@
 package kz.iitu.iituboardandroid.ui.login
 
 import androidx.lifecycle.MutableLiveData
-import kz.iitu.iituboardandroid.api.RemoteDataSource
 import kz.iitu.iituboardandroid.sha256
 import kz.iitu.iituboardandroid.ui.BaseVM
 
-class LoginVM(private val repository: RemoteDataSource) : BaseVM() {
+class LoginVM(private val repository: LoginRepository) : BaseVM() {
 
     val emailText = MutableLiveData<String>()
     val passwordText = MutableLiveData<String>()
+    val proceedToBoard = MutableLiveData<Boolean>()
 
     var shouldRememberLogin = false
+    var fcmToken = ""
+
+    init {
+        val userData = repository.getUserInfo()
+        userData?.let {
+            proceedToBoard.value = true
+        }
+    }
 
     fun login() {
         if (emailText.value?.isEmpty() != false
@@ -35,7 +43,8 @@ class LoginVM(private val repository: RemoteDataSource) : BaseVM() {
             val result =
                 repository.sendLoginRequest(
                     passwordText.value?.sha256() ?: "",
-                    emailText.value ?: ""
+                    emailText.value ?: "",
+                    fcmToken
                 )
 
             result.error?.let {
@@ -47,7 +56,7 @@ class LoginVM(private val repository: RemoteDataSource) : BaseVM() {
                 result.token?.let {
                     showMessage.value = "Вход успешно выполнен!"
                     if (shouldRememberLogin) {
-                        //todo save user info in shared prefs
+                        repository.saveUserInfo(result)
                     }
                 } ?: run {
                     showMessage.value = "Произошла ошибка. Попробуйте еще раз"

@@ -89,4 +89,7 @@ dependencies {
     //Firebase & FCM
     implementation "com.google.firebase:firebase-core:17.2.3"
     implementation 'com.google.firebase:firebase-messaging:20.1.3'
+
+    //Cache
+    implementation 'wiki.depasquale:mcache:1.7.53'
 }
