@@ -11,6 +11,7 @@ import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.databinding.ActivityLoginBinding
 import kz.iitu.iituboardandroid.ui.BaseActivity
 import kz.iitu.iituboardandroid.ui.auth.AuthActivity
+import kz.iitu.iituboardandroid.ui.board.BoardActivity
 import kz.iitu.iituboardandroid.ui.restore.RestorePasswordActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -61,8 +62,8 @@ class LoginActivity : BaseActivity() {
         })
 
         vm.proceedToBoard.observe(this, Observer {
-            showTextAlert("YOU ALREADY LOGGED IN")
-            //TODO go to profile activity with clear history flag
+            startActivity(Intent(this, BoardActivity::class.java))
+            finish()
         })
 
         FirebaseInstanceId.getInstance().instanceId

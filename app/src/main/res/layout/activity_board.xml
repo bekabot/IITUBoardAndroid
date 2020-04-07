@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/root_view_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context="kz.iitu.iituboardandroid.ui.board.BoardActivity">
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="56dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <kz.iitu.iituboardandroid.utils.ScrollableBottomNavView
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@android:color/white"
+            app:itemHorizontalTranslationEnabled="false"
+            app:itemIconSize="21dp"
+            app:itemIconTint="@drawable/bottom_nav_icon_selector"
+            app:itemTextAppearanceActive="@style/NavBarTextAppearance"
+            app:itemTextAppearanceInactive="@style/NavBarTextAppearance"
+            app:itemTextColor="@drawable/bottom_nav_icon_selector"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/main_bottom_menu" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</LinearLayout>

@@ -8,7 +8,7 @@ class LoginVM(private val repository: LoginRepository) : BaseVM() {
 
     val emailText = MutableLiveData<String>()
     val passwordText = MutableLiveData<String>()
-    val proceedToBoard = MutableLiveData<Boolean>()
+    val proceedToBoard = MutableLiveData(false)
 
     var shouldRememberLogin = false
     var fcmToken = ""
@@ -54,10 +54,10 @@ class LoginVM(private val repository: LoginRepository) : BaseVM() {
                 }
             } ?: run {
                 result.token?.let {
-                    showMessage.value = "Вход успешно выполнен!"
                     if (shouldRememberLogin) {
                         repository.saveUserInfo(result)
                     }
+                    proceedToBoard.value = true
                 } ?: run {
                     showMessage.value = "Произошла ошибка. Попробуйте еще раз"
                 }
