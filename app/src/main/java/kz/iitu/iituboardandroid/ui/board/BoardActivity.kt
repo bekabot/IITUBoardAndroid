@@ -1,7 +1,9 @@
 package kz.iitu.iituboardandroid.ui.board
 
 import android.os.Bundle
+import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.ui.BaseActivity
@@ -12,10 +14,14 @@ import kz.iitu.iituboardandroid.ui.board.profile.ProfileFragment
 import kz.iitu.iituboardandroid.ui.board.vacancies.VacanciesFragment
 import kz.iitu.iituboardandroid.utils.ScrollableBottomNavView
 import kz.iitu.iituboardandroid.utils.bind
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class BoardActivity : BaseActivity() {
 
     private val bottomNavigation: ScrollableBottomNavView by bind(R.id.bottom_nav)
+    private val rootView: FrameLayout by bind(R.id.root_view)
+
+    private val vm: BoardVM by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +54,30 @@ class BoardActivity : BaseActivity() {
         }
 
         createFragments()
+
+        vm.showMessage.observe(this, Observer {
+            showTextAlert(it)
+        })
+
+        vm.isLoading.observe(this, Observer {
+            it?.let {
+                if (it) {
+                    showLoader(rootView)
+                } else {
+                    hideLoader(rootView)
+                }
+            }
+        })
+
+        vm.closeKeyboard.observe(this, Observer {
+            if (it) {
+                closeKeyboard()
+            }
+        })
+
+        vm.isError.observe(this, Observer {
+            showErrorMessageBy(it)
+        })
     }
 
     private fun setIcon(selectedItemId: Int, selectedIcon: Int) {

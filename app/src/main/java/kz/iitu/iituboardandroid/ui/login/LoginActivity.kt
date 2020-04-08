@@ -54,7 +54,9 @@ class LoginActivity : BaseActivity() {
         })
 
         vm.closeKeyboard.observe(this, Observer {
-            closeKeyboard()
+            if (it) {
+                closeKeyboard()
+            }
         })
 
         vm.isError.observe(this, Observer {
@@ -62,8 +64,10 @@ class LoginActivity : BaseActivity() {
         })
 
         vm.proceedToBoard.observe(this, Observer {
-            startActivity(Intent(this, BoardActivity::class.java))
-            finish()
+            if (it) {
+                startActivity(Intent(this, BoardActivity::class.java))
+                finish()
+            }
         })
 
         FirebaseInstanceId.getInstance().instanceId

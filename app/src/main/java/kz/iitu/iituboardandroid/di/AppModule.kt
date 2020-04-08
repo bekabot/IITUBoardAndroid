@@ -5,6 +5,9 @@ import kz.iitu.iituboardandroid.api.LocalDataSource
 import kz.iitu.iituboardandroid.api.NetworkManager
 import kz.iitu.iituboardandroid.api.RemoteDataSource
 import kz.iitu.iituboardandroid.ui.auth.AuthVM
+import kz.iitu.iituboardandroid.ui.board.BoardRepository
+import kz.iitu.iituboardandroid.ui.board.BoardRepositoryImpl
+import kz.iitu.iituboardandroid.ui.board.BoardVM
 import kz.iitu.iituboardandroid.ui.login.LoginRepository
 import kz.iitu.iituboardandroid.ui.login.LoginRepositoryImpl
 import kz.iitu.iituboardandroid.ui.login.LoginVM
@@ -29,4 +32,10 @@ val authModule = module {
     viewModel { LoginVM(get()) }
 
     viewModel { RestorePasswordVM(get()) }
+}
+
+val boardModule = module {
+    viewModel { BoardVM(get()) }
+
+    single { BoardRepositoryImpl(get(), get()) as BoardRepository }
 }
