@@ -1,18 +1,13 @@
 package kz.iitu.iituboardandroid.ui.board.profile
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import kz.iitu.iituboardandroid.R
-import kz.iitu.iituboardandroid.api.LoginResponse
-import kz.iitu.iituboardandroid.ui.board.vacancies.VacanciesFragment
-import kz.iitu.iituboardandroid.ui.login.LoginActivity
-import wiki.depasquale.mcache.obtain
 
 class ProfileFragment : Fragment() {
 
@@ -33,7 +28,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
-        view.findViewById<Button>(R.id.logout).setOnClickListener {
+        view.findViewById<TextView>(R.id.logout).setOnClickListener {
             listener?.logout()
         }
 

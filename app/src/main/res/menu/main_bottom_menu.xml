@@ -11,7 +11,7 @@
     <item
         android:id="@+id/action_add"
         android:icon="@drawable/ic_add"
-        android:title="Добавить" />
+        android:title="" />
     <item
         android:id="@+id/action_ads"
         android:icon="@drawable/ic_ads"

@@ -16,8 +16,11 @@ class RecordVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun set(record: Record) {
         title.text = record.record_title
 
-        Glide.with(itemView.context)
-            .load(record.getImage())
-            .into(image)
+        record.getImage()?.let {
+            image.visibility = View.VISIBLE
+            Glide.with(itemView.context)
+                .load(it)
+                .into(image)
+        }
     }
 }

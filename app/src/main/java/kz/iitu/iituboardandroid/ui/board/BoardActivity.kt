@@ -2,10 +2,9 @@ package kz.iitu.iituboardandroid.ui.board
 
 import android.os.Bundle
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.ui.BaseActivity
 import kz.iitu.iituboardandroid.ui.board.add.AddRecordFragment
@@ -32,27 +31,24 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
         setContentView(R.layout.activity_board)
         setSupportActionBar(toolbar)
 
-        findViewById<BottomNavigationView>(R.id.bottom_nav).setOnNavigationItemSelectedListener { item ->
+        bottomNavigation.itemIconTintList = null
+
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_news -> {
                     showFragmentBy(tag = NewsFragment.FRAG_TAG)
-                    setIcon(item.itemId, R.drawable.ic_news)
                 }
                 R.id.action_vacancies -> {
                     showFragmentBy(tag = VacanciesFragment.FRAG_TAG)
-                    setIcon(R.id.action_vacancies, R.drawable.ic_vacancy)
                 }
                 R.id.action_add -> {
-                    showFragmentBy(tag = AddRecordFragment.FRAG_TAG)
-                    setIcon(R.id.action_add, R.drawable.ic_add)
+                    Toast.makeText(this, "add clicked", Toast.LENGTH_SHORT).show()
                 }
                 R.id.action_ads -> {
                     showFragmentBy(tag = AdsFragment.FRAG_TAG)
-                    setIcon(R.id.action_ads, R.drawable.ic_ads)
                 }
                 R.id.action_profile -> {
                     showFragmentBy(tag = ProfileFragment.FRAG_TAG)
-                    setIcon(R.id.action_profile, R.drawable.ic_profile)
                 }
             }
             true
@@ -110,25 +106,9 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
         })
     }
 
-    private fun setIcon(selectedItemId: Int, selectedIcon: Int) {
-        bottomNavigation.menu.findItem(R.id.action_news).icon =
-            ContextCompat.getDrawable(this, R.drawable.ic_news)
-        bottomNavigation.menu.findItem(R.id.action_vacancies).icon =
-            ContextCompat.getDrawable(this, R.drawable.ic_vacancy)
-        bottomNavigation.menu.findItem(R.id.action_add).icon =
-            ContextCompat.getDrawable(this, R.drawable.ic_add)
-        bottomNavigation.menu.findItem(R.id.action_ads).icon =
-            ContextCompat.getDrawable(this, R.drawable.ic_ads)
-        bottomNavigation.menu.findItem(R.id.action_profile).icon =
-            ContextCompat.getDrawable(this, R.drawable.ic_profile)
-        bottomNavigation.menu.findItem(selectedItemId).icon =
-            ContextCompat.getDrawable(this, selectedIcon)
-    }
-
     private fun createFragments() {
         val newsFragment = NewsFragment.newInstance()
         val vacanciesFragment = VacanciesFragment.newInstance()
-        val addRecordFragment = AddRecordFragment.newInstance()
         val adsFragment = AdsFragment.newInstance()
         val profileFragment = ProfileFragment.newInstance()
 
@@ -138,8 +118,6 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
             .hide(profileFragment)
             .add(R.id.fragment_container, vacanciesFragment, VacanciesFragment.FRAG_TAG)
             .hide(vacanciesFragment)
-            .add(R.id.fragment_container, addRecordFragment, AddRecordFragment.FRAG_TAG)
-            .hide(addRecordFragment)
             .add(R.id.fragment_container, adsFragment, AdsFragment.FRAG_TAG)
             .hide(adsFragment)
             .add(R.id.fragment_container, newsFragment, NewsFragment.FRAG_TAG)
@@ -156,8 +134,6 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
                     NewsFragment.FRAG_TAG -> {
                         supportFragmentManager.findFragmentByTag(VacanciesFragment.FRAG_TAG)
                             ?.let { fragTransaction.hide(it) }
-                        supportFragmentManager.findFragmentByTag(AddRecordFragment.FRAG_TAG)
-                            ?.let { fragTransaction.hide(it) }
                         supportFragmentManager.findFragmentByTag(AdsFragment.FRAG_TAG)
                             ?.let { fragTransaction.hide(it) }
                         supportFragmentManager.findFragmentByTag(ProfileFragment.FRAG_TAG)
@@ -165,18 +141,6 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
                     }
                     VacanciesFragment.FRAG_TAG -> {
                         supportFragmentManager.findFragmentByTag(NewsFragment.FRAG_TAG)
-                            ?.let { fragTransaction.hide(it) }
-                        supportFragmentManager.findFragmentByTag(AddRecordFragment.FRAG_TAG)
-                            ?.let { fragTransaction.hide(it) }
-                        supportFragmentManager.findFragmentByTag(AdsFragment.FRAG_TAG)
-                            ?.let { fragTransaction.hide(it) }
-                        supportFragmentManager.findFragmentByTag(ProfileFragment.FRAG_TAG)
-                            ?.let { fragTransaction.hide(it) }
-                    }
-                    AddRecordFragment.FRAG_TAG -> {
-                        supportFragmentManager.findFragmentByTag(NewsFragment.FRAG_TAG)
-                            ?.let { fragTransaction.hide(it) }
-                        supportFragmentManager.findFragmentByTag(VacanciesFragment.FRAG_TAG)
                             ?.let { fragTransaction.hide(it) }
                         supportFragmentManager.findFragmentByTag(AdsFragment.FRAG_TAG)
                             ?.let { fragTransaction.hide(it) }
@@ -188,8 +152,6 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
                             ?.let { fragTransaction.hide(it) }
                         supportFragmentManager.findFragmentByTag(VacanciesFragment.FRAG_TAG)
                             ?.let { fragTransaction.hide(it) }
-                        supportFragmentManager.findFragmentByTag(AddRecordFragment.FRAG_TAG)
-                            ?.let { fragTransaction.hide(it) }
                         supportFragmentManager.findFragmentByTag(ProfileFragment.FRAG_TAG)
                             ?.let { fragTransaction.hide(it) }
                     }
@@ -197,8 +159,6 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
                         supportFragmentManager.findFragmentByTag(NewsFragment.FRAG_TAG)
                             ?.let { fragTransaction.hide(it) }
                         supportFragmentManager.findFragmentByTag(VacanciesFragment.FRAG_TAG)
-                            ?.let { fragTransaction.hide(it) }
-                        supportFragmentManager.findFragmentByTag(AddRecordFragment.FRAG_TAG)
                             ?.let { fragTransaction.hide(it) }
                         supportFragmentManager.findFragmentByTag(AdsFragment.FRAG_TAG)
                             ?.let { fragTransaction.hide(it) }

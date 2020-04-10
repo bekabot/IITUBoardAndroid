@@ -32,6 +32,7 @@
 
     <style name="NavBarTextAppearance" parent="DefaultTextAppearance">
         <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/defaultTextColor</item>
     </style>
 
     <style name="DefaultTextAppearance" parent="@android:style/TextAppearance">

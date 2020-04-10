@@ -33,7 +33,6 @@
             android:background="@android:color/white"
             app:itemHorizontalTranslationEnabled="false"
             app:itemIconSize="21dp"
-            app:itemIconTint="@drawable/bottom_nav_icon_selector"
             app:itemTextAppearanceActive="@style/NavBarTextAppearance"
             app:itemTextAppearanceInactive="@style/NavBarTextAppearance"
             app:itemTextColor="@drawable/bottom_nav_icon_selector"
