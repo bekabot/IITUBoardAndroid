@@ -6,14 +6,19 @@ import androidx.recyclerview.widget.RecyclerView
 import kz.iitu.iituboardandroid.api.response.Record
 import kz.iitu.iituboardandroid.ui.RecordVH
 
-class RecordsAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RecordsAdapter(private var callback: OnProfileInteraction) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    interface OnProfileInteraction {
+        fun onRecordClick(item: Record)
+    }
 
     private var recordsData = ArrayList<Record>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.record_vh, parent, false)
-        return RecordVH(view)
+        return RecordVH(view, callback)
     }
 
     override fun getItemCount() = recordsData.size

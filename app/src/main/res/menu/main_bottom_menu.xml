@@ -3,11 +3,11 @@
     <item
         android:id="@+id/action_news"
         android:icon="@drawable/ic_news"
-        android:title="Новости" />
+        android:title="" />
     <item
         android:id="@+id/action_vacancies"
         android:icon="@drawable/ic_vacancy"
-        android:title="Вакансии" />
+        android:title="" />
     <item
         android:id="@+id/action_add"
         android:icon="@drawable/ic_add"
@@ -15,9 +15,9 @@
     <item
         android:id="@+id/action_ads"
         android:icon="@drawable/ic_ads"
-        android:title="Объявления" />
+        android:title="" />
     <item
         android:id="@+id/action_profile"
         android:icon="@drawable/ic_profile"
-        android:title="Профиль" />
+        android:title="" />
 </menu>

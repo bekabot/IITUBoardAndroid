@@ -14,6 +14,7 @@ import kz.iitu.iituboardandroid.ui.board.vacancies.VacanciesVM
 import kz.iitu.iituboardandroid.ui.login.LoginRepository
 import kz.iitu.iituboardandroid.ui.login.LoginRepositoryImpl
 import kz.iitu.iituboardandroid.ui.login.LoginVM
+import kz.iitu.iituboardandroid.ui.record.RecordVM
 import kz.iitu.iituboardandroid.ui.restore.RestorePasswordVM
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -42,6 +43,7 @@ val boardModule = module {
     viewModel { AdsVM((get())) }
     viewModel { NewsVM((get())) }
     viewModel { VacanciesVM((get())) }
+    viewModel { RecordVM((get())) }
 
     single { BoardRepositoryImpl(get(), get()) as BoardRepository }
 }

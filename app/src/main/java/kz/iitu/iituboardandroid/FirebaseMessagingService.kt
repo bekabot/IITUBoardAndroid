@@ -12,13 +12,17 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import kz.iitu.iituboardandroid.api.LoginResponse
 import kz.iitu.iituboardandroid.ui.login.LoginActivity
+import wiki.depasquale.mcache.obtain
 
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
 class FirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
+
+        obtain<LoginResponse>().build().getNow() ?: return
 
         message.data.let { data ->
             val intent = Intent(this, LoginActivity::class.java).apply {

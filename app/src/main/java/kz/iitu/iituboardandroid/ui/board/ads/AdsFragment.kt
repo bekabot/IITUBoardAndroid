@@ -1,6 +1,7 @@
 package kz.iitu.iituboardandroid.ui.board.ads
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import kz.iitu.iituboardandroid.Constants
 import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.RecordsAdapter
+import kz.iitu.iituboardandroid.api.response.Record
+import kz.iitu.iituboardandroid.ui.record.RecordActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AdsFragment : Fragment() {
@@ -17,6 +21,15 @@ class AdsFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
 
     private val vm: AdsVM by viewModel()
+
+    private val recordsAdapter =
+        RecordsAdapter(object : RecordsAdapter.OnProfileInteraction {
+            override fun onRecordClick(item: Record) {
+                startActivity(Intent(activity!!, RecordActivity::class.java).apply {
+                    putExtra(Constants.EXTRA_RECORD_ID, item.id)
+                })
+            }
+        })
 
     interface OnFragmentInteractionListener {
         fun setTitle(title: String)
@@ -37,7 +50,6 @@ class AdsFragment : Fragment() {
 
         vm.ads.observe(viewLifecycleOwner, Observer {
             it?.let {
-                val recordsAdapter = RecordsAdapter()
                 view.findViewById<RecyclerView>(R.id.recycler).adapter = recordsAdapter
                 recordsAdapter.set(it)
             }
