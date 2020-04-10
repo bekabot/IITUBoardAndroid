@@ -2,6 +2,7 @@ package kz.iitu.iituboardandroid.ui.board
 
 import android.os.Bundle
 import android.widget.FrameLayout
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -16,9 +17,12 @@ import kz.iitu.iituboardandroid.utils.ScrollableBottomNavView
 import kz.iitu.iituboardandroid.utils.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class BoardActivity : BaseActivity() {
+class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener,
+    AddRecordFragment.OnFragmentInteractionListener, AdsFragment.OnFragmentInteractionListener,
+    ProfileFragment.OnFragmentInteractionListener, VacanciesFragment.OnFragmentInteractionListener {
 
     private val bottomNavigation: ScrollableBottomNavView by bind(R.id.bottom_nav)
+    private val toolbar: Toolbar by bind(R.id.toolbar)
     private val rootView: FrameLayout by bind(R.id.root_view)
 
     private val vm: BoardVM by viewModel()
@@ -26,6 +30,7 @@ class BoardActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
+        setSupportActionBar(toolbar)
 
         findViewById<BottomNavigationView>(R.id.bottom_nav).setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -77,6 +82,31 @@ class BoardActivity : BaseActivity() {
 
         vm.isError.observe(this, Observer {
             showErrorMessageBy(it)
+        })
+
+        vm.updateRecords.observe(this, Observer {
+            if (it) {
+                supportFragmentManager.findFragmentByTag(VacanciesFragment.FRAG_TAG)
+                    ?.let { fragment ->
+                        (fragment as VacanciesFragment).updateVacancies()
+                    }
+
+                supportFragmentManager.findFragmentByTag(NewsFragment.FRAG_TAG)
+                    ?.let { fragment ->
+                        (fragment as NewsFragment).updateNews()
+                    }
+
+                supportFragmentManager.findFragmentByTag(AdsFragment.FRAG_TAG)
+                    ?.let { fragment ->
+                        (fragment as AdsFragment).updateAds()
+                    }
+            }
+        })
+
+        vm.logout.observe(this, Observer {
+            if (it) {
+                logout()
+            }
         })
     }
 
@@ -177,5 +207,9 @@ class BoardActivity : BaseActivity() {
                 fragTransaction.commitAllowingStateLoss()
             }
         }
+    }
+
+    override fun setTitle(title: String) {
+        supportActionBar?.title = title
     }
 }

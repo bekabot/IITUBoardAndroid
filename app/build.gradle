@@ -61,6 +61,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.multidex:multidex:2.0.1'
+    implementation "androidx.preference:preference-ktx:1.1.0"
 
     kapt 'androidx.lifecycle:lifecycle-compiler:2.2.0'
     kapt 'androidx.annotation:annotation:1.1.0'
@@ -92,4 +93,5 @@ dependencies {
 
     //Cache
     implementation 'wiki.depasquale:mcache:1.7.53'
+
 }

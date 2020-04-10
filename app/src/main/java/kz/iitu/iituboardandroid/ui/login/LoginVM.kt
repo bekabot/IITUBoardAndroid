@@ -1,6 +1,7 @@
 package kz.iitu.iituboardandroid.ui.login
 
 import androidx.lifecycle.MutableLiveData
+import kz.iitu.iituboardandroid.Constants
 import kz.iitu.iituboardandroid.sha256
 import kz.iitu.iituboardandroid.ui.BaseVM
 
@@ -16,7 +17,9 @@ class LoginVM(private val repository: LoginRepository) : BaseVM() {
     init {
         val userData = repository.getUserInfo()
         userData?.let {
-            proceedToBoard.value = true
+            if (prefs.getBoolean(Constants.REMEMBER_ME, false)) {
+                proceedToBoard.value = true
+            }
         }
     }
 
@@ -54,8 +57,10 @@ class LoginVM(private val repository: LoginRepository) : BaseVM() {
                 }
             } ?: run {
                 result.token?.let {
+                    repository.saveUserInfo(result)
+
                     if (shouldRememberLogin) {
-                        repository.saveUserInfo(result)
+                        prefs.edit().putBoolean(Constants.REMEMBER_ME, shouldRememberLogin).apply()
                     }
                     proceedToBoard.value = true
                 } ?: run {

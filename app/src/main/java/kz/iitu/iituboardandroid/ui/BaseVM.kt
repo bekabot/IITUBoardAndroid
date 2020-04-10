@@ -1,11 +1,15 @@
 package kz.iitu.iituboardandroid.ui
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.preference.PreferenceManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kz.iitu.iituboardandroid.App
 import kotlin.coroutines.CoroutineContext
 
 open class BaseVM : ViewModel(), CoroutineScope {
@@ -13,8 +17,15 @@ open class BaseVM : ViewModel(), CoroutineScope {
     val isError = MutableLiveData<Throwable>()
     val showMessage = MutableLiveData<String>()
     val closeKeyboard = MutableLiveData<Boolean>()
+    val logout = MutableLiveData(false)
 
     private val job = Job()
+
+    protected val context: Context
+        get() = App.getInstance().applicationContext
+
+    protected val prefs: SharedPreferences
+        get() = PreferenceManager.getDefaultSharedPreferences(context)
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job

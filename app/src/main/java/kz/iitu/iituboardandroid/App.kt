@@ -32,10 +32,18 @@ class App : Application() {
             )
         }
 
+        app = this
+
         Timber.plant(Timber.DebugTree())
 
         wiki.depasquale.mcache.Cache.with(this)
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
+    }
+
+    companion object {
+        private var app: App? = null
+
+        fun getInstance(): App = app!!
     }
 }

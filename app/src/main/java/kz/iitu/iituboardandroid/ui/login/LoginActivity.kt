@@ -5,8 +5,10 @@ import android.graphics.Paint
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.preference.PreferenceManager
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
+import kz.iitu.iituboardandroid.Constants
 import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.databinding.ActivityLoginBinding
 import kz.iitu.iituboardandroid.ui.BaseActivity

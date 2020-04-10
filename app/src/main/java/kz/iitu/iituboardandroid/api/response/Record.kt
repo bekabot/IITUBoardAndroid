@@ -1,5 +1,7 @@
 package kz.iitu.iituboardandroid.api.response
 
+import java.io.Serializable
+
 data class Record(
     val ads_category: String?,
     val email: String?,
@@ -15,4 +17,12 @@ data class Record(
     val telegram: String?,
     val vk: String?,
     val whatsapp: String?
-)
+) : Serializable {
+    fun getImage() =
+        when {
+            image1 != null && image1.isNotEmpty() -> image1
+            image2 != null && image2.isNotEmpty() -> image2
+            image3 != null && image3.isNotEmpty() -> image3
+            else -> null
+        }
+}

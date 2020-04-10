@@ -2,14 +2,18 @@ package kz.iitu.iituboardandroid.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kz.iitu.iituboardandroid.R
+import kz.iitu.iituboardandroid.api.LoginResponse
 import kz.iitu.iituboardandroid.api.NoInternetException
+import kz.iitu.iituboardandroid.ui.login.LoginActivity
 import retrofit2.HttpException
+import wiki.depasquale.mcache.obtain
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -77,6 +81,13 @@ open class BaseActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    fun logout() {
+        obtain<LoginResponse>().build().delete()
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
     }
 
     override fun onStop() {
