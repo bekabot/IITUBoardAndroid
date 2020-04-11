@@ -9,11 +9,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.core.app.TaskStackBuilder
 import androidx.core.content.ContextCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kz.iitu.iituboardandroid.api.LoginResponse
-import kz.iitu.iituboardandroid.ui.login.LoginActivity
+import kz.iitu.iituboardandroid.ui.record.RecordActivity
 import wiki.depasquale.mcache.obtain
 
 @SuppressLint("MissingFirebaseInstanceTokenRefresh")
@@ -25,10 +26,14 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         obtain<LoginResponse>().build().getNow() ?: return
 
         message.data.let { data ->
-            val intent = Intent(this, LoginActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            val resultIntent = Intent(this, RecordActivity::class.java).apply {
+                putExtra(Constants.EXTRA_RECORD_ID, data["id"]?.toIntOrNull())
             }
-            val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+            val resultingPendingIntent = TaskStackBuilder.create(this)
+
+            resultingPendingIntent.addNextIntentWithParentStack(resultIntent)
+            val pendingIntent =
+                resultingPendingIntent.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
 
             val mBuilder = NotificationCompat.Builder(this, "important_channel")
                 .setTicker(data["title"])

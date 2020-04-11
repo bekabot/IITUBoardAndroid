@@ -20,4 +20,7 @@ class RemoteDataSource(private val api: IituApi, private val networkManager: Net
 
     suspend fun getAllRecords(token: String) =
         onPerformRequest { api.getAllRecords(token) }
+
+    suspend fun getRecordById(token: String, id: Int) =
+        onPerformRequest { api.getRecordById(token, id) }
 }

@@ -3,6 +3,7 @@ package kz.iitu.iituboardandroid.ui.board
 import kz.iitu.iituboardandroid.api.LocalDataSource
 import kz.iitu.iituboardandroid.api.RemoteDataSource
 import kz.iitu.iituboardandroid.api.response.Record
+import kz.iitu.iituboardandroid.api.response.RecordResponse
 import kz.iitu.iituboardandroid.api.response.RecordsResponse
 
 class BoardRepositoryImpl(
@@ -39,5 +40,14 @@ class BoardRepositoryImpl(
         return allRecords?.filter {
             it.record_type == "ads"
         }
+    }
+
+    override suspend fun getRecordById(token: String, id: Int): RecordResponse? {
+        val cachedRecord = localDS.getRecords()?.records?.firstOrNull {
+            it.id == id
+        }
+        return cachedRecord?.let {
+            RecordResponse("", it)
+        } ?: remoteDS.getRecordById(token, id)
     }
 }

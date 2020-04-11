@@ -1,6 +1,7 @@
 package kz.iitu.iituboardandroid.api
 
 import kz.iitu.iituboardandroid.Constants
+import kz.iitu.iituboardandroid.api.response.RecordResponse
 import kz.iitu.iituboardandroid.api.response.RecordsResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -19,4 +20,7 @@ interface IituApi {
 
     @GET("${Constants.HOST}/api/board/")
     suspend fun getAllRecords(@Query("token") token: String): RecordsResponse
+
+    @GET("${Constants.HOST}/api/board/")
+    suspend fun getRecordById(@Query("token") token: String, @Query("id") recordId: Int): RecordResponse
 }

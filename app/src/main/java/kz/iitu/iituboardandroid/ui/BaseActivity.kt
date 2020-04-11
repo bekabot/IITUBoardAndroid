@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
+import kz.iitu.iituboardandroid.Constants
 import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.api.LoginResponse
 import kz.iitu.iituboardandroid.api.NoInternetException
@@ -84,6 +86,8 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun logout() {
+        PreferenceManager.getDefaultSharedPreferences(this).edit()
+            .putBoolean(Constants.REMEMBER_ME, false).apply()
         obtain<LoginResponse>().build().delete()
         val intent = Intent(this, LoginActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)

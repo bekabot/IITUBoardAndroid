@@ -14,15 +14,6 @@ class LoginVM(private val repository: LoginRepository) : BaseVM() {
     var shouldRememberLogin = false
     var fcmToken = ""
 
-    init {
-        val userData = repository.getUserInfo()
-        userData?.let {
-            if (prefs.getBoolean(Constants.REMEMBER_ME, false)) {
-                proceedToBoard.value = true
-            }
-        }
-    }
-
     fun login() {
         if (emailText.value?.isEmpty() != false
             || emailText.value?.endsWith("@iitu.kz") == false

@@ -18,6 +18,7 @@ open class BaseVM : ViewModel(), CoroutineScope {
     val showMessage = MutableLiveData<String>()
     val closeKeyboard = MutableLiveData<Boolean>()
     val logout = MutableLiveData(false)
+    val moveToLogin = MutableLiveData(false)
 
     private val job = Job()
 
