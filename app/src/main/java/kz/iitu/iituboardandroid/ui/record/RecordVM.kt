@@ -17,6 +17,7 @@ class RecordVM(private val repository: BoardRepository) : BaseVM() {
     val phoneNumber = MutableLiveData("")
     val recordNotFound = MutableLiveData(false)
     val images = MutableLiveData<List<String>>()
+    val author = MutableLiveData("")
 
     val callNumber = MutableLiveData<String>("")
     val writeToEmail = MutableLiveData<String>("")
@@ -55,6 +56,9 @@ class RecordVM(private val repository: BoardRepository) : BaseVM() {
         vk.value = record?.record?.vk
         email.value = record?.record?.email
         phoneNumber.value = record?.record?.phone
+        record?.record?.author?.let {
+            author.value = "От $it - ${record.record.getPrintableCreationDate()}"
+        }
     }
 
     fun onPhoneClick() {
