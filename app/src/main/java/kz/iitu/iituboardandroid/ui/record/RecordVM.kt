@@ -1,6 +1,7 @@
 package kz.iitu.iituboardandroid.ui.record
 
 import androidx.lifecycle.MutableLiveData
+import kz.iitu.iituboardandroid.api.response.Record
 import kz.iitu.iituboardandroid.api.response.RecordResponse
 import kz.iitu.iituboardandroid.ui.BaseVM
 import kz.iitu.iituboardandroid.ui.board.BoardRepository
@@ -17,6 +18,15 @@ class RecordVM(private val repository: BoardRepository) : BaseVM() {
     val recordNotFound = MutableLiveData(false)
     val images = MutableLiveData<List<String>>()
 
+    val callNumber = MutableLiveData<String>("")
+    val writeToEmail = MutableLiveData<String>("")
+    val openVK = MutableLiveData<String>("")
+    val openTelegram = MutableLiveData<String>("")
+    val openWhatsApp = MutableLiveData<String>("")
+    val openInstagram = MutableLiveData<String>("")
+
+    var record: Record? = null
+
     fun setUpRecordInfo(recordId: Int) {
         launchLoadingCoroutine(mainBlock = {
             val userInfo = repository.getUserInfo()
@@ -31,6 +41,7 @@ class RecordVM(private val repository: BoardRepository) : BaseVM() {
                     record?.record?.image3
                 )
                 setUpRecordFields(record)
+                this.record = record?.record
             }
         })
     }
@@ -44,5 +55,29 @@ class RecordVM(private val repository: BoardRepository) : BaseVM() {
         vk.value = record?.record?.vk
         email.value = record?.record?.email
         phoneNumber.value = record?.record?.phone
+    }
+
+    fun onPhoneClick() {
+        callNumber.value = record?.phone
+    }
+
+    fun onWhatsAppClick() {
+        openWhatsApp.value = record?.whatsapp
+    }
+
+    fun onEmailClick() {
+        writeToEmail.value = record?.email
+    }
+
+    fun onInstagramClick() {
+        openInstagram.value = record?.instagram
+    }
+
+    fun onTelegramClick() {
+        openTelegram.value = record?.telegram
+    }
+
+    fun onVKClick() {
+        openVK.value = record?.vk
     }
 }

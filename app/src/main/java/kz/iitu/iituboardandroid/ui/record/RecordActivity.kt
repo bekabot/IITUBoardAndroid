@@ -1,5 +1,7 @@
 package kz.iitu.iituboardandroid.ui.record
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -45,6 +47,84 @@ class RecordActivity : BaseActivity() {
             if (it) {
                 Toast.makeText(this, "Запись не найдена", Toast.LENGTH_SHORT).show()
                 finish()
+            }
+        })
+
+        vm.writeToEmail.observe(this, Observer {
+            if (it.isNotEmpty()) {
+                val emailIntent = Intent(Intent.ACTION_VIEW, Uri.parse("mailto:?to=$it"))
+                emailIntent.resolveActivity(packageManager)?.let {
+                    startActivity(emailIntent)
+                }
+            }
+        })
+
+        vm.callNumber.observe(this, Observer {
+            if (it.isNotEmpty()) {
+                val intent = Intent(Intent.ACTION_DIAL)
+                intent.data = Uri.parse(it)
+                intent.resolveActivity(packageManager)?.let {
+                    startActivity(intent)
+                }
+            }
+        })
+
+        vm.openVK.observe(this, Observer {
+            if (it.isNotEmpty()) {
+                val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse("https://vk.com/$it")).apply {
+                        `package` = "com.vkontakte.android"
+                    }
+                intent.resolveActivity(packageManager)?.let {
+                    startActivity(intent)
+                } ?: run {
+                    safeOpenBrowser("https://vk.com/$it")
+                }
+            }
+        })
+
+        vm.openTelegram.observe(this, Observer {
+            if (it.isNotEmpty()) {
+                val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/$it")).apply {
+                        `package` = "org.telegram.messenger"
+                    }
+                intent.resolveActivity(packageManager)?.let {
+                    startActivity(intent)
+                } ?: run {
+                    safeOpenBrowser("https://telegram.me/$it")
+                }
+            }
+        })
+
+        vm.openWhatsApp.observe(this, Observer {
+            if (it.isNotEmpty()) {
+                val intent =
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://api.whatsapp.com/send?phone=$it")
+                    ).apply {
+                        `package` = "com.whatsapp"
+                    }
+                intent.resolveActivity(packageManager)?.let {
+                    startActivity(intent)
+                } ?: run {
+                    safeOpenBrowser("https://api.whatsapp.com/send?phone=$it")
+                }
+            }
+        })
+
+        vm.openInstagram.observe(this, Observer {
+            if (it.isNotEmpty()) {
+                val intent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/$it")).apply {
+                        `package` = "com.instagram.android"
+                    }
+                intent.resolveActivity(packageManager)?.let {
+                    startActivity(intent)
+                } ?: run {
+                    safeOpenBrowser("https://www.instagram.com/$it")
+                }
             }
         })
 
