@@ -1,6 +1,7 @@
 package kz.iitu.iituboardandroid.ui.record
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -26,6 +27,8 @@ class RecordActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_record)
         binding.viewModel = vm
         binding.lifecycleOwner = this
+
+        setSupportActionBar(binding.toolbar)
 
         val adapter = CarouselItemAdapter()
         binding.recyclerView.adapter = adapter
@@ -127,6 +130,28 @@ class RecordActivity : BaseActivity() {
                 adapter.set(it)
             }
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?) =
+        when (item!!.itemId) {
+            android.R.id.home -> {
+                navigateBack()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
+    private fun navigateBack() {
+        val fragmentCount = supportFragmentManager.backStackEntryCount
+        if (fragmentCount == 0) {
+            super.onBackPressed()
+        } else {
+            supportFragmentManager.popBackStack()
+        }
+    }
+
+    override fun onBackPressed() {
+        navigateBack()
     }
 
     private fun setUpDotsContainer(it: List<String>) {
