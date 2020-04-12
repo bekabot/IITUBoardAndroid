@@ -15,6 +15,7 @@ class RecordVM(private val repository: BoardRepository) : BaseVM() {
     val email = MutableLiveData("")
     val phoneNumber = MutableLiveData("")
     val recordNotFound = MutableLiveData(false)
+    val images = MutableLiveData<List<String>>()
 
     fun setUpRecordInfo(recordId: Int) {
         launchLoadingCoroutine(mainBlock = {
@@ -24,6 +25,11 @@ class RecordVM(private val repository: BoardRepository) : BaseVM() {
             if (record?.message == "RECORD_NOT_FOUND") {
                 recordNotFound.value = true
             } else {
+                images.value = listOfNotNull(
+                    record?.record?.image1,
+                    record?.record?.image2,
+                    record?.record?.image3
+                )
                 setUpRecordFields(record)
             }
         })

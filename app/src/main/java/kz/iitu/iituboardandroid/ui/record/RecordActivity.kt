@@ -1,9 +1,14 @@
 package kz.iitu.iituboardandroid.ui.record
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.RecyclerView
 import kz.iitu.iituboardandroid.Constants
 import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.databinding.ActivityRecordBinding
@@ -22,6 +27,14 @@ class RecordActivity : BaseActivity() {
         binding.viewModel = vm
         binding.lifecycleOwner = this
 
+        val adapter = CarouselItemAdapter()
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.onFlingListener = null
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val helper = LinearSnapHelper()
+        helper.attachToRecyclerView(binding.recyclerView)
+
         val recordId = intent.getIntExtra(Constants.EXTRA_RECORD_ID, -1)
         vm.setUpRecordInfo(recordId)
 
@@ -31,5 +44,103 @@ class RecordActivity : BaseActivity() {
                 finish()
             }
         })
+
+        vm.images.observe(this, Observer {
+            if (it.isNotEmpty()) {
+                binding.recyclerView.visibility = View.VISIBLE
+                binding.recyclerView.setOnClickListener(null)
+                binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                        super.onScrollStateChanged(recyclerView, newState)
+                        val layoutManager =
+                            binding.recyclerView.layoutManager as LinearLayoutManager?
+
+                        layoutManager?.findFirstCompletelyVisibleItemPosition()?.let {
+                            when (it) {
+                                0 -> {
+                                    binding.dot1.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            binding.dot1.context,
+                                            R.drawable.ic_dot_activ
+                                        )
+                                    )
+                                    binding.dot2.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            binding.dot1.context,
+                                            R.drawable.ic_dot_inactiv
+                                        )
+                                    )
+                                    binding.dot3.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            binding.dot1.context,
+                                            R.drawable.ic_dot_inactiv
+                                        )
+                                    )
+                                }
+                                1 -> {
+                                    binding.dot1.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            binding.dot1.context,
+                                            R.drawable.ic_dot_inactiv
+                                        )
+                                    )
+                                    binding.dot2.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            binding.dot1.context,
+                                            R.drawable.ic_dot_activ
+                                        )
+                                    )
+                                    binding.dot3.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            binding.dot1.context,
+                                            R.drawable.ic_dot_inactiv
+                                        )
+                                    )
+                                }
+                                2 -> {
+                                    binding.dot1.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            binding.dot1.context,
+                                            R.drawable.ic_dot_inactiv
+                                        )
+                                    )
+                                    binding.dot2.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            binding.dot1.context,
+                                            R.drawable.ic_dot_inactiv
+                                        )
+                                    )
+                                    binding.dot3.setImageDrawable(
+                                        ContextCompat.getDrawable(
+                                            binding.dot1.context,
+                                            R.drawable.ic_dot_activ
+                                        )
+                                    )
+                                }
+                            }
+                        }
+                    }
+                })
+
+                setUpDotsContainer(it)
+
+                adapter.set(it)
+            }
+        })
+    }
+
+    private fun setUpDotsContainer(it: List<String>) {
+        binding.dotsContainer.visibility = View.VISIBLE
+        when (it.size) {
+            2 -> {
+                binding.dot1.visibility = View.VISIBLE
+                binding.dot2.visibility = View.VISIBLE
+            }
+            3 -> {
+                binding.dot1.visibility = View.VISIBLE
+                binding.dot2.visibility = View.VISIBLE
+                binding.dot3.visibility = View.VISIBLE
+            }
+        }
     }
 }
