@@ -1,17 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:text="record info"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="kz.iitu.iituboardandroid.ui.record.RecordVM" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="20dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/dots_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recyclerView">
+
+                <ImageView
+                    android:id="@+id/dot1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null"
+                    app:srcCompat="@drawable/ic_dot_inactiv" />
+
+                <ImageView
+                    android:id="@+id/dot2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="@null"
+                    app:srcCompat="@drawable/ic_dot_activ" />
+
+                <ImageView
+                    android:id="@+id/dot3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="20dp"
+                    android:contentDescription="@null"
+                    app:srcCompat="@drawable/ic_dot_inactiv" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.title}"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                app:layout_constraintTop_toBottomOf="@id/dots_container"
+                tools:text="День Открытых Дверей" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@{viewModel.description}"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                tools:text="This Braun watch is a reissue of the original 1970's design from renowned design team Dietrich Lubs and Dieter Rams, both of whom have work featured in the Museum’s collection. The large watch features a numbered face, and the smaller watch has only index lines. Made of a matte stainless-steel case, black dial, mineral glass, a three-hand quartz movement, and a leather band. Water-resistant." />
+
+            <ImageView
+                android:id="@+id/phone_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@null"
+                android:visibility="@{(viewModel.phoneNumber ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description"
+                app:srcCompat="@drawable/ic_phone" />
+
+            <TextView
+                android:id="@+id/phone_num_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@{viewModel.phoneNumber}"
+                android:textColor="#2f6699"
+                android:visibility="@{(viewModel.phoneNumber ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/phone_icon"
+                app:layout_constraintStart_toEndOf="@id/phone_icon"
+                app:layout_constraintTop_toTopOf="@id/phone_icon"
+                tools:text="87012117746" />
+
+            <ImageView
+                android:id="@+id/email_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@null"
+                android:visibility="@{(viewModel.email ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/phone_icon"
+                app:srcCompat="@drawable/ic_mail" />
+
+            <TextView
+                android:id="@+id/email_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@{viewModel.email}"
+                android:textColor="#2f6699"
+                android:visibility="@{(viewModel.email ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/email_icon"
+                app:layout_constraintStart_toEndOf="@id/email_icon"
+                app:layout_constraintTop_toTopOf="@id/email_icon"
+                tools:text="test@mail.ru" />
+
+            <ImageView
+                android:id="@+id/whatsapp_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@null"
+                android:visibility="@{(viewModel.whatsApp ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email_icon"
+                app:srcCompat="@drawable/ic_whatsapp" />
+
+            <TextView
+                android:id="@+id/whatsapp_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@{viewModel.whatsApp}"
+                android:textColor="#2f6699"
+                android:visibility="@{(viewModel.whatsApp ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/whatsapp_icon"
+                app:layout_constraintStart_toEndOf="@id/whatsapp_icon"
+                app:layout_constraintTop_toTopOf="@id/whatsapp_icon"
+                tools:text="87012117746" />
+
+            <ImageView
+                android:id="@+id/insta_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@null"
+                android:visibility="@{(viewModel.instagram ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/whatsapp_icon"
+                app:srcCompat="@drawable/ic_instagram" />
+
+            <TextView
+                android:id="@+id/insta_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@{viewModel.instagram}"
+                android:textColor="#2f6699"
+                android:visibility="@{(viewModel.instagram ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/insta_icon"
+                app:layout_constraintStart_toEndOf="@id/insta_icon"
+                app:layout_constraintTop_toTopOf="@id/insta_icon"
+                tools:text="\@bekabot" />
+
+            <ImageView
+                android:id="@+id/telegram_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@null"
+                android:visibility="@{(viewModel.telegram ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/insta_icon"
+                app:srcCompat="@drawable/ic_telegram" />
+
+            <TextView
+                android:id="@+id/telegram_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@{viewModel.telegram}"
+                android:textColor="#2f6699"
+                android:visibility="@{(viewModel.telegram ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/telegram_icon"
+                app:layout_constraintStart_toEndOf="@id/telegram_icon"
+                app:layout_constraintTop_toTopOf="@id/telegram_icon"
+                tools:text="\@bekabot1" />
+
+            <ImageView
+                android:id="@+id/vk_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@null"
+                android:visibility="@{(viewModel.vk ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/telegram_icon"
+                app:srcCompat="@drawable/ic_vk" />
+
+            <TextView
+                android:id="@+id/vk_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@{viewModel.vk}"
+                android:textColor="#2f6699"
+                android:visibility="@{(viewModel.vk ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="@id/vk_icon"
+                app:layout_constraintStart_toEndOf="@id/vk_icon"
+                app:layout_constraintTop_toTopOf="@id/vk_icon"
+                tools:text="\@id1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

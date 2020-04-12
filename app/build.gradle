@@ -13,8 +13,9 @@ android {
 
     defaultConfig {
         applicationId "kz.iitu.iituboardandroid"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 29
+        vectorDrawables.useSupportLibrary = true
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
