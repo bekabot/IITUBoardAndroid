@@ -15,6 +15,7 @@ class RecordVH(itemView: View, val listener: RecordsAdapter.OnProfileInteraction
     RecyclerView.ViewHolder(itemView) {
     private val image: ImageView by bind(itemView, R.id.image)
     private val title: TextView by bind(itemView, R.id.title)
+    private val author: TextView by bind(itemView, R.id.author)
     private val parentView: ConstraintLayout by bind(itemView, R.id.parent_view)
 
     fun set(record: Record) {
@@ -30,5 +31,7 @@ class RecordVH(itemView: View, val listener: RecordsAdapter.OnProfileInteraction
         parentView.setOnClickListener {
             listener.onRecordClick(record)
         }
+
+        author.text = "От ${record.author} - ${record.getPrintableCreationDate()}"
     }
 }

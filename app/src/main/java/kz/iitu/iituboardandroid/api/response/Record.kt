@@ -1,9 +1,8 @@
 package kz.iitu.iituboardandroid.api.response
 
 import com.google.gson.annotations.SerializedName
+import kz.iitu.iituboardandroid.toPrintableDate
 import java.io.Serializable
-import java.text.SimpleDateFormat
-import java.util.*
 
 data class Record(
     val ads_category: String?,
@@ -31,17 +30,5 @@ data class Record(
             else -> null
         }
 
-    fun getPrintableCreationDate() =
-        creationDate?.let {
-            val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-            format.timeZone = TimeZone.getTimeZone("UTC");
-            try {
-                SimpleDateFormat(
-                    "dd.MM.yyyy hh:mm",
-                    Locale.getDefault()
-                ).format(format.parse(creationDate)!!)
-            } catch (e: Exception) {
-                null
-            }
-        }
+    fun getPrintableCreationDate() = creationDate?.toPrintableDate()
 }

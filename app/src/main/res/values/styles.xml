@@ -47,4 +47,12 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="DefaultCardView" parent="CardView">
+        <item name="cardCornerRadius">14dp</item>
+        <item name="cardBackgroundColor">@android:color/white</item>
+        <item name="cardPreventCornerOverlap">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
 </resources>

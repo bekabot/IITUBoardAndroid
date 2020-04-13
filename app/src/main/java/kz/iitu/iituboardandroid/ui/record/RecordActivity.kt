@@ -50,6 +50,16 @@ class RecordActivity : BaseActivity() {
             }
         })
 
+        vm.isLoading.observe(this, Observer {
+            it?.let {
+                if (it) {
+                    showLoader(binding.rootView)
+                } else {
+                    hideLoader(binding.rootView)
+                }
+            }
+        })
+
         vm.writeToEmail.observe(this, Observer {
             if (it.isNotEmpty()) {
                 val emailIntent = Intent(Intent.ACTION_VIEW, Uri.parse("mailto:?to=$it"))
