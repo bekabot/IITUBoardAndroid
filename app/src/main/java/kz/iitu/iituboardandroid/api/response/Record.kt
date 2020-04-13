@@ -1,6 +1,7 @@
 package kz.iitu.iituboardandroid.api.response
 
 import com.google.gson.annotations.SerializedName
+import kz.iitu.iituboardandroid.toDate
 import kz.iitu.iituboardandroid.toPrintableDate
 import java.io.Serializable
 
@@ -31,4 +32,6 @@ data class Record(
         }
 
     fun getPrintableCreationDate() = creationDate?.toPrintableDate()
+
+    fun getFormattedCreationDate() = creationDate?.toDate()
 }

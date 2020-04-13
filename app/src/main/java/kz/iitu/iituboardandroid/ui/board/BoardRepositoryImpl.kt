@@ -21,24 +21,20 @@ class BoardRepositoryImpl(
 
     override fun getUserInfo() = localDS.getUserInfo()
 
-    override fun getCachedNews(): List<Record>? {
-        val allRecords = localDS.getRecords()?.records
-        return allRecords?.filter {
-            it.record_type == "news"
-        }
-    }
+    override fun getCachedNews() = getRecordsByType("news")
 
-    override fun getCachedVacancies(): List<Record>? {
-        val allRecords = localDS.getRecords()?.records
-        return allRecords?.filter {
-            it.record_type == "vacancy"
-        }
-    }
+    override fun getCachedVacancies() = getRecordsByType("vacancy")
 
-    override fun getCachedAds(): List<Record>? {
-        val allRecords = localDS.getRecords()?.records
-        return allRecords?.filter {
-            it.record_type == "ads"
+    override fun getCachedAds() = getRecordsByType("ads")
+
+    private fun getRecordsByType(recordType: String): List<Record>? {
+        val filteredRecords = localDS.getRecords()?.records?.filter {
+            it.record_type == recordType
+        }
+        return filteredRecords?.let {
+            val mutableList = filteredRecords.toMutableList()
+            mutableList.sortWith(compareByDescending { it.getFormattedCreationDate() })
+            mutableList
         }
     }
 

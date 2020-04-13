@@ -24,3 +24,11 @@ fun String.toPrintableDate() = try {
 } catch (e: Exception) {
     null
 }
+
+fun String.toDate() = try {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = Integer.parseInt(this) * 1000L
+    calendar.time
+} catch (e: Exception) {
+    null
+}
