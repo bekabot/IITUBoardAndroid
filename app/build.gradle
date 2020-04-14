@@ -36,6 +36,14 @@ android {
         }
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
@@ -54,13 +62,14 @@ dependencies {
     implementation 'com.google.android.material:material:1.2.0-alpha05'
 
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
-//    implementation 'androidx.appcompat:appcompat:1.0.2' //decreased version to handle bug
     implementation 'androidx.appcompat:appcompat:1.1.0' //decreased version to handle bug
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-runtime:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha01'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-alpha01'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation "androidx.preference:preference-ktx:1.1.0"
 
@@ -94,5 +103,4 @@ dependencies {
 
     //Cache
     implementation 'wiki.depasquale:mcache:1.7.53'
-
 }

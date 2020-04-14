@@ -7,10 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kz.iitu.iituboardandroid.Constants
 import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.RecordsAdapter
@@ -19,6 +23,7 @@ import kz.iitu.iituboardandroid.ui.BaseActivity
 import kz.iitu.iituboardandroid.ui.record.RecordActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@ExperimentalCoroutinesApi
 class NewsFragment : Fragment() {
 
     private var listener: OnFragmentInteractionListener? = null
@@ -45,6 +50,8 @@ class NewsFragment : Fragment() {
         setHasOptionsMenu(false)
     }
 
+    @ExperimentalCoroutinesApi
+    @FlowPreview
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -86,6 +93,18 @@ class NewsFragment : Fragment() {
             }
         })
 
+        view.findViewById<AppCompatEditText>(R.id.search).doAfterTextChanged {
+            it?.let {
+                vm.searchNews(it.toString())
+            }
+        }
+
+        vm.searchResult.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                view.findViewById<RecyclerView>(R.id.recycler).adapter = recordsAdapter
+                recordsAdapter.set(it)
+            }
+        })
         return view
     }
 
