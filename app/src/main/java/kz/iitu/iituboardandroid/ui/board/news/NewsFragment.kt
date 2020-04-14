@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kz.iitu.iituboardandroid.Constants
@@ -105,7 +107,45 @@ class NewsFragment : Fragment() {
                 recordsAdapter.set(it)
             }
         })
+
+        setChipGroupCheckedListener(view)
+
+        view.findViewById<Chip>(R.id.category_it).setOnCheckedChangeListener { view, ischecked ->
+            vm.filterNewsByCategory("it")
+        }
+
+        view.findViewById<Chip>(R.id.category_others)
+            .setOnCheckedChangeListener { view, ischecked ->
+                vm.filterNewsByCategory("others")
+            }
+
+        view.findViewById<Chip>(R.id.category_sport).setOnCheckedChangeListener { view, ischecked ->
+            vm.filterNewsByCategory("sport")
+        }
+
+        view.findViewById<Chip>(R.id.category_study).setOnCheckedChangeListener { view, ischecked ->
+            vm.filterNewsByCategory("study")
+        }
+
+        vm.clearInputFields.observe(viewLifecycleOwner, Observer {
+            (activity as BaseActivity).closeKeyboard()
+            view.findViewById<AppCompatEditText>(R.id.search).text?.clear()
+            val chipGroup = view.findViewById<ChipGroup>(R.id.category_group)
+            chipGroup.setOnCheckedChangeListener(null)
+            chipGroup.clearCheck()
+            setChipGroupCheckedListener(chipGroup)
+        })
+
         return view
+    }
+
+    private fun setChipGroupCheckedListener(view: View) {
+        view.findViewById<ChipGroup>(R.id.category_group)
+            .setOnCheckedChangeListener { view, checkId ->
+                if (checkId == View.NO_ID) {
+                    vm.setUpNews()
+                }
+            }
     }
 
     fun updateNews() {

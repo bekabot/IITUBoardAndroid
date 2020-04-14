@@ -17,6 +17,7 @@ import java.util.*
 
 class NewsVM(private val repository: BoardRepository) : BaseVM() {
     val news = MutableLiveData<List<Record>?>()
+    val clearInputFields = MutableLiveData(false)
 
     @ExperimentalCoroutinesApi
     private val searchQueryChannel = BroadcastChannel<String>(Channel.CONFLATED)
@@ -49,6 +50,7 @@ class NewsVM(private val repository: BoardRepository) : BaseVM() {
                 when (result.message) {
                     null, "" -> {
                         news.value = result.records
+                        clearInputFields.value = true
                         showMessage.value = "Новости обновлены"
                     }
                     "USER_NOT_ACTIV", "USER_NOT_FOUND" -> {
@@ -59,6 +61,11 @@ class NewsVM(private val repository: BoardRepository) : BaseVM() {
         } ?: run {
             logout.value = true
         }
+    }
+
+    fun filterNewsByCategory(category: String) {
+        val cachedNews = repository.getCachedNews()
+        news.value = cachedNews?.filter { it.ads_category == category }
     }
 
     @FlowPreview

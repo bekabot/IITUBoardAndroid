@@ -17,6 +17,7 @@ import java.util.*
 
 class VacanciesVM(private val repository: BoardRepository) : BaseVM() {
     val vacancies = MutableLiveData<List<Record>?>()
+    val clearInputFields = MutableLiveData(false)
 
     @ExperimentalCoroutinesApi
     private val searchQueryChannel = BroadcastChannel<String>(Channel.CONFLATED)
@@ -49,6 +50,7 @@ class VacanciesVM(private val repository: BoardRepository) : BaseVM() {
                 when (result.message) {
                     null, "" -> {
                         vacancies.value = result.records
+                        clearInputFields.value = true
                         showMessage.value = "Вакансии обновлены"
                     }
                     "USER_NOT_ACTIV", "USER_NOT_FOUND" -> {

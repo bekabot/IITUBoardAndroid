@@ -17,6 +17,7 @@ import java.util.*
 
 class AdsVM(private val repository: BoardRepository) : BaseVM() {
     val ads = MutableLiveData<List<Record>?>()
+    val clearInputFields = MutableLiveData(false)
 
     @ExperimentalCoroutinesApi
     private val searchQueryChannel = BroadcastChannel<String>(Channel.CONFLATED)
@@ -49,6 +50,7 @@ class AdsVM(private val repository: BoardRepository) : BaseVM() {
                 when (result.message) {
                     null, "" -> {
                         ads.value = result.records
+                        clearInputFields.value = true
                         showMessage.value = "Объявления обновлены"
                     }
                     "USER_NOT_ACTIV", "USER_NOT_FOUND" -> {

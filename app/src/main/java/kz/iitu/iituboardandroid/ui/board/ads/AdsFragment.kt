@@ -105,6 +105,11 @@ class AdsFragment : Fragment() {
             }
         })
 
+        vm.clearInputFields.observe(viewLifecycleOwner, Observer {
+            (activity as BaseActivity).closeKeyboard()
+            view.findViewById<AppCompatEditText>(R.id.search).text?.clear()
+        })
+
         return view
     }
 
