@@ -6,13 +6,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kz.iitu.iituboardandroid.Constants
 import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.RecordsAdapter
 import kz.iitu.iituboardandroid.api.response.Record
+import kz.iitu.iituboardandroid.ui.BaseActivity
 import kz.iitu.iituboardandroid.ui.record.RecordActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,6 +24,8 @@ class NewsFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
 
     private val vm: NewsVM by viewModel()
+
+    private var refreshLayout: SwipeRefreshLayout? = null
 
     private val recordsAdapter =
         RecordsAdapter(object : RecordsAdapter.OnProfileInteraction {
@@ -52,6 +57,32 @@ class NewsFragment : Fragment() {
             it?.let {
                 view.findViewById<RecyclerView>(R.id.recycler).adapter = recordsAdapter
                 recordsAdapter.set(it)
+            }
+        })
+
+        refreshLayout = view.findViewById(R.id.swipe_refresh)
+        refreshLayout?.run {
+            setColorSchemeResources(R.color.colorAccent)
+            setOnRefreshListener {
+                vm.requestFreshNews()
+            }
+        }
+
+        vm.isLoading.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                if (!it) refreshLayout?.isRefreshing = false
+            }
+        })
+
+        vm.logout.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                (activity as BaseActivity?)?.logout()
+            }
+        })
+
+        vm.showMessage.observe(viewLifecycleOwner, Observer {
+            if (it.isNotEmpty()) {
+                Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
             }
         })
 

@@ -1,6 +1,5 @@
 package kz.iitu.iituboardandroid.ui.board
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.FrameLayout
 import android.widget.Toast
@@ -13,7 +12,6 @@ import kz.iitu.iituboardandroid.ui.board.ads.AdsFragment
 import kz.iitu.iituboardandroid.ui.board.news.NewsFragment
 import kz.iitu.iituboardandroid.ui.board.profile.ProfileFragment
 import kz.iitu.iituboardandroid.ui.board.vacancies.VacanciesFragment
-import kz.iitu.iituboardandroid.ui.login.LoginActivity
 import kz.iitu.iituboardandroid.utils.ScrollableBottomNavView
 import kz.iitu.iituboardandroid.utils.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -80,14 +78,6 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
 
         vm.isError.observe(this, Observer {
             showErrorMessageBy(it)
-        })
-
-        vm.moveToLogin.observe(this, Observer {
-            if (it) {
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
         })
 
         vm.updateRecords.observe(this, Observer {

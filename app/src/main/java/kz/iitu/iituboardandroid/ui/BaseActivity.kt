@@ -92,8 +92,8 @@ open class BaseActivity : AppCompatActivity() {
             .putBoolean(Constants.REMEMBER_ME, false).apply()
         obtain<LoginResponse>().build().delete()
         val intent = Intent(this, LoginActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
+        finish()
     }
 
     fun safeOpenBrowser(url: String) {

@@ -11,13 +11,12 @@ class BoardVM(private val repository: BoardRepository) : BaseVM() {
     val updateRecords = MutableLiveData(false)
 
     init {
-
         val userData = repository.getUserInfo()
         userData?.let {
             launchLoadingCoroutine(mainBlock = {
                 val result = repository.getAllRecords(userData.token ?: "")
                 when (result.message) {
-                    null -> {
+                    null, "" -> {
                         updateRecords.value = true
                     }
                     "USER_NOT_ACTIV", "USER_NOT_FOUND" -> {
@@ -26,7 +25,7 @@ class BoardVM(private val repository: BoardRepository) : BaseVM() {
                 }
             })
         } ?: run {
-            moveToLogin.value = true
+            logout.value = true
         }
     }
 

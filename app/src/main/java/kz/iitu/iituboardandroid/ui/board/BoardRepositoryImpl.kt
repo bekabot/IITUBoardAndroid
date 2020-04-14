@@ -21,22 +21,33 @@ class BoardRepositoryImpl(
 
     override fun getUserInfo() = localDS.getUserInfo()
 
-    override fun getCachedNews() = getRecordsByType("news")
-
-    override fun getCachedVacancies() = getRecordsByType("vacancy")
-
-    override fun getCachedAds() = getRecordsByType("ads")
-
-    private fun getRecordsByType(recordType: String): List<Record>? {
+    override fun getCachedNews(): List<Record>? {
         val filteredRecords = localDS.getRecords()?.records?.filter {
-            it.record_type == recordType
+            it.record_type == "news"
         }
-        return filteredRecords?.let {
-            val mutableList = filteredRecords.toMutableList()
+        return getSortedRecords(filteredRecords)
+    }
+
+    override fun getCachedVacancies(): List<Record>? {
+        val filteredRecords = localDS.getRecords()?.records?.filter {
+            it.record_type == "vacancy"
+        }
+        return getSortedRecords(filteredRecords)
+    }
+
+    override fun getCachedAds(): List<Record>? {
+        val filteredRecords = localDS.getRecords()?.records?.filter {
+            it.record_type == "ads"
+        }
+        return getSortedRecords(filteredRecords)
+    }
+
+    private fun getSortedRecords(records: List<Record>?) =
+        records?.let {
+            val mutableList = records.toMutableList()
             mutableList.sortWith(compareByDescending { it.getFormattedCreationDate() })
             mutableList
         }
-    }
 
     override suspend fun getRecordById(token: String, id: Int): RecordResponse? {
         val cachedRecord = localDS.getRecords()?.records?.firstOrNull {
@@ -45,5 +56,28 @@ class BoardRepositoryImpl(
         return cachedRecord?.let {
             RecordResponse("", it)
         } ?: remoteDS.getRecordById(token, id)
+    }
+
+    override suspend fun getNews(token: String) = getRecordsByType("news", token)
+
+    override suspend fun getAds(token: String) = getRecordsByType("ads", token)
+
+    override suspend fun getVacancies(token: String) = getRecordsByType("vacancy", token)
+
+    private suspend fun getRecordsByType(recordType: String, token: String): RecordsResponse {
+        val recordsResponse = remoteDS.getAllRecords(token)
+        recordsResponse.message?.let {
+            return recordsResponse
+        } ?: run {
+            val records = recordsResponse.records
+            return if (records?.isNotEmpty() == true) {
+                localDS.saveRecords(recordsResponse)
+                val recordsByType = records.filter { it.record_type == recordType }
+                val sortedRecords = getSortedRecords(recordsByType)
+                RecordsResponse("", sortedRecords)
+            } else {
+                RecordsResponse("", emptyList())
+            }
+        }
     }
 }

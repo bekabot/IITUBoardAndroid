@@ -11,4 +11,24 @@ class NewsVM(private val repository: BoardRepository) : BaseVM() {
     fun setUpNews() {
         news.value = repository.getCachedNews()
     }
+
+    fun requestFreshNews() {
+        val userData = repository.getUserInfo()
+        userData?.let {
+            launchLoadingCoroutine(mainBlock = {
+                val result = repository.getNews(userData.token ?: "")
+                when (result.message) {
+                    null, "" -> {
+                        news.value = result.records
+                        showMessage.value = "Новости обновлены"
+                    }
+                    "USER_NOT_ACTIV", "USER_NOT_FOUND" -> {
+                        logout.value = true
+                    }
+                }
+            })
+        } ?: run {
+            logout.value = true
+        }
+    }
 }

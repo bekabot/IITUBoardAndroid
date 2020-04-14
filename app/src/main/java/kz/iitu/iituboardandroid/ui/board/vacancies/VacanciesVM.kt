@@ -11,4 +11,24 @@ class VacanciesVM(private val repository: BoardRepository) : BaseVM() {
     fun setUpVacancies() {
         vacancies.value = repository.getCachedVacancies()
     }
+
+    fun requestFreshVacancies() {
+        val userData = repository.getUserInfo()
+        userData?.let {
+            launchLoadingCoroutine(mainBlock = {
+                val result = repository.getVacancies(userData.token ?: "")
+                when (result.message) {
+                    null, "" -> {
+                        vacancies.value = result.records
+                        showMessage.value = "Вакансии обновлены"
+                    }
+                    "USER_NOT_ACTIV", "USER_NOT_FOUND" -> {
+                        logout.value = true
+                    }
+                }
+            })
+        } ?: run {
+            logout.value = true
+        }
+    }
 }
