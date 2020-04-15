@@ -2,4 +2,6 @@
     <string name="app_name">IITUBoardAndroid</string>
     <string name="title_close">Закрыть</string>
     <string name="title_settings">Настройки</string>
+    <string name="file_too_large">Размер файла не должен превышать 10 МВ</string>
+    <string name="file_not_found">Файл не найден</string>
 </resources>

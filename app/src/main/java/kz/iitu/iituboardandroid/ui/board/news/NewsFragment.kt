@@ -26,6 +26,8 @@ import kz.iitu.iituboardandroid.ui.record.RecordActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @ExperimentalCoroutinesApi
+//todo reset search when chip is clicked while searching
+//todo push did not come on old device
 class NewsFragment : Fragment() {
 
     private var listener: OnFragmentInteractionListener? = null

@@ -1,5 +1,6 @@
 package kz.iitu.iituboardandroid
 
+import android.content.Context
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,3 +33,42 @@ fun String.toDate() = try {
 } catch (e: Exception) {
     null
 }
+
+fun Double.convertToStringBytes(context: Context): String {
+    var text = ""
+    val initValue = this
+    val deliminator = ""
+    if (initValue > 1000) {
+        var value = initValue / 1024
+        val ints = arrayOf(0, 1, 2)
+        for (index: Int in ints) {
+            if (value > 1000) {
+                value /= 1024
+                if (index != 2) continue
+            }
+            text = when (index) {
+                0 -> value.applyPrecision() + deliminator + "KB"
+                1 -> value.applyPrecision() + deliminator + "MB"
+                2 -> value.applyPrecision() + deliminator + "GB"
+                else -> "0"
+            }
+            break
+        }
+    } else {
+        text = initValue.applyPrecision() + deliminator + "B"
+    }
+    return text
+}
+
+fun Double.applyPrecision(): String {
+    val decimal = this.decimalNumbers()
+    return if (decimal == "0") {
+        this.toInt().toString()
+    } else {
+        String.format("%.2f", this)
+    }
+}
+
+fun Double.decimalNumbers(decimalPoints: Int = 2) =
+    if (this % 1 == 0.0) "0"
+    else decimalPoints.toString()
