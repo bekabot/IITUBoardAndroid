@@ -1,13 +1,15 @@
 package kz.iitu.iituboardandroid.ui.board
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.ui.BaseActivity
-import kz.iitu.iituboardandroid.ui.board.add.AddRecordFragment
+import kz.iitu.iituboardandroid.ui.board.add.AddRecordActivity
 import kz.iitu.iituboardandroid.ui.board.ads.AdsFragment
 import kz.iitu.iituboardandroid.ui.board.news.NewsFragment
 import kz.iitu.iituboardandroid.ui.board.profile.ProfileFragment
@@ -16,8 +18,9 @@ import kz.iitu.iituboardandroid.utils.ScrollableBottomNavView
 import kz.iitu.iituboardandroid.utils.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@ExperimentalCoroutinesApi
 class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener,
-    AddRecordFragment.OnFragmentInteractionListener, AdsFragment.OnFragmentInteractionListener,
+    AdsFragment.OnFragmentInteractionListener,
     ProfileFragment.OnFragmentInteractionListener, VacanciesFragment.OnFragmentInteractionListener {
 
     private val bottomNavigation: ScrollableBottomNavView by bind(R.id.bottom_nav)
@@ -42,7 +45,8 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
                     showFragmentBy(tag = VacanciesFragment.FRAG_TAG)
                 }
                 R.id.action_add -> {
-                    Toast.makeText(this, "add clicked", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, AddRecordActivity::class.java))
+                    //todo add refresh board if added successfully
                 }
                 R.id.action_ads -> {
                     showFragmentBy(tag = AdsFragment.FRAG_TAG)

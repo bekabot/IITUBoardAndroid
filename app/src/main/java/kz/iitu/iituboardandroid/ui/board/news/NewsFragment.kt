@@ -98,6 +98,7 @@ class NewsFragment : Fragment() {
         view.findViewById<AppCompatEditText>(R.id.search).doAfterTextChanged {
             it?.let {
                 vm.searchNews(it.toString())
+                resetChipGroup(view)
             }
         }
 
@@ -130,13 +131,17 @@ class NewsFragment : Fragment() {
         vm.clearInputFields.observe(viewLifecycleOwner, Observer {
             (activity as BaseActivity).closeKeyboard()
             view.findViewById<AppCompatEditText>(R.id.search).text?.clear()
-            val chipGroup = view.findViewById<ChipGroup>(R.id.category_group)
-            chipGroup.setOnCheckedChangeListener(null)
-            chipGroup.clearCheck()
-            setChipGroupCheckedListener(chipGroup)
+            resetChipGroup(view)
         })
 
         return view
+    }
+
+    private fun resetChipGroup(view: View) {
+        val chipGroup = view.findViewById<ChipGroup>(R.id.category_group)
+        chipGroup.setOnCheckedChangeListener(null)
+        chipGroup.clearCheck()
+        setChipGroupCheckedListener(chipGroup)
     }
 
     private fun setChipGroupCheckedListener(view: View) {

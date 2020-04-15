@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="kz.iitu.iituboardandroid.ui.board.add.AddRecordVM" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/root_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                app:layout_scrollFlags="scroll|snap|enterAlways"
+                app:navigationIcon="@drawable/ic_back"
+                app:title="Добавление записи" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingBottom="20dp">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/title_field"
+                    style="@style/FormEditText"
+                    android:layout_marginTop="10dp"
+                    android:hint="Введите заголовок"
+                    android:imeOptions="actionNext"
+                    android:maxLength="200"
+                    android:text="@={viewModel.title}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/description_field"
+                    style="@style/FormEditText"
+                    android:layout_marginTop="10dp"
+                    android:hint="Введите текст"
+                    android:imeOptions="actionNext"
+                    android:maxLength="10000"
+                    android:text="@={viewModel.description}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title_field" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/phone_field"
+                    style="@style/FormEditText"
+                    android:layout_marginTop="10dp"
+                    android:hint="Введите телефон (необязательно)"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:text="@={viewModel.phoneNumber}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/description_field" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/email_field"
+                    style="@style/FormEditText"
+                    android:layout_marginTop="10dp"
+                    android:hint="Введите email (необязательно)"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:text="@={viewModel.email}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/phone_field" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/whatsapp_field"
+                    style="@style/FormEditText"
+                    android:layout_marginTop="10dp"
+                    android:hint="Введите WhatsApp (необязательно)"
+                    android:imeOptions="actionNext"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:text="@={viewModel.whatsApp}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/email_field" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/instagram_field"
+                    style="@style/FormEditText"
+                    android:layout_marginTop="10dp"
+                    android:hint="Введите Instagram (необязательно)"
+                    android:imeOptions="actionNext"
+                    android:text="@={viewModel.instagram}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/whatsapp_field" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/vk_field"
+                    style="@style/FormEditText"
+                    android:layout_marginTop="10dp"
+                    android:hint="Введите VK (необязательно)"
+                    android:imeOptions="actionNext"
+                    android:text="@={viewModel.vk}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/instagram_field" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/telegram_field"
+                    style="@style/FormEditText"
+                    android:layout_marginTop="10dp"
+                    android:hint="Введите Telegram (необязательно)"
+                    android:imeOptions="actionNext"
+                    android:text="@={viewModel.telegram}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/vk_field" />
+
+                <RadioGroup
+                    android:id="@+id/type_radio_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/telegram_field">
+
+                    <RadioButton
+                        android:id="@+id/type_news"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Новость" />
+
+                    <RadioButton
+                        android:id="@+id/type_ads"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Объявление" />
+
+                    <RadioButton
+                        android:id="@+id/type_vacancy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Вакансия" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/news_type_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_horizontal"
+                    android:text="Тип новости"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/type_radio_group" />
+
+                <RadioGroup
+                    android:id="@+id/news_radio_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/news_type_title">
+
+                    <RadioButton
+                        android:id="@+id/news_others"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Прочее" />
+
+                    <RadioButton
+                        android:id="@+id/news_it"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IT" />
+
+                    <RadioButton
+                        android:id="@+id/news_study"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Учеба" />
+
+                    <RadioButton
+                        android:id="@+id/news_sport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Спорт" />
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/logout"
+                    style="@style/ActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="СОЗДАТЬ ЗАПИСЬ"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/news_radio_group" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

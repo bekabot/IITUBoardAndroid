@@ -19,12 +19,12 @@ class RecordVM(private val repository: BoardRepository) : BaseVM() {
     val images = MutableLiveData<List<String>>()
     val author = MutableLiveData("")
 
-    val callNumber = MutableLiveData<String>("")
-    val writeToEmail = MutableLiveData<String>("")
-    val openVK = MutableLiveData<String>("")
-    val openTelegram = MutableLiveData<String>("")
-    val openWhatsApp = MutableLiveData<String>("")
-    val openInstagram = MutableLiveData<String>("")
+    val callNumber = MutableLiveData("")
+    val writeToEmail = MutableLiveData("")
+    val openVK = MutableLiveData("")
+    val openTelegram = MutableLiveData("")
+    val openWhatsApp = MutableLiveData("")
+    val openInstagram = MutableLiveData("")
 
     var record: Record? = null
 
