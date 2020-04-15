@@ -46,7 +46,7 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/title_field"
                     style="@style/FormEditText"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:hint="Введите заголовок"
                     android:imeOptions="actionNext"
                     android:maxLength="200"
@@ -58,7 +58,7 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/description_field"
                     style="@style/FormEditText"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:hint="Введите текст"
                     android:imeOptions="actionNext"
                     android:maxLength="10000"
@@ -67,10 +67,214 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/title_field" />
 
+                <TextView
+                    android:id="@+id/image1_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Картинка1 (необязательно)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/description_field" />
+
+                <ImageView
+                    android:id="@+id/pick_image_1"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintBottom_toBottomOf="@id/image1_title"
+                    app:layout_constraintStart_toEndOf="@id/image1_title"
+                    app:layout_constraintTop_toTopOf="@id/image1_title"
+                    app:srcCompat="@drawable/ic_photo" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/attached_file_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/inactive_rounded_rect"
+                    android:minHeight="24dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/image1_title">
+
+                    <ImageView
+                        android:id="@+id/attach_file_1"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:contentDescription="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_attach_file_28dp" />
+
+                    <TextView
+                        android:id="@+id/file_description_1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="6dp"
+                        android:text="Screenshot (12MB)"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/remove_file_1"
+                        app:layout_constraintStart_toEndOf="@id/attach_file_1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/remove_file_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_close" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/image2_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Картинка2 (не обязательно)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/attached_file_1" />
+
+                <ImageView
+                    android:id="@+id/pick_image_2"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintBottom_toBottomOf="@id/image2_title"
+                    app:layout_constraintStart_toEndOf="@id/image2_title"
+                    app:layout_constraintTop_toTopOf="@id/image2_title"
+                    app:srcCompat="@drawable/ic_photo" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/attached_file_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/inactive_rounded_rect"
+                    android:minHeight="24dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/image2_title">
+
+                    <ImageView
+                        android:id="@+id/attach_file_2"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:contentDescription="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_attach_file_28dp" />
+
+                    <TextView
+                        android:id="@+id/file_description_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="6dp"
+                        android:text="Screenshot (12MB)"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/remove_file_2"
+                        app:layout_constraintStart_toEndOf="@id/attach_file_2"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/remove_file_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_close" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/image3_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Картинка3 (необязательно)"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/attached_file_2" />
+
+                <ImageView
+                    android:id="@+id/pick_image_3"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintBottom_toBottomOf="@id/image3_title"
+                    app:layout_constraintStart_toEndOf="@id/image3_title"
+                    app:layout_constraintTop_toTopOf="@id/image3_title"
+                    app:srcCompat="@drawable/ic_photo" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/attached_file_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/inactive_rounded_rect"
+                    android:minHeight="24dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/image3_title">
+
+                    <ImageView
+                        android:id="@+id/attach_file_3"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:contentDescription="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_attach_file_28dp" />
+
+                    <TextView
+                        android:id="@+id/file_description_3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="6dp"
+                        android:text="Screenshot (12MB)"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/remove_file_3"
+                        app:layout_constraintStart_toEndOf="@id/attach_file_3"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/remove_file_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@null"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_close" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/phone_field"
                     style="@style/FormEditText"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:hint="Введите телефон (необязательно)"
                     android:imeOptions="actionNext"
                     android:inputType="number"
@@ -78,12 +282,12 @@
                     android:text="@={viewModel.phoneNumber}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/description_field" />
+                    app:layout_constraintTop_toBottomOf="@id/attached_file_3" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/email_field"
                     style="@style/FormEditText"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:hint="Введите email (необязательно)"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
@@ -95,7 +299,7 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/whatsapp_field"
                     style="@style/FormEditText"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:hint="Введите WhatsApp (необязательно)"
                     android:imeOptions="actionNext"
                     android:inputType="number"
@@ -108,7 +312,7 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/instagram_field"
                     style="@style/FormEditText"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:hint="Введите Instagram (необязательно)"
                     android:imeOptions="actionNext"
                     android:text="@={viewModel.instagram}"
@@ -119,7 +323,7 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/vk_field"
                     style="@style/FormEditText"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:hint="Введите VK (необязательно)"
                     android:imeOptions="actionNext"
                     android:text="@={viewModel.vk}"
@@ -130,7 +334,7 @@
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/telegram_field"
                     style="@style/FormEditText"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="15dp"
                     android:hint="Введите Telegram (необязательно)"
                     android:imeOptions="actionNext"
                     android:text="@={viewModel.telegram}"
@@ -149,73 +353,18 @@
                     app:layout_constraintTop_toBottomOf="@id/telegram_field">
 
                     <RadioButton
-                        android:id="@+id/type_news"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="Новость" />
-
-                    <RadioButton
                         android:id="@+id/type_ads"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:checked="true"
                         android:text="Объявление" />
 
                     <RadioButton
                         android:id="@+id/type_vacancy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
                         android:text="Вакансия" />
-
-                </RadioGroup>
-
-                <TextView
-                    android:id="@+id/news_type_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:gravity="center_horizontal"
-                    android:text="Тип новости"
-                    android:textSize="15sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/type_radio_group" />
-
-                <RadioGroup
-                    android:id="@+id/news_radio_group"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/news_type_title">
-
-                    <RadioButton
-                        android:id="@+id/news_others"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:text="Прочее" />
-
-                    <RadioButton
-                        android:id="@+id/news_it"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="IT" />
-
-                    <RadioButton
-                        android:id="@+id/news_study"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Учеба" />
-
-                    <RadioButton
-                        android:id="@+id/news_sport"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Спорт" />
 
                 </RadioGroup>
 
@@ -224,13 +373,13 @@
                     style="@style/ActionButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="СОЗДАТЬ ЗАПИСЬ"
+                    android:layout_marginTop="10dp"
+                    android:text="Добавить"
                     android:textColor="@android:color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/news_radio_group" />
+                    app:layout_constraintTop_toBottomOf="@id/type_radio_group" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
