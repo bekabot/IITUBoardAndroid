@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -94,9 +95,11 @@
                     android:background="@drawable/inactive_rounded_rect"
                     android:minHeight="24dp"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/image1_title">
+                    app:layout_constraintTop_toBottomOf="@+id/image1_title"
+                    tools:visibility="visible">
 
                     <ImageView
                         android:id="@+id/attach_file_1"
@@ -162,9 +165,11 @@
                     android:background="@drawable/inactive_rounded_rect"
                     android:minHeight="24dp"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/image2_title">
+                    app:layout_constraintTop_toBottomOf="@+id/image2_title"
+                    tools:visibility="visible">
 
                     <ImageView
                         android:id="@+id/attach_file_2"
@@ -230,9 +235,11 @@
                     android:background="@drawable/inactive_rounded_rect"
                     android:minHeight="24dp"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/image3_title">
+                    app:layout_constraintTop_toBottomOf="@+id/image3_title"
+                    tools:visibility="visible">
 
                     <ImageView
                         android:id="@+id/attach_file_3"
@@ -374,6 +381,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:onClick="@{() -> viewModel.onAddRecordClick()}"
                     android:text="Добавить"
                     android:textColor="@android:color/white"
                     app:layout_constraintBottom_toBottomOf="parent"

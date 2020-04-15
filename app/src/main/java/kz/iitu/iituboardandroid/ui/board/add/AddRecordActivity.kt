@@ -1,9 +1,12 @@
 package kz.iitu.iituboardandroid.ui.board.add
 
+import android.Manifest
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
 import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.databinding.ActivityAddRecordBinding
 import kz.iitu.iituboardandroid.ui.BaseActivity
@@ -13,6 +16,17 @@ class AddRecordActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAddRecordBinding
     private val vm: AddRecordVM by viewModel()
+
+    private var chosenImagePickerID = -1
+
+    private var permissionListener: PermissionListener = object : PermissionListener {
+        override fun onPermissionGranted() {
+            pickImage()
+        }
+
+        override fun onPermissionDenied(deniedPermissions: List<String>) {
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +59,39 @@ class AddRecordActivity : BaseActivity() {
         vm.isError.observe(this, Observer {
             showErrorMessageBy(it)
         })
+
+        binding.pickImage1.setOnClickListener {
+            chosenImagePickerID = R.id.pick_image_1
+            checkReadStoragePermission()
+        }
+
+        binding.pickImage2.setOnClickListener {
+            chosenImagePickerID = R.id.pick_image_2
+            checkReadStoragePermission()
+        }
+
+        binding.pickImage3.setOnClickListener {
+            chosenImagePickerID = R.id.pick_image_3
+            checkReadStoragePermission()
+        }
+    }
+
+    private fun checkReadStoragePermission() {
+        if (TedPermission.isGranted(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            pickImage()
+        } else {
+            TedPermission.with(this)
+                .setPermissionListener(permissionListener)
+                .setDeniedMessage("Разрешение не предоставлено")
+                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE)
+                .setDeniedCloseButtonText(R.string.title_close)
+                .setGotoSettingButtonText(R.string.title_settings)
+                .check()
+        }
+    }
+
+    private fun pickImage() {
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem?) =

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">IITUBoardAndroid</string>
+    <string name="title_close">Закрыть</string>
+    <string name="title_settings">Настройки</string>
 </resources>

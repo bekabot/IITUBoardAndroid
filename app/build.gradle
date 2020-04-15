@@ -103,4 +103,7 @@ dependencies {
 
     //Cache
     implementation 'wiki.depasquale:mcache:1.7.53'
+
+    //Permissions
+    implementation 'gun0912.ted:tedpermission:2.2.3'
 }
