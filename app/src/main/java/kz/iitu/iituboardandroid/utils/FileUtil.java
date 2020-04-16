@@ -44,7 +44,7 @@ public class FileUtil {
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
 
-                String fullPath = getPathFromExtSD(split);
+                String fullPath = getPathFromExtSD(split, context);
                 if (!fullPath.equals("")) {
                     return fullPath;
                 } else {
@@ -61,7 +61,7 @@ public class FileUtil {
                         cursor = context.getContentResolver().query(uri, new String[]{MediaStore.MediaColumns.DISPLAY_NAME}, null, null, null);
                         if (cursor != null && cursor.moveToFirst()) {
                             String fileName = cursor.getString(0);
-                            String path = Environment.getExternalStorageDirectory().toString() + "/Download/" + fileName;
+                            String path = context.getExternalFilesDir(null).toString() + "/Download/" + fileName;
                             if (!TextUtils.isEmpty(path)) {
                                 return path;
                             }
@@ -178,7 +178,7 @@ public class FileUtil {
      *
      * @param pathData The storage type and the relative path
      */
-    private static String getPathFromExtSD(String[] pathData) {
+    private static String getPathFromExtSD(String[] pathData, Context context) {
         final String type = pathData[0];
         final String relativePath = "/" + pathData[1];
         String fullPath = "";
@@ -189,7 +189,7 @@ public class FileUtil {
         //
         // so no "primary" type, but let the check here for other devices
         if ("primary".equalsIgnoreCase(type)) {
-            fullPath = Environment.getExternalStorageDirectory() + relativePath;
+            fullPath = context.getExternalFilesDir(null) + relativePath;
             if (fileExists(fullPath)) {
                 return fullPath;
             }

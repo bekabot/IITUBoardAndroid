@@ -46,7 +46,6 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
                 }
                 R.id.action_add -> {
                     startActivity(Intent(this, AddRecordActivity::class.java))
-                    //todo add refresh board if added successfully
                 }
                 R.id.action_ads -> {
                     showFragmentBy(tag = AdsFragment.FRAG_TAG)

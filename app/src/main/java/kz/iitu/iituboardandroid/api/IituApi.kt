@@ -3,10 +3,8 @@ package kz.iitu.iituboardandroid.api
 import kz.iitu.iituboardandroid.Constants
 import kz.iitu.iituboardandroid.api.response.RecordResponse
 import kz.iitu.iituboardandroid.api.response.RecordsResponse
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import okhttp3.MultipartBody
+import retrofit2.http.*
 
 interface IituApi {
     @POST("${Constants.HOST}/api/auth/")
@@ -22,5 +20,26 @@ interface IituApi {
     suspend fun getAllRecords(@Query("token") token: String): RecordsResponse
 
     @GET("${Constants.HOST}/api/board/")
-    suspend fun getRecordById(@Query("token") token: String, @Query("id") recordId: Int): RecordResponse
+    suspend fun getRecordById(
+        @Query("token") token: String,
+        @Query("id") recordId: Int
+    ): RecordResponse
+
+    @Multipart
+    @POST("${Constants.HOST}/api/board/")
+    suspend fun addRecord(
+        @Query("token") token: String,
+        @Query("title") title: String,
+        @Query("body") description: String,
+        @Part file1: MultipartBody.Part?,
+        @Part file2: MultipartBody.Part?,
+        @Part file3: MultipartBody.Part?
+    ): CommonResponse
+
+    @POST("${Constants.HOST}/api/board/")
+    suspend fun addRecord(
+        @Query("token") token: String,
+        @Query("title") title: String,
+        @Query("body") description: String
+    ): CommonResponse
 }

@@ -1,6 +1,5 @@
 package kz.iitu.iituboardandroid.ui.board.add
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import kz.iitu.iituboardandroid.ui.BaseVM
 import kz.iitu.iituboardandroid.ui.board.BoardRepository
@@ -20,11 +19,40 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
     var imageFile2: File? = null
     var imageFile3: File? = null
 
+    var imageName1 = ""
+    var imageName2 = ""
+    var imageName3 = ""
+
     fun onAddRecordClick() {
         if (validateFields()) {
-            Log.d("AddRecordVM", "imageFile1 is " + imageFile1?.name)
-            Log.d("AddRecordVM", "imageFile2 is " + imageFile2?.name)
-            Log.d("AddRecordVM", "imageFile3 is " + imageFile3?.name)
+            val userData = repository.getUserInfo()
+            userData?.let {
+                launchLoadingCoroutine(mainBlock = {
+                    val result =
+                        repository.addRecord(
+                            userData.token!!,
+                            "test_title",
+                            "test_description",
+                            imageFile1,
+                            imageName1,
+                            imageFile2,
+                            imageName2,
+                            imageFile3,
+                            imageName3
+                        )
+                    when (result.message) {
+                        null, "" -> {
+                            //todo show success message
+                            //todo add refresh board if added successfully
+                        }
+                        "USER_NOT_ACTIV", "USER_NOT_FOUND" -> {
+                            logout.value = true
+                        }
+                    }
+                })
+            } ?: run {
+                logout.value = true
+            }
         }
     }
 

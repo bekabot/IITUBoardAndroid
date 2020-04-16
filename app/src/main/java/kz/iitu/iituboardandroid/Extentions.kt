@@ -1,6 +1,9 @@
 package kz.iitu.iituboardandroid
 
+import android.content.ContentResolver
 import android.content.Context
+import android.net.Uri
+import android.provider.OpenableColumns
 import java.security.MessageDigest
 import java.text.SimpleDateFormat
 import java.util.*
@@ -72,3 +75,16 @@ fun Double.applyPrecision(): String {
 fun Double.decimalNumbers(decimalPoints: Int = 2) =
     if (this % 1 == 0.0) "0"
     else decimalPoints.toString()
+
+fun ContentResolver.getFileName(fileUri: Uri): String {
+    var name = ""
+    val returnCursor = this.query(fileUri, null, null, null, null)
+    if (returnCursor != null) {
+        val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+        returnCursor.moveToFirst()
+        name = returnCursor.getString(nameIndex)
+        returnCursor.close()
+    }
+
+    return name
+}

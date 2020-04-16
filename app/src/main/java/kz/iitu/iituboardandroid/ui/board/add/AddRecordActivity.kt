@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -12,17 +13,21 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.Observer
+import com.google.android.gms.common.util.IOUtils
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kz.iitu.iituboardandroid.Constants
 import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.convertToStringBytes
 import kz.iitu.iituboardandroid.databinding.ActivityAddRecordBinding
+import kz.iitu.iituboardandroid.getFileName
 import kz.iitu.iituboardandroid.ui.BaseActivity
 import kz.iitu.iituboardandroid.utils.FileUtil
 import kz.iitu.iituboardandroid.utils.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 class AddRecordActivity : BaseActivity() {
 
@@ -89,6 +94,7 @@ class AddRecordActivity : BaseActivity() {
             chosenImagePickerID = -1
             attachedFileInfo1.visibility = View.GONE
             vm.imageFile1 = null
+            vm.imageName1 = ""
         }
 
         binding.pickImage2.setOnClickListener {
@@ -100,6 +106,7 @@ class AddRecordActivity : BaseActivity() {
             chosenImagePickerID = -1
             attachedFileInfo2.visibility = View.GONE
             vm.imageFile2 = null
+            vm.imageName2 = ""
         }
 
         binding.pickImage3.setOnClickListener {
@@ -111,6 +118,7 @@ class AddRecordActivity : BaseActivity() {
             chosenImagePickerID = -1
             attachedFileInfo3.visibility = View.GONE
             vm.imageFile3 = null
+            vm.imageName3 = ""
         }
     }
 
@@ -191,47 +199,69 @@ class AddRecordActivity : BaseActivity() {
     }
 
     private fun setUpSelectedFile(info: String, uri: Uri) {
-        val path = FileUtil.getPath(this, uri)
-        val file = path?.let {
-            File(path)
-        } ?: run {
-            showTextAlert(getString(R.string.file_not_found))
-            removeAttachedFile()
-            return
-        }
-
         when (chosenImagePickerID) {
             R.id.pick_image_1 -> {
                 attachedFileInfo1.visibility = View.VISIBLE
                 attachedFileDescription1.text = info
-                vm.imageFile1 = file
+                vm.imageFile1 = getFileFromUri(uri)
+                vm.imageName1 = contentResolver.getFileName(uri)
             }
             R.id.pick_image_2 -> {
                 attachedFileInfo2.visibility = View.VISIBLE
                 attachedFileDescription2.text = info
-                vm.imageFile2 = file
+                vm.imageFile2 = getFileFromUri(uri)
+                vm.imageName2 = contentResolver.getFileName(uri)
             }
             R.id.pick_image_3 -> {
                 attachedFileInfo3.visibility = View.VISIBLE
                 attachedFileDescription3.text = info
-                vm.imageFile3 = file
+                vm.imageFile3 = getFileFromUri(uri)
+                vm.imageName3 = contentResolver.getFileName(uri)
             }
         }
     }
+
+    private fun getFileFromUri(uri: Uri) =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val parcelFileDescriptor = contentResolver.openFileDescriptor(uri, "r", null)
+            parcelFileDescriptor?.let {
+                val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+                val file = File(cacheDir, contentResolver.getFileName(uri))
+                val outputStream = FileOutputStream(file)
+                IOUtils.copyStream(inputStream, outputStream)
+                file
+            } ?: run {
+                showTextAlert(getString(R.string.file_not_found))
+                removeAttachedFile()
+                null
+            }
+        } else {
+            val path = FileUtil.getPath(this, uri)
+            path?.let {
+                File(path)
+            } ?: run {
+                showTextAlert(getString(R.string.file_not_found))
+                removeAttachedFile()
+                null
+            }
+        }
 
     private fun removeAttachedFile() {
         when (chosenImagePickerID) {
             R.id.pick_image_1 -> {
                 attachedFileInfo1.visibility = View.GONE
                 vm.imageFile1 = null
+                vm.imageName1 = ""
             }
             R.id.pick_image_2 -> {
                 attachedFileInfo2.visibility = View.GONE
                 vm.imageFile2 = null
+                vm.imageName2 = ""
             }
             R.id.pick_image_3 -> {
                 attachedFileInfo3.visibility = View.GONE
                 vm.imageFile3 = null
+                vm.imageName3 = ""
             }
         }
     }

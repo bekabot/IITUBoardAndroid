@@ -1,10 +1,12 @@
 package kz.iitu.iituboardandroid.ui.board
 
+import kz.iitu.iituboardandroid.api.CommonResponse
 import kz.iitu.iituboardandroid.api.LocalDataSource
 import kz.iitu.iituboardandroid.api.RemoteDataSource
 import kz.iitu.iituboardandroid.api.response.Record
 import kz.iitu.iituboardandroid.api.response.RecordResponse
 import kz.iitu.iituboardandroid.api.response.RecordsResponse
+import java.io.File
 
 class BoardRepositoryImpl(
     private val localDS: LocalDataSource,
@@ -79,5 +81,22 @@ class BoardRepositoryImpl(
                 RecordsResponse("", emptyList())
             }
         }
+    }
+
+    override suspend fun addRecord(
+        token: String,
+        title: String,
+        description: String,
+        file1: File?,
+        fileName1: String?,
+        file2: File?,
+        fileName2: String?,
+        file3: File?,
+        fileName3: String?
+    ): CommonResponse {
+        return remoteDS.addRecord(
+            token, title, description, file1, fileName1, file2, fileName2,
+            file3, fileName3
+        )
     }
 }
