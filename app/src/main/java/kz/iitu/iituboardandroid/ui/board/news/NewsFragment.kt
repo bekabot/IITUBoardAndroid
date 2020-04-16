@@ -3,6 +3,7 @@ package kz.iitu.iituboardandroid.ui.board.news
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +27,6 @@ import kz.iitu.iituboardandroid.ui.record.RecordActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @ExperimentalCoroutinesApi
-//todo reset search when chip is clicked while searching
 //todo push did not come on old device
 class NewsFragment : Fragment() {
 
@@ -35,6 +35,9 @@ class NewsFragment : Fragment() {
     private val vm: NewsVM by viewModel()
 
     private var refreshLayout: SwipeRefreshLayout? = null
+    private var chipGroup: ChipGroup? = null
+    private var searchView: AppCompatEditText? = null
+    private var searchTextWatcher: TextWatcher? = null
 
     private val recordsAdapter =
         RecordsAdapter(object : RecordsAdapter.OnProfileInteraction {
@@ -61,6 +64,9 @@ class NewsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_news, container, false)
+
+        chipGroup = view.findViewById(R.id.category_group)
+        searchView = view.findViewById(R.id.search)
 
         listener?.setTitle("Новости")
 
@@ -97,12 +103,8 @@ class NewsFragment : Fragment() {
             }
         })
 
-        view.findViewById<AppCompatEditText>(R.id.search).doAfterTextChanged {
-            it?.let {
-                vm.searchNews(it.toString())
-                resetChipGroup(view)
-            }
-        }
+        setUpSearchTextChangedListener()
+        setChipGroupCheckedListener()
 
         vm.searchResult.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -111,48 +113,59 @@ class NewsFragment : Fragment() {
             }
         })
 
-        setChipGroupCheckedListener(view)
-
-        view.findViewById<Chip>(R.id.category_it).setOnCheckedChangeListener { view, ischecked ->
+        view.findViewById<Chip>(R.id.category_it).setOnCheckedChangeListener { _, _ ->
             vm.filterNewsByCategory("it")
         }
 
-        view.findViewById<Chip>(R.id.category_others)
-            .setOnCheckedChangeListener { view, ischecked ->
-                vm.filterNewsByCategory("others")
-            }
+        view.findViewById<Chip>(R.id.category_others).setOnCheckedChangeListener { _, _ ->
+            vm.filterNewsByCategory("others")
+        }
 
-        view.findViewById<Chip>(R.id.category_sport).setOnCheckedChangeListener { view, ischecked ->
+        view.findViewById<Chip>(R.id.category_sport).setOnCheckedChangeListener { _, _ ->
             vm.filterNewsByCategory("sport")
         }
 
-        view.findViewById<Chip>(R.id.category_study).setOnCheckedChangeListener { view, ischecked ->
+        view.findViewById<Chip>(R.id.category_study).setOnCheckedChangeListener { _, _ ->
             vm.filterNewsByCategory("study")
         }
 
         vm.clearInputFields.observe(viewLifecycleOwner, Observer {
             (activity as BaseActivity).closeKeyboard()
-            view.findViewById<AppCompatEditText>(R.id.search).text?.clear()
-            resetChipGroup(view)
+            searchView?.text?.clear()
+            resetChipGroup()
         })
 
         return view
     }
 
-    private fun resetChipGroup(view: View) {
-        val chipGroup = view.findViewById<ChipGroup>(R.id.category_group)
-        chipGroup.setOnCheckedChangeListener(null)
-        chipGroup.clearCheck()
-        setChipGroupCheckedListener(chipGroup)
+    @FlowPreview
+    private fun setUpSearchTextChangedListener() {
+        searchTextWatcher = searchView?.doAfterTextChanged {
+            it?.let {
+                vm.searchNews(it.toString())
+                resetChipGroup()
+            }
+        }
     }
 
-    private fun setChipGroupCheckedListener(view: View) {
-        view.findViewById<ChipGroup>(R.id.category_group)
-            .setOnCheckedChangeListener { view, checkId ->
-                if (checkId == View.NO_ID) {
-                    vm.setUpNews()
-                }
+    @FlowPreview
+    private fun resetChipGroup() {
+        chipGroup?.setOnCheckedChangeListener(null)
+        chipGroup?.clearCheck()
+        setChipGroupCheckedListener()
+    }
+
+    @FlowPreview
+    private fun setChipGroupCheckedListener() {
+        chipGroup?.setOnCheckedChangeListener { view, checkId ->
+            searchView?.removeTextChangedListener(searchTextWatcher)
+            searchView?.text?.clear()
+            setUpSearchTextChangedListener()
+
+            if (checkId == View.NO_ID) {
+                vm.setUpNews()
             }
+        }
     }
 
     fun updateNews() {
