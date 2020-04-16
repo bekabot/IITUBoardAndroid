@@ -11,7 +11,7 @@ class LoginVM(private val repository: LoginRepository) : BaseVM() {
     val passwordText = MutableLiveData<String>()
     val proceedToBoard = MutableLiveData(false)
 
-    var shouldRememberLogin = false
+    var shouldRememberLogin = true
     var fcmToken = ""
 
     fun login() {

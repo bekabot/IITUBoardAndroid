@@ -11,6 +11,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.TaskStackBuilder
 import androidx.core.content.ContextCompat
+import androidx.preference.PreferenceManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kz.iitu.iituboardandroid.api.LoginResponse
@@ -24,6 +25,11 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         super.onMessageReceived(message)
 
         obtain<LoginResponse>().build().getNow() ?: return
+        val shouldRememberUser = PreferenceManager
+            .getDefaultSharedPreferences(applicationContext)
+            .getBoolean(Constants.REMEMBER_ME, false)
+
+        if (!shouldRememberUser) return
 
         message.data.let { data ->
             val resultIntent = Intent(this, RecordActivity::class.java).apply {
