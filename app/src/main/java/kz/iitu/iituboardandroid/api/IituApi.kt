@@ -28,18 +28,12 @@ interface IituApi {
     @Multipart
     @POST("${Constants.HOST}/api/board/")
     suspend fun addRecord(
-        @Query("token") token: String,
-        @Query("title") title: String,
-        @Query("body") description: String,
+        @Part("record") body: AddRecordRequestBody,
         @Part file1: MultipartBody.Part?,
         @Part file2: MultipartBody.Part?,
         @Part file3: MultipartBody.Part?
     ): CommonResponse
 
     @POST("${Constants.HOST}/api/board/")
-    suspend fun addRecord(
-        @Query("token") token: String,
-        @Query("title") title: String,
-        @Query("body") description: String
-    ): CommonResponse
+    suspend fun addRecord(@Body body: AddRecordRequestBody): CommonResponse
 }

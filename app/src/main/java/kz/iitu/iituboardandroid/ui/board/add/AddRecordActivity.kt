@@ -120,6 +120,18 @@ class AddRecordActivity : BaseActivity() {
             vm.imageFile3 = null
             vm.imageName3 = ""
         }
+
+        binding.typeAds.setOnCheckedChangeListener {_, isChecked ->
+            if(isChecked){
+                vm.recordType.value = "ads"
+            }
+        }
+
+        binding.typeVacancy.setOnCheckedChangeListener {_, isChecked ->
+            if(isChecked){
+                vm.recordType.value = "vacancy"
+            }
+        }
     }
 
     private fun checkReadStoragePermission() {

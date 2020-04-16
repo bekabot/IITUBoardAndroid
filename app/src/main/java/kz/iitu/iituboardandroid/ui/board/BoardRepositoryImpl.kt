@@ -1,5 +1,6 @@
 package kz.iitu.iituboardandroid.ui.board
 
+import kz.iitu.iituboardandroid.api.AddRecordRequestBody
 import kz.iitu.iituboardandroid.api.CommonResponse
 import kz.iitu.iituboardandroid.api.LocalDataSource
 import kz.iitu.iituboardandroid.api.RemoteDataSource
@@ -84,9 +85,7 @@ class BoardRepositoryImpl(
     }
 
     override suspend fun addRecord(
-        token: String,
-        title: String,
-        description: String,
+        body: AddRecordRequestBody,
         file1: File?,
         fileName1: String?,
         file2: File?,
@@ -95,8 +94,7 @@ class BoardRepositoryImpl(
         fileName3: String?
     ): CommonResponse {
         return remoteDS.addRecord(
-            token, title, description, file1, fileName1, file2, fileName2,
-            file3, fileName3
+            body, file1, fileName1, file2, fileName2, file3, fileName3
         )
     }
 }

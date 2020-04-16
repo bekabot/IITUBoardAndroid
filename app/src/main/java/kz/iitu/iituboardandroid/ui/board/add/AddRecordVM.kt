@@ -1,6 +1,7 @@
 package kz.iitu.iituboardandroid.ui.board.add
 
 import androidx.lifecycle.MutableLiveData
+import kz.iitu.iituboardandroid.api.AddRecordRequestBody
 import kz.iitu.iituboardandroid.ui.BaseVM
 import kz.iitu.iituboardandroid.ui.board.BoardRepository
 import java.io.File
@@ -14,6 +15,7 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
     val vk = MutableLiveData("")
     val email = MutableLiveData("")
     val phoneNumber = MutableLiveData("")
+    val recordType = MutableLiveData("ads")
 
     var imageFile1: File? = null
     var imageFile2: File? = null
@@ -28,11 +30,22 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
             val userData = repository.getUserInfo()
             userData?.let {
                 launchLoadingCoroutine(mainBlock = {
+                    val requestBody = AddRecordRequestBody(
+                        userData.token ?: "",
+                        title = title.value ?: "",
+                        body = description.value ?: "",
+                        phone = phoneNumber.value ?: "",
+                        email = email.value ?: "",
+                        instagram = instagram.value ?: "",
+                        whatsapp = whatsApp.value ?: "",
+                        vk = vk.value ?: "",
+                        telegram = telegram.value ?: "",
+                        record_type = recordType.value ?: "ads",
+                        author = "${userData.name} ${userData.surname}"
+                    )
                     val result =
                         repository.addRecord(
-                            userData.token!!,
-                            "test_title",
-                            "test_description",
+                            requestBody,
                             imageFile1,
                             imageName1,
                             imageFile2,

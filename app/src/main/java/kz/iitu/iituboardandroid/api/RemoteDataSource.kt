@@ -31,9 +31,7 @@ class RemoteDataSource(private val api: IituApi, private val networkManager: Net
         onPerformRequest { api.getRecordById(token, id) }
 
     suspend fun addRecord(
-        token: String,
-        title: String,
-        description: String,
+        body: AddRecordRequestBody,
         file1: File?,
         fileName1: String?,
         file2: File?,
@@ -70,20 +68,9 @@ class RemoteDataSource(private val api: IituApi, private val networkManager: Net
             }
 
             if (fileToUpload1 != null || fileToUpload2 != null || fileToUpload3 != null) {
-                api.addRecord(
-                    token,
-                    title,
-                    description,
-                    fileToUpload1,
-                    fileToUpload2,
-                    fileToUpload3
-                )
+                api.addRecord(body, fileToUpload1, fileToUpload2, fileToUpload3)
             } else {
-                api.addRecord(
-                    token,
-                    title,
-                    description
-                )
+                api.addRecord(body)
             }
         }
     }
