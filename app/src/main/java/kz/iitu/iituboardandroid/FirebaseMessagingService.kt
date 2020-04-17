@@ -44,7 +44,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
             val mBuilder = NotificationCompat.Builder(this, "important_channel")
                 .setTicker(data["title"])
                 .setWhen(0)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_notif)
                 .setShowWhen(true)
                 .setColorized(true)
                 .setContentTitle(data["title"])
@@ -56,10 +56,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
                 .setAutoCancel(true)
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mBuilder.setSmallIcon(R.mipmap.ic_launcher)
                 mBuilder.color = ContextCompat.getColor(this, R.color.colorAccent)
-            } else {
-                mBuilder.setSmallIcon(R.mipmap.ic_launcher)
             }
 
             val notificationManager =
