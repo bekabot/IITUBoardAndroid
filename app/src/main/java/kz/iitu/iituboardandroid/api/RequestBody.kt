@@ -22,5 +22,6 @@ class AddRecordRequestBody(
     val vk: String,
     val telegram: String,
     val record_type: String,
-    val author: String
+    val author: String,
+    val authorEmail: String
 )

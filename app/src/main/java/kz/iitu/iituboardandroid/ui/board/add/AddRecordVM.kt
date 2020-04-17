@@ -42,7 +42,8 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
                         vk = vk.value ?: "",
                         telegram = telegram.value ?: "",
                         record_type = recordType.value ?: "ads",
-                        author = "${userData.name} ${userData.surname}"
+                        author = "${userData.name} ${userData.surname}",
+                        authorEmail = userData.email ?: ""
                     )
                     val result =
                         repository.addRecord(
