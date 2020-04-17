@@ -16,6 +16,7 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
     val email = MutableLiveData("")
     val phoneNumber = MutableLiveData("")
     val recordType = MutableLiveData("ads")
+    val recordCreated = MutableLiveData(false)
 
     var imageFile1: File? = null
     var imageFile2: File? = null
@@ -54,13 +55,10 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
                             imageName3
                         )
                     when (result.message) {
-                        null, "" -> {
-                            //todo show success message
-                            //todo add refresh board if added successfully
-                        }
-                        "USER_NOT_ACTIV", "USER_NOT_FOUND" -> {
-                            logout.value = true
-                        }
+                        "RECORD_NOT_CREATED" -> showMessage.value =
+                            "Произошла ошибка. Попробуйте еще раз"
+                        "RECORD_CREATED" -> recordCreated.value = true
+                        "USER_NOT_ACTIV", "USER_NOT_FOUND" -> logout.value = true
                     }
                 })
             } ?: run {

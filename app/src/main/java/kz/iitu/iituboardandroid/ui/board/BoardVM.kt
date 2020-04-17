@@ -11,6 +11,10 @@ class BoardVM(private val repository: BoardRepository) : BaseVM() {
     val updateRecords = MutableLiveData(false)
 
     init {
+        loadAllRecords()
+    }
+
+    fun loadAllRecords() {
         val userData = repository.getUserInfo()
         userData?.let {
             launchLoadingCoroutine(mainBlock = {

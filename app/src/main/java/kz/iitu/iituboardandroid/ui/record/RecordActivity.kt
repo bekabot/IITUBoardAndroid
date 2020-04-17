@@ -124,6 +124,12 @@ class RecordActivity : BaseActivity() {
             }
         })
 
+        vm.logout.observe(this, Observer {
+            if (it) {
+                logout()
+            }
+        })
+
         vm.openInstagram.observe(this, Observer {
             if (it.isNotEmpty()) {
                 val intent =

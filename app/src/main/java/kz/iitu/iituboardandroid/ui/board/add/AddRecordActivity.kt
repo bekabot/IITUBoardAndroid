@@ -85,6 +85,19 @@ class AddRecordActivity : BaseActivity() {
             showErrorMessageBy(it)
         })
 
+        vm.recordCreated.observe(this, Observer {
+            if (it) {
+                setResult(Activity.RESULT_OK)
+                finish()
+            }
+        })
+
+        vm.logout.observe(this, Observer {
+            if (it) {
+                logout()
+            }
+        })
+
         binding.pickImage1.setOnClickListener {
             chosenImagePickerID = R.id.pick_image_1
             checkReadStoragePermission()
@@ -121,14 +134,14 @@ class AddRecordActivity : BaseActivity() {
             vm.imageName3 = ""
         }
 
-        binding.typeAds.setOnCheckedChangeListener {_, isChecked ->
-            if(isChecked){
+        binding.typeAds.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
                 vm.recordType.value = "ads"
             }
         }
 
-        binding.typeVacancy.setOnCheckedChangeListener {_, isChecked ->
-            if(isChecked){
+        binding.typeVacancy.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
                 vm.recordType.value = "vacancy"
             }
         }
@@ -151,7 +164,7 @@ class AddRecordActivity : BaseActivity() {
     private fun pickImage() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, Constants.OPEN_IMAGE_PICKER_REQUEST_CODE)
+        startActivityForResult(intent, Constants.REQUEST_CODE_OPEN_IMAGE_PICKER)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?) =
@@ -177,7 +190,7 @@ class AddRecordActivity : BaseActivity() {
         when (resultCode) {
             Activity.RESULT_OK -> {
                 when (requestCode) {
-                    Constants.OPEN_IMAGE_PICKER_REQUEST_CODE -> {
+                    Constants.REQUEST_CODE_OPEN_IMAGE_PICKER -> {
                         data?.data?.let { uri ->
                             val document = DocumentFile.fromSingleUri(this, uri)
                             val fileName = document?.name

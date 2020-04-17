@@ -1,12 +1,13 @@
 package kz.iitu.iituboardandroid.ui.board
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kz.iitu.iituboardandroid.Constants
 import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.ui.BaseActivity
 import kz.iitu.iituboardandroid.ui.board.add.AddRecordActivity
@@ -45,7 +46,10 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
                     showFragmentBy(tag = VacanciesFragment.FRAG_TAG)
                 }
                 R.id.action_add -> {
-                    startActivity(Intent(this, AddRecordActivity::class.java))
+                    startActivityForResult(
+                        Intent(this, AddRecordActivity::class.java),
+                        Constants.REQUEST_CODE_CREATE_RECORD
+                    )
                 }
                 R.id.action_ads -> {
                     showFragmentBy(tag = AdsFragment.FRAG_TAG)
@@ -174,5 +178,12 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
 
     override fun setTitle(title: String) {
         supportActionBar?.title = title
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == Constants.REQUEST_CODE_CREATE_RECORD && resultCode == Activity.RESULT_OK) {
+            vm.loadAllRecords()
+        }
     }
 }
