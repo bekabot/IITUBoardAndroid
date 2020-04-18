@@ -6,7 +6,7 @@ import kz.iitu.iituboardandroid.toPrintableDate
 import java.io.Serializable
 
 data class Record(
-    val ads_category: String?,
+    @SerializedName("ads_category") val adsCategory: String?,
     val email: String?,
     val id: Int,
     val image1: String?,
@@ -21,6 +21,7 @@ data class Record(
     val vk: String?,
     val whatsapp: String?,
     val author: String?,
+    @SerializedName("author_email") val authorEmail: String?,
     @SerializedName("created_at") val creationDate: String?
 ) : Serializable {
     fun getImage() =

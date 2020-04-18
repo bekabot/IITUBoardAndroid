@@ -11,6 +11,7 @@ import kz.iitu.iituboardandroid.ui.board.BoardVM
 import kz.iitu.iituboardandroid.ui.board.add.AddRecordVM
 import kz.iitu.iituboardandroid.ui.board.ads.AdsVM
 import kz.iitu.iituboardandroid.ui.board.news.NewsVM
+import kz.iitu.iituboardandroid.ui.board.profile.ProfileVM
 import kz.iitu.iituboardandroid.ui.board.vacancies.VacanciesVM
 import kz.iitu.iituboardandroid.ui.login.LoginRepository
 import kz.iitu.iituboardandroid.ui.login.LoginRepositoryImpl
@@ -48,4 +49,5 @@ val boardModule = module {
     viewModel { VacanciesVM((get())) }
     viewModel { RecordVM((get())) }
     viewModel { AddRecordVM((get())) }
+    viewModel { ProfileVM((get())) }
 }

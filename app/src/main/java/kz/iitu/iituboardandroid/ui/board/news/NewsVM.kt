@@ -65,7 +65,7 @@ class NewsVM(private val repository: BoardRepository) : BaseVM() {
 
     fun filterNewsByCategory(category: String) {
         val cachedNews = repository.getCachedNews()
-        news.value = cachedNews?.filter { it.ads_category == category }
+        news.value = cachedNews?.filter { it.adsCategory == category }
     }
 
     @FlowPreview

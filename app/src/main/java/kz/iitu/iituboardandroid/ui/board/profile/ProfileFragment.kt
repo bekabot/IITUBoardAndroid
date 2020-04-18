@@ -5,13 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import kz.iitu.iituboardandroid.R
+import kz.iitu.iituboardandroid.databinding.FragmentProfileBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment() {
 
     private var listener: OnFragmentInteractionListener? = null
+
+    private val vm: ProfileVM by viewModel()
+
+    private lateinit var binding: FragmentProfileBinding
 
     interface OnFragmentInteractionListener {
         fun setTitle(title: String)
@@ -27,14 +34,28 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_profile, container, false)
-        view.findViewById<TextView>(R.id.logout).setOnClickListener {
-            listener?.logout()
-        }
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+        binding.viewModel = vm
+        binding.lifecycleOwner = this
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         listener?.setTitle("Профиль")
 
-        return view
+        binding.logout.setOnClickListener {
+            listener?.logout()
+        }
+
+        vm.userRecords.observe(viewLifecycleOwner, Observer {
+            if (!it.isNullOrEmpty()) {
+                binding.icOpenNews.visibility = View.VISIBLE
+                binding.myRecordsTitle.visibility = View.VISIBLE
+                binding.myRecordsTitle.text = "Мои записи (${it.size})"
+            }
+        })
     }
 
     override fun onAttach(context: Context) {

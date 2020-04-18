@@ -14,6 +14,7 @@ interface BoardRepository {
     fun getCachedNews(): List<Record>?
     fun getCachedVacancies(): List<Record>?
     fun getCachedAds(): List<Record>?
+    fun getUserRecords(): List<Record>?
     suspend fun getRecordById(token: String, id: Int): RecordResponse?
     suspend fun getNews(token: String): RecordsResponse
     suspend fun getAds(token: String): RecordsResponse

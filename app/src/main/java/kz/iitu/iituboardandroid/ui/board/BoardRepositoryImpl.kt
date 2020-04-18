@@ -45,6 +45,12 @@ class BoardRepositoryImpl(
         return getSortedRecords(filteredRecords)
     }
 
+    override fun getUserRecords(): List<Record>? {
+        val userEmail = getUserInfo()?.email
+        val records = localDS.getRecords()?.records?.filter { it.authorEmail == userEmail }
+        return getSortedRecords(records)
+    }
+
     private fun getSortedRecords(records: List<Record>?) =
         records?.let {
             val mutableList = records.toMutableList()

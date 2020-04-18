@@ -1,19 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/logout"
-        style="@style/ActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ВЫЙТИ"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="kz.iitu.iituboardandroid.ui.board.profile.ProfileVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.userName}"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Тукибаев Бейбут" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{viewModel.userEmail}"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            tools:text="21763@iitu.kz" />
+
+        <TextView
+            android:id="@+id/my_records_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Мои записи"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/ic_open_news"
+            app:layout_constraintEnd_toStartOf="@id/ic_open_news"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/email"
+            app:layout_constraintTop_toTopOf="@id/ic_open_news"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/ic_open_news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:contentDescription="@null"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/email"
+            app:srcCompat="@drawable/ic_arrow"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/notify_news_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Уведомление о новостях"
+            app:layout_constraintBottom_toBottomOf="@id/news_switcher"
+            app:layout_constraintEnd_toStartOf="@id/news_switcher"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ic_open_news"
+            app:layout_constraintTop_toTopOf="@id/news_switcher" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/news_switcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ic_open_news" />
+
+        <TextView
+            android:id="@+id/notify_ads_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Уведомление об объявлениях "
+            app:layout_constraintBottom_toBottomOf="@id/ads_switcher"
+            app:layout_constraintEnd_toStartOf="@id/ads_switcher"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/news_switcher"
+            app:layout_constraintTop_toTopOf="@id/ads_switcher" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/ads_switcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/news_switcher" />
+
+        <TextView
+            android:id="@+id/notify_vacancies_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Уведомление о вакансиях"
+            app:layout_constraintBottom_toBottomOf="@id/vacancies_switcher"
+            app:layout_constraintEnd_toStartOf="@id/ads_switcher"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ads_switcher"
+            app:layout_constraintTop_toTopOf="@id/vacancies_switcher" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/vacancies_switcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ads_switcher" />
+
+        <TextView
+            android:id="@+id/logout"
+            style="@style/ActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="ВЫЙТИ"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/vacancies_switcher" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
