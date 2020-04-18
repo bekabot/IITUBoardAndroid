@@ -89,7 +89,12 @@ open class BaseActivity : AppCompatActivity() {
 
     fun logout() {
         PreferenceManager.getDefaultSharedPreferences(this).edit()
-            .putBoolean(Constants.REMEMBER_ME, false).apply()
+            .putBoolean(Constants.REMEMBER_ME, false)
+            .putBoolean(Constants.ADS_NOTIFF_ALLOWED, true)
+            .putBoolean(Constants.VACANCIED_NOTIFF_ALLOWED, true)
+            .putBoolean(Constants.NEWS_NOTIFF_ALLOWED, true)
+            .apply()
+
         obtain<LoginResponse>().build().delete()
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)

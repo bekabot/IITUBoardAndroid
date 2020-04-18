@@ -107,6 +107,10 @@ class ProfileFragment : Fragment() {
         listener = null
     }
 
+    fun updateProfile() {
+        vm.updateProfile()
+    }
+
     companion object {
         const val FRAG_TAG = "profile_fragment"
 

@@ -103,7 +103,10 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
                     ?.let { fragment ->
                         (fragment as AdsFragment).updateAds()
                     }
-                //todo update profile (My Records Block)
+                supportFragmentManager.findFragmentByTag(ProfileFragment.FRAG_TAG)
+                    ?.let { fragment ->
+                        (fragment as ProfileFragment).updateProfile()
+                    }
             }
         })
 
