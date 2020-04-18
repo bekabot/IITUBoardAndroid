@@ -25,13 +25,35 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         super.onMessageReceived(message)
 
         obtain<LoginResponse>().build().getNow() ?: return
-        val shouldRememberUser = PreferenceManager
+
+        val prefs = PreferenceManager
             .getDefaultSharedPreferences(applicationContext)
+        val shouldRememberUser = prefs
             .getBoolean(Constants.REMEMBER_ME, false)
 
         if (!shouldRememberUser) return
 
         message.data.let { data ->
+            when (data["type"] ?: "news") {
+                "news" -> {
+                    if (!prefs.getBoolean(Constants.NEWS_NOTIFF_ALLOWED, true)) {
+                        return
+                    }
+                }
+                "ads" -> {
+                    if (!prefs.getBoolean(Constants.ADS_NOTIFF_ALLOWED, true)) {
+                        return
+                    }
+                }
+
+                "vacancy" -> {
+                    if (!prefs.getBoolean(Constants.VACANCIED_NOTIFF_ALLOWED, true)) {
+                        return
+                    }
+                }
+                else -> return
+            }
+
             val resultIntent = Intent(this, RecordActivity::class.java).apply {
                 putExtra(Constants.EXTRA_RECORD_ID, data["id"]?.toIntOrNull())
             }
