@@ -1,6 +1,7 @@
 package kz.iitu.iituboardandroid.ui.board.profile
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.preference.PreferenceManager
 import kz.iitu.iituboardandroid.Constants
 import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.databinding.FragmentProfileBinding
+import kz.iitu.iituboardandroid.ui.board.my_records.MyRecordsActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment() {
@@ -53,7 +55,7 @@ class ProfileFragment : Fragment() {
 
         vm.userRecords.observe(viewLifecycleOwner, Observer {
             if (!it.isNullOrEmpty()) {
-                binding.icOpenNews.visibility = View.VISIBLE
+                binding.icOpenRecords.visibility = View.VISIBLE
                 binding.myRecordsTitle.visibility = View.VISIBLE
                 binding.myRecordsTitle.text = "Мои записи (${it.size})"
             }
@@ -77,12 +79,21 @@ class ProfileFragment : Fragment() {
                 .apply()
         }
 
-        binding.vacanciesSwitcher.isChecked = prefs.getBoolean(Constants.VACANCIED_NOTIFF_ALLOWED, true)
+        binding.vacanciesSwitcher.isChecked =
+            prefs.getBoolean(Constants.VACANCIED_NOTIFF_ALLOWED, true)
         binding.vacanciesSwitcher.setOnCheckedChangeListener { _, isChecked ->
             PreferenceManager.getDefaultSharedPreferences(activity!!)
                 .edit()
                 .putBoolean(Constants.VACANCIED_NOTIFF_ALLOWED, isChecked)
                 .apply()
+        }
+
+        binding.icOpenRecords.setOnClickListener {
+            startActivity(Intent(activity, MyRecordsActivity::class.java))
+        }
+
+        binding.myRecordsTitle.setOnClickListener {
+            startActivity(Intent(activity, MyRecordsActivity::class.java))
         }
     }
 

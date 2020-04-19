@@ -47,15 +47,15 @@
             android:layout_height="wrap_content"
             android:text="Мои записи"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/ic_open_news"
-            app:layout_constraintEnd_toStartOf="@id/ic_open_news"
+            app:layout_constraintBottom_toBottomOf="@id/ic_open_records"
+            app:layout_constraintEnd_toStartOf="@id/ic_open_records"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/email"
-            app:layout_constraintTop_toTopOf="@id/ic_open_news"
+            app:layout_constraintTop_toTopOf="@id/ic_open_records"
             tools:visibility="visible" />
 
         <ImageView
-            android:id="@+id/ic_open_news"
+            android:id="@+id/ic_open_records"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
@@ -74,7 +74,7 @@
             app:layout_constraintBottom_toBottomOf="@id/news_switcher"
             app:layout_constraintEnd_toStartOf="@id/news_switcher"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ic_open_news"
+            app:layout_constraintTop_toBottomOf="@id/ic_open_records"
             app:layout_constraintTop_toTopOf="@id/news_switcher" />
 
         <androidx.appcompat.widget.SwitchCompat
@@ -84,7 +84,7 @@
             android:layout_marginTop="5dp"
             android:checked="true"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ic_open_news" />
+            app:layout_constraintTop_toBottomOf="@id/ic_open_records" />
 
         <TextView
             android:id="@+id/notify_ads_title"
