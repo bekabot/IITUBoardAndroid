@@ -3,6 +3,8 @@ package kz.iitu.iituboardandroid.ui.record
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -23,6 +25,8 @@ class RecordActivity : BaseActivity() {
     private lateinit var binding: ActivityRecordBinding
 
     private val vm: RecordVM by viewModel()
+
+    private var isMyRecord = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -144,6 +148,11 @@ class RecordActivity : BaseActivity() {
             }
         })
 
+        vm.isRecordMine.observe(this, Observer {
+            isMyRecord = it
+            invalidateOptionsMenu()
+        })
+
         vm.images.observe(this, Observer {
             if (it.isNotEmpty()) {
                 binding.recyclerView.visibility = View.VISIBLE
@@ -228,12 +237,33 @@ class RecordActivity : BaseActivity() {
         })
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        menu?.clear()
+        if (isMyRecord) {
+            menuInflater.inflate(R.menu.my_record_menu, menu)
+        } else {
+            menuInflater.inflate(R.menu.record_menu, menu)
+        }
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?) =
         when (item!!.itemId) {
             android.R.id.home -> {
                 navigateBack()
                 true
             }
+
+            R.id.action_complain -> {
+                Log.d("RecordActivity", "COMPLAIN")
+                true
+            }
+
+            R.id.action_delete -> {
+                Log.d("RecordActivity", "DELETE")
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
 

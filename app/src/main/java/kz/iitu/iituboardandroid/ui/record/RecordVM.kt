@@ -26,6 +26,8 @@ class RecordVM(private val repository: BoardRepository) : BaseVM() {
     val openWhatsApp = MutableLiveData("")
     val openInstagram = MutableLiveData("")
 
+    val isRecordMine = MutableLiveData(false)
+
     var record: Record? = null
 
     fun setUpRecordInfo(recordId: Int) {
@@ -43,6 +45,7 @@ class RecordVM(private val repository: BoardRepository) : BaseVM() {
                 )
                 setUpRecordFields(record)
                 this.record = record?.record
+                isRecordMine.value = record?.record?.authorEmail == userInfo?.email
             }
         })
     }
