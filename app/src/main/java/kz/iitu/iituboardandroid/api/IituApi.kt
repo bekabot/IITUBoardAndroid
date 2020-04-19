@@ -36,4 +36,10 @@ interface IituApi {
 
     @POST("${Constants.HOST}/api/board/")
     suspend fun addRecord(@Body body: AddRecordRequestBody): CommonResponse
+
+    @DELETE("${Constants.HOST}/api/board/")
+    suspend fun deleteRecord(
+        @Query("token") token: String,
+        @Query("id") recordId: Int
+    ): CommonResponse
 }

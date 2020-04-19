@@ -103,4 +103,15 @@ class BoardRepositoryImpl(
             body, file1, fileName1, file2, fileName2, file3, fileName3
         )
     }
+
+    override suspend fun deleteRecord(token: String, record: Record?): CommonResponse {
+        val result = remoteDS.deleteRecord(token, record?.id ?: -1)
+        if (result.message == "RECORD_DELETED") {
+            val cachedRecords = localDS.getRecords()?.records?.toMutableList()
+            cachedRecords?.remove(record)
+            localDS.saveRecords(RecordsResponse("", cachedRecords))
+        }
+
+        return result
+    }
 }

@@ -87,4 +87,17 @@ class RecordVM(private val repository: BoardRepository) : BaseVM() {
     fun onVKClick() {
         openVK.value = record?.vk
     }
+
+    fun onDeleteRecord() {
+        launchLoadingCoroutine(mainBlock = {
+            val userInfo = repository.getUserInfo()
+            val token = userInfo?.token ?: ""
+            val result = repository.deleteRecord(token, record)
+            when (result.message) {
+                "RECORD_DELETED" -> showMessage.value = "Запись удалена"
+                "USER_NOT_ACTIV", "USER_NOT_FOUND" -> logout.value = true
+                "RECORD_NOT_FOUND" -> showMessage.value = "Произошла ошибка. Попробуйте еще раз"
+            }
+        })
+    }
 }

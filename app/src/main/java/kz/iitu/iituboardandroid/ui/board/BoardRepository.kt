@@ -17,6 +17,7 @@ interface BoardRepository {
     fun getUserRecords(): List<Record>?
     suspend fun getRecordById(token: String, id: Int): RecordResponse?
     suspend fun getNews(token: String): RecordsResponse
+    suspend fun deleteRecord(token: String, record:Record?): CommonResponse
     suspend fun getAds(token: String): RecordsResponse
     suspend fun getVacancies(token: String): RecordsResponse
     suspend fun addRecord(

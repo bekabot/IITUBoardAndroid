@@ -1,5 +1,6 @@
 package kz.iitu.iituboardandroid.ui.record
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -148,6 +149,10 @@ class RecordActivity : BaseActivity() {
             }
         })
 
+        vm.showMessage.observe(this, Observer {
+            showTextAlert(it)
+        })
+
         vm.isRecordMine.observe(this, Observer {
             isMyRecord = it
             invalidateOptionsMenu()
@@ -260,7 +265,7 @@ class RecordActivity : BaseActivity() {
             }
 
             R.id.action_delete -> {
-                Log.d("RecordActivity", "DELETE")
+                showDeleteConfirmationDialog()
                 true
             }
 
@@ -293,5 +298,16 @@ class RecordActivity : BaseActivity() {
                 binding.dot3.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun showDeleteConfirmationDialog() {
+        showUltimateAlert(
+            title = "Вы уверены, что хотите удалить запись?"
+            , positiveBtnName = "ДА",
+            positiveBtnHandler = DialogInterface.OnClickListener { dialog, which ->
+                vm.onDeleteRecord()
+            },
+            negativeBtnName = "НЕТ"
+        )
     }
 }

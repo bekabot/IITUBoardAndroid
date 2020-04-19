@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.preference.PreferenceManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kz.iitu.iituboardandroid.Constants
 import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.databinding.FragmentProfileBinding
@@ -23,6 +24,8 @@ class ProfileFragment : Fragment() {
     private val vm: ProfileVM by viewModel()
 
     private lateinit var binding: FragmentProfileBinding
+
+    private var refreshLayout: SwipeRefreshLayout? = null
 
     interface OnFragmentInteractionListener {
         fun setTitle(title: String)
@@ -57,9 +60,21 @@ class ProfileFragment : Fragment() {
             if (!it.isNullOrEmpty()) {
                 binding.icOpenRecords.visibility = View.VISIBLE
                 binding.myRecordsTitle.visibility = View.VISIBLE
-                binding.myRecordsTitle.text = "Мои записи (${it.size})"
+                binding.myRecordsTitle.text = "Мои записи"
+            } else {
+                binding.icOpenRecords.visibility = View.GONE
+                binding.myRecordsTitle.visibility = View.GONE
             }
         })
+
+        refreshLayout = view.findViewById(R.id.swipe_refresh)
+        refreshLayout?.run {
+            setColorSchemeResources(R.color.colorAccent)
+            setOnRefreshListener {
+                vm.updateProfile()
+                isRefreshing = false
+            }
+        }
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(activity)
 

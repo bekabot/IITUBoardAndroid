@@ -2,6 +2,7 @@ package kz.iitu.iituboardandroid.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
@@ -84,6 +85,35 @@ open class BaseActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+    }
+
+    fun showUltimateAlert(
+        title: String? = null, message: String? = null,
+        positiveBtnName: String? = null, negativeBtnName: String? = null,
+        positiveBtnHandler: DialogInterface.OnClickListener? = null,
+        negativeBtnHandler: DialogInterface.OnClickListener? = null
+    ) {
+        if (!this.isFinishing) {
+            val alertBuilder = AlertDialog.Builder(this)
+            alertBuilder.setTitle(title)
+            alertBuilder.setMessage(message)
+            positiveBtnName?.let {
+                alertBuilder.setPositiveButton(
+                    positiveBtnName,
+                    positiveBtnHandler
+                )
+            }
+            negativeBtnName?.let {
+                alertBuilder.setNegativeButton(
+                    negativeBtnName,
+                    negativeBtnHandler
+                )
+            }
+            alertBuilder.setCancelable(true)
+            alertBuilder.setOnCancelListener { negativeBtnHandler?.onClick(alert, 0) }
+            alert = alertBuilder.create()
+            alert!!.show()
         }
     }
 
