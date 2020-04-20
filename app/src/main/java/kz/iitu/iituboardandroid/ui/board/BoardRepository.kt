@@ -1,5 +1,6 @@
 package kz.iitu.iituboardandroid.ui.board
 
+import com.google.android.gms.common.internal.service.Common
 import kz.iitu.iituboardandroid.api.AddRecordRequestBody
 import kz.iitu.iituboardandroid.api.CommonResponse
 import kz.iitu.iituboardandroid.api.LoginResponse
@@ -17,8 +18,9 @@ interface BoardRepository {
     fun getUserRecords(): List<Record>?
     suspend fun getRecordById(token: String, id: Int): RecordResponse?
     suspend fun getNews(token: String): RecordsResponse
-    suspend fun deleteRecord(token: String, record:Record?): CommonResponse
+    suspend fun deleteRecord(token: String, record: Record?): CommonResponse
     suspend fun getAds(token: String): RecordsResponse
+    suspend fun sendComplaint(token: String, id: Int, text: String): CommonResponse
     suspend fun getVacancies(token: String): RecordsResponse
     suspend fun addRecord(
         body: AddRecordRequestBody,

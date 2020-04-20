@@ -100,4 +100,17 @@ class RecordVM(private val repository: BoardRepository) : BaseVM() {
             }
         })
     }
+
+    fun sendComplaint(text: String) {
+        launchLoadingCoroutine(mainBlock = {
+            val userInfo = repository.getUserInfo()
+            val token = userInfo?.token ?: ""
+            val result = repository.sendComplaint(token, record?.id ?: -1, text)
+            when (result.message) {
+                "COMPLAINT_CONFIRMED" -> showMessage.value = "Жалоба принята"
+                "USER_NOT_ACTIV", "USER_NOT_FOUND" -> logout.value = true
+                "RECORD_NOT_FOUND" -> showMessage.value = "Произошла ошибка. Попробуйте еще раз"
+            }
+        })
+    }
 }

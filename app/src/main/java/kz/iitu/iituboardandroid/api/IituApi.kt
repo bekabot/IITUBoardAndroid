@@ -42,4 +42,11 @@ interface IituApi {
         @Query("token") token: String,
         @Query("id") recordId: Int
     ): CommonResponse
+
+    @POST("${Constants.HOST}/api/complaints/")
+    suspend fun sendComplaint(
+        @Query("token") token: String,
+        @Query("id") recordId: Int,
+        @Query("text") text: String
+    ): CommonResponse
 }

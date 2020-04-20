@@ -76,4 +76,7 @@ class RemoteDataSource(private val api: IituApi, private val networkManager: Net
     }
 
     suspend fun deleteRecord(token: String, id: Int) = api.deleteRecord(token, id)
+
+    suspend fun sendComplaint(token: String, id: Int, text: String) =
+        api.sendComplaint(token, id, text)
 }

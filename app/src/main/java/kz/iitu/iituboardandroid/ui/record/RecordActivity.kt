@@ -1,14 +1,19 @@
 package kz.iitu.iituboardandroid.ui.record
 
+import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -260,7 +265,7 @@ class RecordActivity : BaseActivity() {
             }
 
             R.id.action_complain -> {
-                Log.d("RecordActivity", "COMPLAIN")
+                showComplainDialog()
                 true
             }
 
@@ -309,5 +314,29 @@ class RecordActivity : BaseActivity() {
             },
             negativeBtnName = "НЕТ"
         )
+    }
+
+    private fun showComplainDialog() {
+        val builder = AlertDialog.Builder(this)
+        val view = LayoutInflater.from(this).inflate(R.layout.dialog_complaint, null)
+        builder.setView(view)
+        builder.setCancelable(false)
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+        view.findViewById<Button>(R.id.cancel_button).setOnClickListener {
+            val imm =
+                it.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+            alertDialog.dismiss()
+        }
+        view.findViewById<Button>(R.id.send_button).setOnClickListener {
+            val imm =
+                it.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+            vm.sendComplaint(view.findViewById<AppCompatEditText>(R.id.text).text.toString())
+            alertDialog.dismiss()
+        }
     }
 }

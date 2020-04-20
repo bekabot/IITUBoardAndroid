@@ -114,4 +114,7 @@ class BoardRepositoryImpl(
 
         return result
     }
+
+    override suspend fun sendComplaint(token: String, id: Int, text: String) =
+        remoteDS.sendComplaint(token, id, text)
 }
