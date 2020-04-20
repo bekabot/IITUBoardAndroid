@@ -82,7 +82,7 @@ class RecordActivity : BaseActivity() {
         vm.callNumber.observe(this, Observer {
             if (it.isNotEmpty()) {
                 val intent = Intent(Intent.ACTION_DIAL)
-                intent.data = Uri.parse(it)
+                intent.data = Uri.parse("tel:" + it)
                 intent.resolveActivity(packageManager)?.let {
                     startActivity(intent)
                 }
