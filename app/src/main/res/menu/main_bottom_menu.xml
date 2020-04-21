@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/action_news"
-        android:icon="@drawable/ic_news"
+        android:id="@+id/action_ads"
+        android:icon="@drawable/ic_ads"
         android:title="" />
     <item
         android:id="@+id/action_vacancies"
@@ -13,8 +13,8 @@
         android:icon="@drawable/ic_add"
         android:title="" />
     <item
-        android:id="@+id/action_ads"
-        android:icon="@drawable/ic_ads"
+        android:id="@+id/action_news"
+        android:icon="@drawable/ic_news"
         android:title="" />
     <item
         android:id="@+id/action_profile"

@@ -39,8 +39,8 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
 
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.action_news -> {
-                    showFragmentBy(tag = NewsFragment.FRAG_TAG)
+                R.id.action_ads -> {
+                    showFragmentBy(tag = AdsFragment.FRAG_TAG)
                 }
                 R.id.action_vacancies -> {
                     showFragmentBy(tag = VacanciesFragment.FRAG_TAG)
@@ -51,8 +51,8 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
                         Constants.REQUEST_CODE_CREATE_RECORD
                     )
                 }
-                R.id.action_ads -> {
-                    showFragmentBy(tag = AdsFragment.FRAG_TAG)
+                R.id.action_news -> {
+                    showFragmentBy(tag = NewsFragment.FRAG_TAG)
                 }
                 R.id.action_profile -> {
                     showFragmentBy(tag = ProfileFragment.FRAG_TAG)
@@ -129,9 +129,9 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
             .hide(profileFragment)
             .add(R.id.fragment_container, vacanciesFragment, VacanciesFragment.FRAG_TAG)
             .hide(vacanciesFragment)
-            .add(R.id.fragment_container, adsFragment, AdsFragment.FRAG_TAG)
-            .hide(adsFragment)
             .add(R.id.fragment_container, newsFragment, NewsFragment.FRAG_TAG)
+            .hide(newsFragment)
+            .add(R.id.fragment_container, adsFragment, AdsFragment.FRAG_TAG)
             .commitAllowingStateLoss()
     }
 

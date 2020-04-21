@@ -31,7 +31,7 @@
                     android:id="@+id/app_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="IITU\nConnect"
+                    android:text="IITU\nBoard"
                     android:textColor="@android:color/black"
                     android:textSize="36sp"
                     app:layout_constraintStart_toStartOf="parent"

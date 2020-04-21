@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">IITUBoardAndroid</string>
+    <string name="app_name">IITUBoard</string>
     <string name="title_close">Закрыть</string>
     <string name="title_settings">Настройки</string>
     <string name="file_too_large">Размер файла не должен превышать 10 МВ</string>
