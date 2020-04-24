@@ -3,21 +3,21 @@
     <item
         android:id="@+id/action_ads"
         android:icon="@drawable/ic_ads"
-        android:title="" />
+        android:title="Объявления" />
     <item
         android:id="@+id/action_vacancies"
         android:icon="@drawable/ic_vacancy"
-        android:title="" />
+        android:title="Вакансии" />
     <item
         android:id="@+id/action_add"
-        android:icon="@drawable/ic_add"
-        android:title="" />
+        android:icon="@drawable/ic_plus"
+        android:title="Добавить" />
     <item
         android:id="@+id/action_news"
         android:icon="@drawable/ic_news"
-        android:title="" />
+        android:title="Новости" />
     <item
         android:id="@+id/action_profile"
         android:icon="@drawable/ic_profile"
-        android:title="" />
+        android:title="Профиль" />
 </menu>

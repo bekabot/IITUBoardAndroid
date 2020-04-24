@@ -37,7 +37,7 @@
             app:itemTextAppearanceActive="@style/NavBarTextAppearance"
             app:itemTextAppearanceInactive="@style/NavBarTextAppearance"
             app:itemTextColor="@drawable/bottom_nav_icon_selector"
-            app:labelVisibilityMode="unlabeled"
+            app:labelVisibilityMode="labeled"
             app:menu="@menu/main_bottom_menu" />
 
     </LinearLayout>
