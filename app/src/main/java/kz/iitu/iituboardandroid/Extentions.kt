@@ -88,3 +88,5 @@ fun ContentResolver.getFileName(fileUri: Uri): String {
 
     return name
 }
+
+fun String.getPhoneNumber() = this.replace(Regex("(\\+)|([\\D])"), "")

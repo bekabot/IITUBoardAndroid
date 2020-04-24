@@ -16,11 +16,9 @@ import androidx.lifecycle.Observer
 import com.google.android.gms.common.util.IOUtils
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import kz.iitu.iituboardandroid.Constants
-import kz.iitu.iituboardandroid.R
-import kz.iitu.iituboardandroid.convertToStringBytes
+import com.redmadrobot.inputmask.MaskedTextChangedListener
+import kz.iitu.iituboardandroid.*
 import kz.iitu.iituboardandroid.databinding.ActivityAddRecordBinding
-import kz.iitu.iituboardandroid.getFileName
 import kz.iitu.iituboardandroid.ui.BaseActivity
 import kz.iitu.iituboardandroid.utils.FileUtil
 import kz.iitu.iituboardandroid.utils.bind
@@ -145,6 +143,44 @@ class AddRecordActivity : BaseActivity() {
                 vm.recordType.value = "vacancy"
             }
         }
+
+        val phoneTextChangedListener = MaskedTextChangedListener(
+            Constants.NUMBER_MASK,
+            binding.phoneField,
+            object : MaskedTextChangedListener.ValueListener {
+                override fun onTextChanged(
+                    maskFilled: Boolean, extractedValue: String,
+                    formattedValue: String
+                ) {
+                    if (maskFilled) {
+                        closeKeyboard()
+                        vm.phoneNumber.value = extractedValue.getPhoneNumber()
+                    } else {
+                        vm.phoneNumber.value = ""
+                    }
+                }
+            }
+        )
+        binding.phoneField.addTextChangedListener(phoneTextChangedListener)
+
+        val whatsAppTextChangedListener = MaskedTextChangedListener(
+            Constants.NUMBER_MASK,
+            binding.whatsappField,
+            object : MaskedTextChangedListener.ValueListener {
+                override fun onTextChanged(
+                    maskFilled: Boolean, extractedValue: String,
+                    formattedValue: String
+                ) {
+                    if (maskFilled) {
+                        closeKeyboard()
+                        vm.whatsApp.value = extractedValue.getPhoneNumber()
+                    } else {
+                        vm.whatsApp.value = ""
+                    }
+                }
+            }
+        )
+        binding.whatsappField.addTextChangedListener(whatsAppTextChangedListener)
     }
 
     private fun checkReadStoragePermission() {
