@@ -10,9 +10,7 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
     val title = MutableLiveData("")
     val description = MutableLiveData("")
     val whatsApp = MutableLiveData("")
-    val instagram = MutableLiveData("")
     val telegram = MutableLiveData("")
-    val vk = MutableLiveData("")
     val email = MutableLiveData("")
     val phoneNumber = MutableLiveData("")
     val recordType = MutableLiveData("ads")
@@ -37,9 +35,7 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
                         body = description.value ?: "",
                         phone = phoneNumber.value ?: "",
                         email = email.value ?: "",
-                        instagram = instagram.value ?: "",
                         whatsapp = whatsApp.value ?: "",
-                        vk = vk.value ?: "",
                         telegram = telegram.value ?: "",
                         record_type = recordType.value ?: "ads",
                         author = "${userData.name} ${userData.surname}",

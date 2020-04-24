@@ -10,9 +10,7 @@ class RecordVM(private val repository: BoardRepository) : BaseVM() {
     val title = MutableLiveData("")
     val description = MutableLiveData("")
     val whatsApp = MutableLiveData("")
-    val instagram = MutableLiveData("")
     val telegram = MutableLiveData("")
-    val vk = MutableLiveData("")
     val email = MutableLiveData("")
     val phoneNumber = MutableLiveData("")
     val recordNotFound = MutableLiveData(false)
@@ -21,10 +19,8 @@ class RecordVM(private val repository: BoardRepository) : BaseVM() {
 
     val callNumber = MutableLiveData("")
     val writeToEmail = MutableLiveData("")
-    val openVK = MutableLiveData("")
     val openTelegram = MutableLiveData("")
     val openWhatsApp = MutableLiveData("")
-    val openInstagram = MutableLiveData("")
 
     val isRecordMine = MutableLiveData(false)
 
@@ -54,9 +50,7 @@ class RecordVM(private val repository: BoardRepository) : BaseVM() {
         title.value = record?.record?.record_title
         description.value = record?.record?.record_body
         whatsApp.value = record?.record?.whatsapp
-        instagram.value = record?.record?.instagram
         telegram.value = record?.record?.telegram
-        vk.value = record?.record?.vk
         email.value = record?.record?.email
         phoneNumber.value = record?.record?.phone
         record?.record?.author?.let {
@@ -76,16 +70,9 @@ class RecordVM(private val repository: BoardRepository) : BaseVM() {
         writeToEmail.value = record?.email
     }
 
-    fun onInstagramClick() {
-        openInstagram.value = record?.instagram
-    }
 
     fun onTelegramClick() {
         openTelegram.value = record?.telegram
-    }
-
-    fun onVKClick() {
-        openVK.value = record?.vk
     }
 
     fun onDeleteRecord() {

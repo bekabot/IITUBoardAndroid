@@ -89,20 +89,6 @@ class RecordActivity : BaseActivity() {
             }
         })
 
-        vm.openVK.observe(this, Observer {
-            if (it.isNotEmpty()) {
-                val intent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse("https://vk.com/$it")).apply {
-                        `package` = "com.vkontakte.android"
-                    }
-                intent.resolveActivity(packageManager)?.let {
-                    startActivity(intent)
-                } ?: run {
-                    safeOpenBrowser("https://vk.com/$it")
-                }
-            }
-        })
-
         vm.openTelegram.observe(this, Observer {
             if (it.isNotEmpty()) {
                 val intent =
@@ -137,20 +123,6 @@ class RecordActivity : BaseActivity() {
         vm.logout.observe(this, Observer {
             if (it) {
                 logout()
-            }
-        })
-
-        vm.openInstagram.observe(this, Observer {
-            if (it.isNotEmpty()) {
-                val intent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/$it")).apply {
-                        `package` = "com.instagram.android"
-                    }
-                intent.resolveActivity(packageManager)?.let {
-                    startActivity(intent)
-                } ?: run {
-                    safeOpenBrowser("https://www.instagram.com/$it")
-                }
             }
         })
 
