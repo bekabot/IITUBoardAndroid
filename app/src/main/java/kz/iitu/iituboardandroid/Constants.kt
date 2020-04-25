@@ -10,4 +10,5 @@ object Constants {
     const val NEWS_NOTIFF_ALLOWED = "NEWS_NOTIFF_ALLOWED"
     const val ADS_NOTIFF_ALLOWED = "ADS_NOTIFF_ALLOWED"
     const val VACANCIED_NOTIFF_ALLOWED = "VACANCIES_NOTIFF_ALLOWED"
+    const val NUMBER_MASK = "{+7} {7}[00] [000]-[00]-[00]"
 }

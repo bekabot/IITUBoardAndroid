@@ -220,32 +220,6 @@
                     tools:text="87012117746" />
 
                 <ImageView
-                    android:id="@+id/insta_icon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
-                    android:contentDescription="@null"
-                    android:visibility="@{(viewModel.instagram ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/whatsapp_icon"
-                    app:srcCompat="@drawable/ic_instagram" />
-
-                <TextView
-                    android:id="@+id/insta_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:onClick="@{() -> viewModel.onInstagramClick()}"
-                    android:text="@{viewModel.instagram}"
-                    android:textColor="#2f6699"
-                    android:visibility="@{(viewModel.instagram ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
-                    app:layout_constraintBottom_toBottomOf="@id/insta_icon"
-                    app:layout_constraintStart_toEndOf="@id/insta_icon"
-                    app:layout_constraintTop_toTopOf="@id/insta_icon"
-                    tools:text="\@bekabot" />
-
-                <ImageView
                     android:id="@+id/telegram_icon"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -254,7 +228,7 @@
                     android:contentDescription="@null"
                     android:visibility="@{(viewModel.telegram ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/insta_icon"
+                    app:layout_constraintTop_toBottomOf="@id/whatsapp_icon"
                     app:srcCompat="@drawable/ic_telegram" />
 
                 <TextView
@@ -270,32 +244,6 @@
                     app:layout_constraintStart_toEndOf="@id/telegram_icon"
                     app:layout_constraintTop_toTopOf="@id/telegram_icon"
                     tools:text="\@bekabot1" />
-
-                <ImageView
-                    android:id="@+id/vk_icon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
-                    android:contentDescription="@null"
-                    android:visibility="@{(viewModel.vk ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/telegram_icon"
-                    app:srcCompat="@drawable/ic_vk" />
-
-                <TextView
-                    android:id="@+id/vk_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:onClick="@{() -> viewModel.onVKClick()}"
-                    android:text="@{viewModel.vk}"
-                    android:textColor="#2f6699"
-                    android:visibility="@{(viewModel.vk ?? ``).isEmpty() ? View.GONE : View.VISIBLE}"
-                    app:layout_constraintBottom_toBottomOf="@id/vk_icon"
-                    app:layout_constraintStart_toEndOf="@id/vk_icon"
-                    app:layout_constraintTop_toTopOf="@id/vk_icon"
-                    tools:text="\@id1" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

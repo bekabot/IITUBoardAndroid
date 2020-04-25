@@ -106,4 +106,7 @@ dependencies {
 
     //Permissions
     implementation 'gun0912.ted:tedpermission:2.2.3'
+
+    // Input mask
+    implementation 'com.redmadrobot:input-mask-android:5.0.0'
 }

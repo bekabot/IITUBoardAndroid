@@ -285,9 +285,7 @@
                     android:layout_marginTop="15dp"
                     android:hint="Введите телефон (необязательно)"
                     android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLength="11"
-                    android:text="@={viewModel.phoneNumber}"
+                    android:inputType="phone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/attached_file_3" />
@@ -310,34 +308,10 @@
                     android:layout_marginTop="15dp"
                     android:hint="Введите WhatsApp (необязательно)"
                     android:imeOptions="actionNext"
-                    android:inputType="number"
-                    android:maxLength="11"
-                    android:text="@={viewModel.whatsApp}"
+                    android:inputType="phone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/email_field" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/instagram_field"
-                    style="@style/FormEditText"
-                    android:layout_marginTop="15dp"
-                    android:hint="Введите Instagram (необязательно)"
-                    android:imeOptions="actionNext"
-                    android:text="@={viewModel.instagram}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/whatsapp_field" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/vk_field"
-                    style="@style/FormEditText"
-                    android:layout_marginTop="15dp"
-                    android:hint="Введите VK (необязательно)"
-                    android:imeOptions="actionNext"
-                    android:text="@={viewModel.vk}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/instagram_field" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/telegram_field"
@@ -348,7 +322,7 @@
                     android:text="@={viewModel.telegram}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/vk_field" />
+                    app:layout_constraintTop_toBottomOf="@id/whatsapp_field" />
 
                 <RadioGroup
                     android:id="@+id/type_radio_group"

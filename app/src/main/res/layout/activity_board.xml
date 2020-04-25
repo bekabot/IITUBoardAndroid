@@ -34,9 +34,7 @@
             android:background="@android:color/white"
             app:itemHorizontalTranslationEnabled="false"
             app:itemIconSize="21dp"
-            app:itemTextAppearanceActive="@style/NavBarTextAppearance"
-            app:itemTextAppearanceInactive="@style/NavBarTextAppearance"
-            app:itemTextColor="@drawable/bottom_nav_icon_selector"
+            app:itemTextColor="@color/colorAccent"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/main_bottom_menu" />
 

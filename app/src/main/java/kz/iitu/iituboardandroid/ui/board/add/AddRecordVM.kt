@@ -10,11 +10,10 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
     val title = MutableLiveData("")
     val description = MutableLiveData("")
     val whatsApp = MutableLiveData("")
-    val instagram = MutableLiveData("")
     val telegram = MutableLiveData("")
-    val vk = MutableLiveData("")
     val email = MutableLiveData("")
     val phoneNumber = MutableLiveData("")
+
     val recordType = MutableLiveData("ads")
     val recordCreated = MutableLiveData(false)
 
@@ -37,9 +36,7 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
                         body = description.value ?: "",
                         phone = phoneNumber.value ?: "",
                         email = email.value ?: "",
-                        instagram = instagram.value ?: "",
                         whatsapp = whatsApp.value ?: "",
-                        vk = vk.value ?: "",
                         telegram = telegram.value ?: "",
                         record_type = recordType.value ?: "ads",
                         author = "${userData.name} ${userData.surname}",
@@ -76,6 +73,15 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
 
         if (description.value?.isEmpty() == true) {
             showMessage.value = "Введите текст"
+            return false
+        }
+
+        if (whatsApp.value?.isEmpty() == true &&
+            telegram.value?.isEmpty() == true &&
+            phoneNumber.value?.isEmpty() == true &&
+            email.value?.isEmpty() == true
+        ) {
+            showMessage.value = "Заполните хотя бы одно поле контактных данных"
             return false
         }
 
