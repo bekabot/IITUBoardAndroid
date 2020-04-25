@@ -3,9 +3,12 @@ package kz.iitu.iituboardandroid.ui.board
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.widget.FrameLayout
 import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
+import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kz.iitu.iituboardandroid.Constants
 import kz.iitu.iituboardandroid.R
@@ -27,6 +30,9 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
     private val bottomNavigation: ScrollableBottomNavView by bind(R.id.bottom_nav)
     private val toolbar: Toolbar by bind(R.id.toolbar)
     private val rootView: FrameLayout by bind(R.id.root_view)
+    private val drawerLayout: DrawerLayout by bind(R.id.drawer_layout)
+    private val navigationView: NavigationView by bind(R.id.nav_view)
+
 
     private val vm: BoardVM by viewModel()
 
@@ -189,5 +195,11 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
         if (requestCode == Constants.REQUEST_CODE_CREATE_RECORD && resultCode == Activity.RESULT_OK) {
             vm.loadAllRecords()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.menu_drawer, menu)
+        return true
     }
 }
