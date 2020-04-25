@@ -13,6 +13,7 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
     val telegram = MutableLiveData("")
     val email = MutableLiveData("")
     val phoneNumber = MutableLiveData("")
+    val adsCategory = MutableLiveData(-1)
 
     val recordType = MutableLiveData("ads")
     val recordCreated = MutableLiveData(false)
@@ -24,6 +25,18 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
     var imageName1 = ""
     var imageName2 = ""
     var imageName3 = ""
+
+    private val adsCategories = arrayOf(
+        Pair("Услуги", "services"),
+        Pair("Учеба", "study"),
+        Pair("Бюро находок", "lost_and_found"),
+        Pair("Спорт", "sport"),
+        Pair("Хобби", "hobby"),
+        Pair("Продам", "sells"),
+        Pair("Обмен/Отдам даром", "exchange_free"),
+        Pair("Аренда жилья", "rent"),
+        Pair("Поиск соседа", "mate_search")
+    )
 
     fun onAddRecordClick() {
         if (validateFields()) {
@@ -39,6 +52,7 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
                         whatsapp = whatsApp.value ?: "",
                         telegram = telegram.value ?: "",
                         record_type = recordType.value ?: "ads",
+                        ads_category = adsCategories[adsCategory.value ?: 0].second,
                         author = "${userData.name} ${userData.surname}",
                         authorEmail = userData.email ?: ""
                     )

@@ -20,6 +20,7 @@ class AddRecordRequestBody(
     val whatsapp: String,
     val telegram: String,
     val record_type: String,
+    val ads_category: String,
     val author: String,
     val authorEmail: String
 )

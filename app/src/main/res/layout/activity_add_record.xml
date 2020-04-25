@@ -350,6 +350,16 @@
 
                 </RadioGroup>
 
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/ads_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawSelectorOnTop="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/type_radio_group" />
+
                 <TextView
                     android:id="@+id/logout"
                     style="@style/ActionButton"
@@ -362,7 +372,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/type_radio_group" />
+                    app:layout_constraintTop_toBottomOf="@id/ads_spinner" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -8,6 +8,8 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
@@ -26,6 +28,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+
 
 class AddRecordActivity : BaseActivity() {
 
@@ -58,6 +61,29 @@ class AddRecordActivity : BaseActivity() {
         binding.lifecycleOwner = this
 
         setSupportActionBar(binding.toolbar)
+
+        val adsCategories = arrayOf(
+            "Услуги", "Учеба", "Бюро находок", "Спорт", "Хобби",
+            "Продам", "Обмен/Отдам даром", "Аренда жилья", "Поиск соседа"
+        )
+
+        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, adsCategories)
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.adsSpinner.adapter = spinnerAdapter
+        binding.adsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                vm.adsCategory.value = 0
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                vm.adsCategory.value = position
+            }
+        }
 
         vm.showMessage.observe(this, Observer {
             showTextAlert(it)
