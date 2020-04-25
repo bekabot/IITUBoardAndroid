@@ -62,28 +62,7 @@ class AddRecordActivity : BaseActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        val adsCategories = arrayOf(
-            "Услуги", "Учеба", "Бюро находок", "Спорт", "Хобби",
-            "Продам", "Обмен/Отдам даром", "Аренда жилья", "Поиск соседа"
-        )
-
-        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, adsCategories)
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.adsSpinner.adapter = spinnerAdapter
-        binding.adsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                vm.adsCategory.value = 0
-            }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                vm.adsCategory.value = position
-            }
-        }
+        configureAdsCategoryBlock()
 
         vm.showMessage.observe(this, Observer {
             showTextAlert(it)
@@ -161,6 +140,11 @@ class AddRecordActivity : BaseActivity() {
         binding.typeAds.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 vm.recordType.value = "ads"
+                binding.spinnerTitle.visibility = View.VISIBLE
+                binding.adsSpinner.visibility = View.VISIBLE
+            } else {
+                binding.spinnerTitle.visibility = View.GONE
+                binding.adsSpinner.visibility = View.GONE
             }
         }
 
@@ -207,6 +191,31 @@ class AddRecordActivity : BaseActivity() {
             }
         )
         binding.whatsappField.addTextChangedListener(whatsAppTextChangedListener)
+    }
+
+    private fun configureAdsCategoryBlock() {
+        val adsCategories = arrayOf(
+            "Услуги", "Учеба", "Бюро находок", "Спорт", "Хобби",
+            "Продам", "Обмен/Отдам даром", "Аренда жилья", "Поиск соседа"
+        )
+
+        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, adsCategories)
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.adsSpinner.adapter = spinnerAdapter
+        binding.adsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                vm.adsCategory.value = 0
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                vm.adsCategory.value = position
+            }
+        }
     }
 
     private fun checkReadStoragePermission() {

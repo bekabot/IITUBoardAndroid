@@ -35,7 +35,8 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
         Pair("Продам", "sells"),
         Pair("Обмен/Отдам даром", "exchange_free"),
         Pair("Аренда жилья", "rent"),
-        Pair("Поиск соседа", "mate_search")
+        Pair("Поиск соседа", "mate_search"),
+        Pair("", "")
     )
 
     fun onAddRecordClick() {
@@ -43,6 +44,13 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
             val userData = repository.getUserInfo()
             userData?.let {
                 launchLoadingCoroutine(mainBlock = {
+                    val recordType = recordType.value ?: "news"
+                    val adsCategory = if (recordType == "ads") {
+                        adsCategories[adsCategory.value ?: 9].second
+                    } else {
+                        ""
+                    }
+
                     val requestBody = AddRecordRequestBody(
                         userData.token ?: "",
                         title = title.value ?: "",
@@ -51,8 +59,8 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
                         email = email.value ?: "",
                         whatsapp = whatsApp.value ?: "",
                         telegram = telegram.value ?: "",
-                        record_type = recordType.value ?: "ads",
-                        ads_category = adsCategories[adsCategory.value ?: 0].second,
+                        record_type = recordType,
+                        ads_category = adsCategory,
                         author = "${userData.name} ${userData.surname}",
                         authorEmail = userData.email ?: ""
                     )
