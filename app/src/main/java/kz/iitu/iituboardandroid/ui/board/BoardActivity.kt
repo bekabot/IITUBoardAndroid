@@ -3,9 +3,9 @@ package kz.iitu.iituboardandroid.ui.board
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import android.widget.FrameLayout
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import com.google.android.material.navigation.NavigationView
@@ -33,7 +33,6 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
     private val drawerLayout: DrawerLayout by bind(R.id.drawer_layout)
     private val navigationView: NavigationView by bind(R.id.nav_view)
 
-
     private val vm: BoardVM by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,8 +40,9 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
         setContentView(R.layout.activity_board)
         setSupportActionBar(toolbar)
 
-        bottomNavigation.itemIconTintList = null
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
+        bottomNavigation.itemIconTintList = null
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.action_ads -> {
@@ -190,16 +190,14 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
         supportActionBar?.title = title
     }
 
+    override fun openDrawer() {
+        drawerLayout.openDrawer(GravityCompat.END)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Constants.REQUEST_CODE_CREATE_RECORD && resultCode == Activity.RESULT_OK) {
             vm.loadAllRecords()
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.menu_drawer, menu)
-        return true
     }
 }

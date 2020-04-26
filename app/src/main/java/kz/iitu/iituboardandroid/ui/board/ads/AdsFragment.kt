@@ -3,9 +3,7 @@ package kz.iitu.iituboardandroid.ui.board.ads
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.widget.doAfterTextChanged
@@ -42,11 +40,12 @@ class AdsFragment : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun setTitle(title: String)
+        fun openDrawer()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(false)
+        setHasOptionsMenu(true)
     }
 
     @ExperimentalCoroutinesApi
@@ -131,6 +130,19 @@ class AdsFragment : Fragment() {
         if (!hidden) {
             listener?.setTitle("Объявления")
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_drawer, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_open_drawer -> {
+            listener?.openDrawer()
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     override fun onDetach() {
