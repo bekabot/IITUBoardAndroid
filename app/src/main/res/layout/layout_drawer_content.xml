@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="25dp"
+    tools:background="#FF473A">
+
+    <TextView
+        android:id="@+id/all_categories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Категории"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/all_ads"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Все объявления"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/all_categories" />
+
+    <ImageView
+        android:id="@+id/ic_services"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/all_ads"
+        app:srcCompat="@drawable/ic_cat_services" />
+
+    <TextView
+        android:id="@+id/title_services"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Услуги"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/ic_services"
+        app:layout_constraintStart_toEndOf="@id/ic_services"
+        app:layout_constraintTop_toTopOf="@id/ic_services" />
+
+    <ImageView
+        android:id="@+id/ic_study"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ic_services"
+        app:srcCompat="@drawable/ic_cat_study" />
+
+    <TextView
+        android:id="@+id/title_study"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Учеба"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/ic_study"
+        app:layout_constraintStart_toEndOf="@id/ic_study"
+        app:layout_constraintTop_toTopOf="@id/ic_study" />
+
+    <ImageView
+        android:id="@+id/ic_lost_n_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ic_study"
+        app:srcCompat="@drawable/ic_cat_lost_n_found" />
+
+    <TextView
+        android:id="@+id/title_lost_n_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Бюро находок"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/ic_lost_n_found"
+        app:layout_constraintStart_toEndOf="@id/ic_lost_n_found"
+        app:layout_constraintTop_toTopOf="@id/ic_lost_n_found" />
+
+    <ImageView
+        android:id="@+id/ic_sport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ic_lost_n_found"
+        app:srcCompat="@drawable/ic_cat_sport" />
+
+    <TextView
+        android:id="@+id/title_sport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Спорт"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/ic_sport"
+        app:layout_constraintStart_toEndOf="@id/ic_sport"
+        app:layout_constraintTop_toTopOf="@id/ic_sport" />
+
+    <ImageView
+        android:id="@+id/ic_hobby"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ic_sport"
+        app:srcCompat="@drawable/ic_cat_hobby" />
+
+    <TextView
+        android:id="@+id/title_hobby"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Хобби"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/ic_hobby"
+        app:layout_constraintStart_toEndOf="@id/ic_hobby"
+        app:layout_constraintTop_toTopOf="@id/ic_hobby" />
+
+    <ImageView
+        android:id="@+id/ic_sell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ic_hobby"
+        app:srcCompat="@drawable/ic_cat_sell" />
+
+    <TextView
+        android:id="@+id/title_sell"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Продам"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/ic_sell"
+        app:layout_constraintStart_toEndOf="@id/ic_sell"
+        app:layout_constraintTop_toTopOf="@id/ic_sell" />
+
+    <ImageView
+        android:id="@+id/ic_exchange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ic_sell"
+        app:srcCompat="@drawable/ic_cat_exchange" />
+
+    <TextView
+        android:id="@+id/title_exchange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Обмен/Отдам даром"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/ic_exchange"
+        app:layout_constraintStart_toEndOf="@id/ic_exchange"
+        app:layout_constraintTop_toTopOf="@id/ic_exchange" />
+
+    <ImageView
+        android:id="@+id/ic_rent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ic_exchange"
+        app:srcCompat="@drawable/ic_cat_rent" />
+
+    <TextView
+        android:id="@+id/title_rent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Аренда жилья"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/ic_rent"
+        app:layout_constraintStart_toEndOf="@id/ic_rent"
+        app:layout_constraintTop_toTopOf="@id/ic_rent" />
+
+    <ImageView
+        android:id="@+id/ic_search_roommate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ic_rent"
+        app:srcCompat="@drawable/ic_cat_search_roommate" />
+
+    <TextView
+        android:id="@+id/title_search_roommate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="Поиск соседа"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/ic_search_roommate"
+        app:layout_constraintStart_toEndOf="@id/ic_search_roommate"
+        app:layout_constraintTop_toTopOf="@id/ic_search_roommate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

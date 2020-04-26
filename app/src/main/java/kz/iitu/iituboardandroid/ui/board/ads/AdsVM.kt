@@ -63,6 +63,15 @@ class AdsVM(private val repository: BoardRepository) : BaseVM() {
         }
     }
 
+    fun filterAdsByCategory(category: String) {
+        val cachedAds = repository.getCachedAds()
+        ads.value = if (category.isEmpty()) {
+            cachedAds
+        } else {
+            cachedAds?.filter { it.adsCategory == category }
+        }
+    }
+
     @FlowPreview
     @ExperimentalCoroutinesApi
     fun searchAds(key: String) {

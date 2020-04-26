@@ -4,12 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kz.iitu.iituboardandroid.Constants
 import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.ui.BaseActivity
@@ -66,6 +69,83 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
             }
             true
         }
+
+        findViewById<TextView>(R.id.all_ads).setOnClickListener {
+            handleFilterByAdsCategory("")
+        }
+
+        findViewById<ImageView>(R.id.ic_services).setOnClickListener {
+            handleFilterByAdsCategory("services")
+        }
+
+        findViewById<TextView>(R.id.title_services).setOnClickListener {
+            handleFilterByAdsCategory("services")
+        }
+
+        findViewById<ImageView>(R.id.ic_lost_n_found).setOnClickListener {
+            handleFilterByAdsCategory("lost_and_found")
+        }
+
+        findViewById<TextView>(R.id.title_lost_n_found).setOnClickListener {
+            handleFilterByAdsCategory("lost_and_found")
+        }
+
+        findViewById<ImageView>(R.id.ic_sport).setOnClickListener {
+            handleFilterByAdsCategory("sport")
+        }
+
+        findViewById<TextView>(R.id.title_sport).setOnClickListener {
+            handleFilterByAdsCategory("sport")
+        }
+
+        findViewById<ImageView>(R.id.ic_hobby).setOnClickListener {
+            handleFilterByAdsCategory("hobby")
+        }
+
+        findViewById<TextView>(R.id.title_hobby).setOnClickListener {
+            handleFilterByAdsCategory("hobby")
+        }
+
+        findViewById<ImageView>(R.id.ic_sell).setOnClickListener {
+            handleFilterByAdsCategory("sells")
+        }
+
+        findViewById<TextView>(R.id.title_sell).setOnClickListener {
+            handleFilterByAdsCategory("sells")
+        }
+
+        findViewById<ImageView>(R.id.ic_exchange).setOnClickListener {
+            handleFilterByAdsCategory("exchange_free")
+        }
+
+        findViewById<TextView>(R.id.title_exchange).setOnClickListener {
+            handleFilterByAdsCategory("exchange_free")
+        }
+
+        findViewById<ImageView>(R.id.ic_rent).setOnClickListener {
+            handleFilterByAdsCategory("rent")
+        }
+
+        findViewById<TextView>(R.id.title_rent).setOnClickListener {
+            handleFilterByAdsCategory("rent")
+        }
+
+        findViewById<ImageView>(R.id.ic_search_roommate).setOnClickListener {
+            handleFilterByAdsCategory("mate_search")
+        }
+
+        findViewById<TextView>(R.id.title_search_roommate).setOnClickListener {
+            handleFilterByAdsCategory("mate_search")
+        }
+
+        findViewById<ImageView>(R.id.ic_study).setOnClickListener {
+            handleFilterByAdsCategory("study")
+        }
+
+        findViewById<TextView>(R.id.title_study).setOnClickListener {
+            handleFilterByAdsCategory("study")
+        }
+
 
         createFragments()
 
@@ -184,6 +264,15 @@ class BoardActivity : BaseActivity(), NewsFragment.OnFragmentInteractionListener
                 fragTransaction.commitAllowingStateLoss()
             }
         }
+    }
+
+    @FlowPreview
+    private fun handleFilterByAdsCategory(adsCategory: String) {
+        drawerLayout.closeDrawer(GravityCompat.END)
+        supportFragmentManager.findFragmentByTag(AdsFragment.FRAG_TAG)
+            ?.let { fragment ->
+                (fragment as AdsFragment).filterAdsByCategory(adsCategory)
+            }
     }
 
     override fun setTitle(title: String) {

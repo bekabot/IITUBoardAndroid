@@ -3,7 +3,9 @@ package kz.iitu.iituboardandroid.ui.board.ads
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextWatcher
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.widget.doAfterTextChanged
@@ -26,6 +28,9 @@ class AdsFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
 
     private val vm: AdsVM by viewModel()
+
+    private var searchView: AppCompatEditText? = null
+    private var searchTextWatcher: TextWatcher? = null
 
     private var refreshLayout: SwipeRefreshLayout? = null
 
@@ -57,6 +62,8 @@ class AdsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_ads, container, false)
 
         listener?.setTitle("Объявления")
+
+        searchView = view.findViewById(R.id.search)
 
         vm.ads.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -91,11 +98,7 @@ class AdsFragment : Fragment() {
             }
         })
 
-        view.findViewById<AppCompatEditText>(R.id.search).doAfterTextChanged {
-            it?.let {
-                vm.searchAds(it.toString())
-            }
-        }
+        setUpSearchTextChangedListener()
 
         vm.searchResult.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -114,6 +117,29 @@ class AdsFragment : Fragment() {
 
     fun updateAds() {
         vm.setUpAds()
+    }
+
+    @FlowPreview
+    @ExperimentalCoroutinesApi
+    fun filterAdsByCategory(category: String) {
+        searchView?.removeTextChangedListener(searchTextWatcher)
+        searchView?.text?.clear()
+        setUpSearchTextChangedListener()
+        val imm =
+            searchView?.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
+
+        vm.filterAdsByCategory(category)
+    }
+
+    @ExperimentalCoroutinesApi
+    @FlowPreview
+    private fun setUpSearchTextChangedListener() {
+        searchTextWatcher = searchView?.doAfterTextChanged {
+            it?.let {
+                vm.searchAds(it.toString())
+            }
+        }
     }
 
     override fun onAttach(context: Context) {
