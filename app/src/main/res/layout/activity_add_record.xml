@@ -78,7 +78,7 @@
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/title_field"
-                    style="@style/FormEditText"
+                    style="@style/AddRecordForm"
                     android:layout_marginTop="20dp"
                     android:hint="Заголовок*"
                     android:imeOptions="actionNext"
@@ -90,7 +90,7 @@
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/description_field"
-                    style="@style/FormEditText"
+                    style="@style/AddRecordForm"
                     android:layout_marginTop="15dp"
                     android:hint="Описание*"
                     android:imeOptions="actionNext"
@@ -159,7 +159,7 @@
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/phone_field"
-                    style="@style/FormEditText"
+                    style="@style/AddRecordForm"
                     android:layout_marginTop="10dp"
                     android:hint="Телефон"
                     android:imeOptions="actionNext"
@@ -170,7 +170,7 @@
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/email_field"
-                    style="@style/FormEditText"
+                    style="@style/AddRecordForm"
                     android:layout_marginTop="15dp"
                     android:hint="Email"
                     android:imeOptions="actionNext"
@@ -184,47 +184,48 @@
                     android:id="@+id/icon_whatsapp"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginTop="15dp"
                     android:contentDescription="@null"
+                    app:layout_constraintBottom_toBottomOf="@id/whatsapp_field"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/email_field"
+                    app:layout_constraintTop_toTopOf="@id/whatsapp_field"
                     app:srcCompat="@drawable/ic_whatsapp" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/whatsapp_field"
-                    style="@style/FormEditText"
+                    style="@style/AddRecordForm"
                     android:layout_width="0dp"
                     android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
                     android:hint="Whatsapp"
                     android:imeOptions="actionNext"
                     android:inputType="phone"
-                    app:layout_constraintBottom_toBottomOf="@id/icon_whatsapp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/icon_whatsapp"
-                    app:layout_constraintTop_toTopOf="@id/icon_whatsapp" />
+                    app:layout_constraintTop_toBottomOf="@id/email_field" />
 
                 <ImageView
                     android:id="@+id/icon_telegram"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:layout_marginTop="15dp"
                     android:contentDescription="@null"
+                    app:layout_constraintBottom_toBottomOf="@id/telegram_field"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/icon_whatsapp"
+                    app:layout_constraintTop_toTopOf="@id/telegram_field"
+
                     app:srcCompat="@drawable/ic_telegram" />
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/telegram_field"
-                    style="@style/FormEditText"
+                    style="@style/AddRecordForm"
                     android:layout_width="0dp"
                     android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
                     android:hint="Telegram"
                     android:imeOptions="actionNext"
                     android:text="@={viewModel.telegram}"
-                    app:layout_constraintBottom_toBottomOf="@id/icon_telegram"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/icon_telegram"
-                    app:layout_constraintTop_toTopOf="@id/icon_telegram" />
+                    app:layout_constraintTop_toBottomOf="@id/whatsapp_field" />
 
                 <TextView
                     android:id="@+id/logout"
