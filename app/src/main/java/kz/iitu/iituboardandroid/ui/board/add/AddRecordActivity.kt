@@ -8,8 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import androidx.appcompat.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.Observer
@@ -53,8 +52,6 @@ class AddRecordActivity : BaseActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        configureAdsCategoryBlock()
-
         vm.showMessage.observe(this, Observer {
             showTextAlert(it)
         })
@@ -92,6 +89,10 @@ class AddRecordActivity : BaseActivity() {
             }
         })
 
+        binding.categories.setOnClickListener {
+            showAdsCategoriesMenu()
+        }
+
         binding.pickImage1.setOnClickListener {
             chosenImagePickerID = R.id.pick_image_1
             checkReadStoragePermission()
@@ -110,9 +111,9 @@ class AddRecordActivity : BaseActivity() {
         binding.typeAds.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 vm.recordType.value = "ads"
-                binding.adsSpinner.visibility = View.VISIBLE
+                binding.categories.visibility = View.VISIBLE
             } else {
-                binding.adsSpinner.visibility = View.GONE
+                binding.categories.visibility = View.GONE
             }
         }
 
@@ -161,29 +162,21 @@ class AddRecordActivity : BaseActivity() {
         binding.whatsappField.addTextChangedListener(whatsAppTextChangedListener)
     }
 
-    private fun configureAdsCategoryBlock() {
+    private fun showAdsCategoriesMenu() {
         val adsCategories = arrayOf(
             "Услуги", "Учеба", "Бюро находок", "Спорт", "Хобби",
             "Продам", "Обмен/Отдам даром", "Аренда жилья", "Поиск соседа"
         )
 
-        val spinnerAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, adsCategories)
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        binding.adsSpinner.adapter = spinnerAdapter
-        binding.adsSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                vm.adsCategory.value = 0
+        PopupMenu(this, binding.categories).apply {
+            menuInflater.inflate(R.menu.ads_categories_menu, menu)
+            setOnMenuItemClickListener { item ->
+                val title = item.title
+                vm.adsCategory.value = adsCategories.indexOf(title)
+                binding.categories.text = title
+                true
             }
-
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                vm.adsCategory.value = position
-            }
-        }
+        }.show()
     }
 
     private fun checkReadStoragePermission() {

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_services"
+        android:title="Услуги" />
+
+    <item
+        android:id="@+id/action_study"
+        android:title="Учеба" />
+
+    <item
+        android:id="@+id/action_lost_n_found"
+        android:title="Бюро находок" />
+
+    <item
+        android:id="@+id/action_sport"
+        android:title="Спорт" />
+
+    <item
+        android:id="@+id/action_hobby"
+        android:title="Хобби" />
+
+    <item
+        android:id="@+id/action_sell"
+        android:title="Продам" />
+
+    <item
+        android:id="@+id/action_exchange"
+        android:title="Обмен/Отдам даром" />
+
+    <item
+        android:id="@+id/action_rent"
+        android:title="Аренда жилья" />
+
+    <item
+        android:id="@+id/action_search_roommate"
+        android:title="Поиск соседа" />
+
+</menu>
