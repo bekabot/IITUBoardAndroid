@@ -10,8 +10,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.Observer
@@ -19,26 +17,19 @@ import com.google.android.gms.common.util.IOUtils
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.redmadrobot.inputmask.MaskedTextChangedListener
-import kz.iitu.iituboardandroid.*
+import kz.iitu.iituboardandroid.Constants
+import kz.iitu.iituboardandroid.R
 import kz.iitu.iituboardandroid.databinding.ActivityAddRecordBinding
+import kz.iitu.iituboardandroid.getFileName
+import kz.iitu.iituboardandroid.getPhoneNumber
 import kz.iitu.iituboardandroid.ui.BaseActivity
 import kz.iitu.iituboardandroid.utils.FileUtil
-import kz.iitu.iituboardandroid.utils.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
-
 class AddRecordActivity : BaseActivity() {
-
-    private val attachedFileInfo1: ConstraintLayout by bind(R.id.attached_file_1)
-    private val attachedFileInfo2: ConstraintLayout by bind(R.id.attached_file_2)
-    private val attachedFileInfo3: ConstraintLayout by bind(R.id.attached_file_3)
-
-    private val attachedFileDescription1: TextView by bind(R.id.file_description_1)
-    private val attachedFileDescription2: TextView by bind(R.id.file_description_2)
-    private val attachedFileDescription3: TextView by bind(R.id.file_description_3)
 
     private lateinit var binding: ActivityAddRecordBinding
     private val vm: AddRecordVM by viewModel()
@@ -106,23 +97,9 @@ class AddRecordActivity : BaseActivity() {
             checkReadStoragePermission()
         }
 
-        binding.removeFile1.setOnClickListener {
-            chosenImagePickerID = -1
-            attachedFileInfo1.visibility = View.GONE
-            vm.imageFile1 = null
-            vm.imageName1 = ""
-        }
-
         binding.pickImage2.setOnClickListener {
             chosenImagePickerID = R.id.pick_image_2
             checkReadStoragePermission()
-        }
-
-        binding.removeFile2.setOnClickListener {
-            chosenImagePickerID = -1
-            attachedFileInfo2.visibility = View.GONE
-            vm.imageFile2 = null
-            vm.imageName2 = ""
         }
 
         binding.pickImage3.setOnClickListener {
@@ -130,20 +107,11 @@ class AddRecordActivity : BaseActivity() {
             checkReadStoragePermission()
         }
 
-        binding.removeFile3.setOnClickListener {
-            chosenImagePickerID = -1
-            attachedFileInfo3.visibility = View.GONE
-            vm.imageFile3 = null
-            vm.imageName3 = ""
-        }
-
         binding.typeAds.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 vm.recordType.value = "ads"
-                binding.spinnerTitle.visibility = View.VISIBLE
                 binding.adsSpinner.visibility = View.VISIBLE
             } else {
-                binding.spinnerTitle.visibility = View.GONE
                 binding.adsSpinner.visibility = View.GONE
             }
         }
@@ -274,18 +242,14 @@ class AddRecordActivity : BaseActivity() {
                                             showTextAlert(getString(R.string.file_not_found))
                                         size >= maxFileSize -> {
                                             showTextAlert(getString(R.string.file_too_large))
-                                            removeAttachedFile()
                                         }
                                         else -> {
-                                            val sizeInfo = "(${size.toDouble()
-                                                .convertToStringBytes(this)})"
-                                            setUpSelectedFile("$fileName $sizeInfo", uri)
+                                            setUpSelectedFile(uri)
                                         }
                                     }
                                 }
                             } ?: run {
                                 showTextAlert(getString(R.string.file_not_found))
-                                removeAttachedFile()
                             }
                         }
                     }
@@ -294,23 +258,20 @@ class AddRecordActivity : BaseActivity() {
         }
     }
 
-    private fun setUpSelectedFile(info: String, uri: Uri) {
+    private fun setUpSelectedFile(uri: Uri) {
         when (chosenImagePickerID) {
             R.id.pick_image_1 -> {
-                attachedFileInfo1.visibility = View.VISIBLE
-                attachedFileDescription1.text = info
+                binding.pickImage1.setImageURI(uri)
                 vm.imageFile1 = getFileFromUri(uri)
                 vm.imageName1 = contentResolver.getFileName(uri)
             }
             R.id.pick_image_2 -> {
-                attachedFileInfo2.visibility = View.VISIBLE
-                attachedFileDescription2.text = info
+                binding.pickImage2.setImageURI(uri)
                 vm.imageFile2 = getFileFromUri(uri)
                 vm.imageName2 = contentResolver.getFileName(uri)
             }
             R.id.pick_image_3 -> {
-                attachedFileInfo3.visibility = View.VISIBLE
-                attachedFileDescription3.text = info
+                binding.pickImage3.setImageURI(uri)
                 vm.imageFile3 = getFileFromUri(uri)
                 vm.imageName3 = contentResolver.getFileName(uri)
             }
@@ -328,7 +289,6 @@ class AddRecordActivity : BaseActivity() {
                 file
             } ?: run {
                 showTextAlert(getString(R.string.file_not_found))
-                removeAttachedFile()
                 null
             }
         } else {
@@ -337,30 +297,9 @@ class AddRecordActivity : BaseActivity() {
                 File(path)
             } ?: run {
                 showTextAlert(getString(R.string.file_not_found))
-                removeAttachedFile()
                 null
             }
         }
-
-    private fun removeAttachedFile() {
-        when (chosenImagePickerID) {
-            R.id.pick_image_1 -> {
-                attachedFileInfo1.visibility = View.GONE
-                vm.imageFile1 = null
-                vm.imageName1 = ""
-            }
-            R.id.pick_image_2 -> {
-                attachedFileInfo2.visibility = View.GONE
-                vm.imageFile2 = null
-                vm.imageName2 = ""
-            }
-            R.id.pick_image_3 -> {
-                attachedFileInfo3.visibility = View.GONE
-                vm.imageFile3 = null
-                vm.imageName3 = ""
-            }
-        }
-    }
 
     override fun onBackPressed() {
         navigateBack()
