@@ -13,7 +13,7 @@ class AddRecordVM(private val repository: BoardRepository) : BaseVM() {
     val telegram = MutableLiveData("")
     val email = MutableLiveData("")
     val phoneNumber = MutableLiveData("")
-    val adsCategory = MutableLiveData(-1)
+    val adsCategory = MutableLiveData(9)
 
     val recordType = MutableLiveData("ads")
     val recordCreated = MutableLiveData(false)
